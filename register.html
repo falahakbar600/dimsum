@@ -1,0 +1,82 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Daftar</title>
+
+    <link rel="stylesheet" href="register.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+  </head>
+
+  <body>
+    <!-- WRAPPER -->
+    <div class="register-wrapper">
+      <!-- KIRI (ILUSTRASI / LOGO BESAR) -->
+      <div class="register-left">
+        <img src="gambar/logo.png" />
+        <p>Jual Beli Mudah & Cepat</p>
+      </div>
+
+      <!-- KANAN (FORM) -->
+      <div class="register-right">
+        <div class="register-box">
+          <h2>Daftar Sekarang</h2>
+          <p class="login-link">
+            Sudah punya akun? <a href="home.html?login=true">Masuk</a>
+          </p>
+
+          <!-- GOOGLE LOGIN SPESIAL -->
+          <button
+            type="button"
+            class="google-btn special-google"
+            onclick="loginGoogle()"
+          >
+            <i class="fa-brands fa-google"></i>
+            <span>Login dengan Google</span>
+            <div class="google-glow">
+              <i class="fa-solid fa-sparkles"></i>
+            </div>
+          </button>
+
+          <div class="divider"><span>atau</span></div>
+
+          <!-- INPUT -->
+          <div class="input-group">
+            <i class="fa-regular fa-user"></i>
+            <input type="text" id="nama" placeholder="Nama" />
+          </div>
+
+          <div class="input-group">
+            <i class="fa-solid fa-phone"></i>
+            <input type="text" id="email" placeholder="Nomor HP atau Email" />
+          </div>
+
+          <!-- PASSWORD -->
+          <div class="input-group">
+            <i class="fa-solid fa-lock"></i>
+            <input type="password" id="password" placeholder="Password" />
+
+            <!-- 🔥 TOMBOL SHOW/HIDE -->
+            <i
+              class="fa-solid fa-eye toggle-password"
+              onclick="togglePassword()"
+            ></i>
+          </div>
+
+          <button class="btn-daftar" onclick="register()">Daftar</button>
+
+          <p class="terms">
+            Dengan mendaftar, saya menyetujui
+            <span>Syarat & Ketentuan</span> dan
+            <span>Kebijakan Privasi</span>
+          </p>
+        </div>
+      </div>
+    </div>
+    <script src="script.js"></script>
+  </body>
+</html>

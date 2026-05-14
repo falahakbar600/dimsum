@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Menu - Dapur Anak GEN Z</title>
+    <link rel="stylesheet" href="menu.css" />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Poppins:wght@300;400;600&display=swap"
+      rel="stylesheet"
+    />
+  </head>
+  <body>
+    <div class="navbar">
+      <div class="logo-area">
+        <img src="gambar/logo.png" />
+        <div class="logo-text">
+          <span>DAPUR</span>
+          <span>ANAK GEN Z</span>
+        </div>
+      </div>
+      <!-- HAMBURGER -->
+      <div class="hamburger" id="hamburger">
+        <i class="fa-solid fa-bars"></i>
+      </div>
+
+      <div class="nav-right-wrapper">
+        <div class="nav-top">
+          <div class="search-box">
+            <input
+              type="text"
+              id="searchInput"
+              placeholder="Search for products"
+              autocomplete="off"
+            />
+
+            <button>
+              <i class="fa fa-search"></i>
+            </button>
+
+            <div id="searchResults" class="search-results"></div>
+          </div>
+
+          <div class="nav-icons">
+            <div class="order-history">
+              <a href="riwayat.html" title="Riwayat Pesanan">
+                <img
+                  src="data:image/svg+xml,%3csvg%20width='20'%20height='18'%20viewBox='0%200%2020%2018'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M4.854%206.54175H15.1457'%20stroke='%23231F20'%20stroke-width='1.5'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3cpath%20d='M4.854%209.70825H15.1457'%20stroke='%23231F20'%20stroke-width='1.5'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3cpath%20d='M1%2017V1.8C1%201.58783%201.07902%201.38434%201.21967%201.23431C1.36032%201.08429%201.55109%201%201.75%201H18.25C18.4489%201%2018.6397%201.08429%2018.7803%201.23431C18.921%201.38434%2019%201.58783%2019%201.8V17L16%2015.4L13%2017L10%2015.4L7%2017L4%2015.4L1%2017Z'%20stroke='%23231F20'%20stroke-width='1.5'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3c/svg%3e"
+                  alt="Riwayat Pesanan"
+                  class="history-nav-icon"
+                />
+              </a>
+            </div>
+
+            <!-- ICON MUSIC -->
+            <div class="music-control">
+              <i
+                class="fa-solid fa-music"
+                onclick="toggleMusic()"
+                id="musicIcon"
+              ></i>
+            </div>
+
+            <div class="cart-wrapper">
+              <a href="keranjang.html" class="cart-icon">
+                <i class="fa-solid fa-cart-shopping"></i>
+              </a>
+              <span id="cart-count" class="cart-badge-home">0</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="nav-bottom">
+          <div class="menu">
+            <a href="home.html">Beranda</a>
+            <a href="#" class="active">Menu</a>
+            <a href="about.html">Tentang Kami</a>
+            <a href="prospek.html">Prospek Bisnis</a>
+            <a href="contact.html">Kontak</a>
+          </div>
+
+          <div class="auth-menu">
+            <a
+              href="#"
+              onclick="
+                openLogin();
+                return false;
+              "
+              >Masuk</a
+            >
+            <a href="register.html">Daftar</a>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="loginModal" class="modal">
+      <div class="modal-content">
+        <span class="close-btn" onclick="closeLogin()">×</span>
+
+        <h2>Masuk</h2>
+
+        <input type="text" id="email" placeholder="Username / Email" />
+        <input type="password" id="password" placeholder="Password" />
+
+        <button type="button" class="btn-login" onclick="login()">Masuk</button>
+
+        <a href="lupa-password.html" class="forgot">Lupa kata sandi?</a>
+
+        <div class="divider-home">atau masuk dengan</div>
+
+        <button type="button" class="google-btn" onclick="loginGoogle()">
+          Masuk dengan Google
+        </button>
+
+        <p class="register-text">
+          Belum punya akun? <a href="register.html">Daftar</a>
+        </p>
+      </div>
+    </div>
+
+    <section class="menu-banner">
+      <div class="banner-text">
+        <h1>Menu.</h1>
+        <div class="decoration"></div>
+      </div>
+    </section>
+
+    <section class="menu-container" id="menu-backend-container"></section>
+
+    <div class="whatsapp-wrapper">
+      <div class="wa-chat-box" id="waChatBox">
+        <div class="wa-chat-header">
+          <strong>Dimsum Anak Gen Z</strong>
+          <span
+            class="close-chat"
+            onclick="toggleChat()"
+            style="cursor: pointer"
+            >×</span
+          >
+        </div>
+        <div class="wa-chat-body">
+          <div class="wa-bubble">
+            Halo! Lagi mau pesan atau cari info dulu? 😊
+          </div>
+        </div>
+        <div class="wa-chat-footer">
+          <a
+            href="https://wa.me/6281384751763"
+            target="_blank"
+            class="wa-btn-send"
+            >Mulai Chat Sekarang</a
+          >
+        </div>
+      </div>
+      <div class="whatsapp-float" onclick="toggleChat()">
+        <span>Chat WhatsApp</span>
+      </div>
+    </div>
+
+    <!-- MODERN LIVE CHAT WIDGET -->
+    <div class="modern-chat-widget">
+      <!-- CHAT PANEL -->
+      <div class="modern-chat-box" id="modernChatBox">
+        <div class="modern-chat-header">
+          <div class="chat-brand">
+            <strong>Dapur Anak GEN Z</strong>
+            <small>Layanan Chat</small>
+          </div>
+          <span class="close-chat" onclick="toggleModernChat()">×</span>
+        </div>
+
+        <div class="modern-chat-body" id="modernChatBody">
+          <div class="modern-chat-message admin">
+            Halo! Saya admin Dapur Anak GEN Z 😊 Ada yang bisa saya bantu hari
+            ini?
+          </div>
+        </div>
+
+        <div class="modern-chat-footer">
+          <input
+            type="text"
+            id="modernChatInput"
+            placeholder="Tulis pertanyaan Anda"
+          />
+          <button onclick="sendModernChat()">
+            <i class="fa-solid fa-arrow-up"></i>
+          </button>
+        </div>
+      </div>
+
+      <!-- FLOAT BUTTON -->
+      <div class="modern-chat-button" onclick="toggleModernChat()">
+        <i class="fa-solid fa-comments"></i>
+        <span>Live Chat</span>
+      </div>
+    </div>
+    <div class="mobile-overlay" id="mobileOverlay"></div>
+    <script src="script.js"></script>
+
+    <script>
+      // Fungsi untuk mengambil data dari backend (PHP)
+      async function fetchMenuBackend() {
+        try {
+          const response = await fetch("http://localhost:3001/api/products");
+          const data = await response.json();
+
+          const container = document.getElementById("menu-backend-container");
+          container.innerHTML = "";
+
+          data.forEach((item) => {
+            const menuHtml = `
+        <div class="menu-item" onclick='openProductModal(${JSON.stringify(item)})'>
+          <div class="menu-front">
+            <div class="circle-frame">
+              <img src="http://localhost:3001/gambar/${item.gambar}" />
+            </div>
+            <h3>${item.nama}</h3>
+          </div>
+
+          <div class="menu-back">
+            <h3>${item.nama}</h3>
+            <p>${item.deskripsi}</p>
+
+            <div class="price-tag">
+              Rp ${parseInt(item.harga).toLocaleString("id-ID")}
+            </div>
+
+            <div class="stock-info">
+              ${
+                item.stok > 0
+                  ? "Sisa stok: " + item.stok
+                  : '<span class="stok-habis">Stok Habis</span>'
+              }
+            </div>
+
+            <button class="btn-add"
+              ${item.stok <= 0 ? "disabled" : ""}
+              onclick="
+                event.stopPropagation();
+                tambahKeKeranjang(
+                  '${item.nama}',
+                  ${item.harga},
+                  'http://localhost:3001/gambar/${item.gambar}'
+                );
+              "
+            >
+              ${item.stok > 0 ? "+ Keranjang" : "Tidak Tersedia"}
+            </button>
+          </div>
+        </div>
+      `;
+
+            container.insertAdjacentHTML("beforeend", menuHtml);
+          });
+        } catch (error) {
+          console.error("Gagal ambil menu:", error);
+        }
+      }
+
+      document.addEventListener("DOMContentLoaded", function () {
+        fetchMenuBackend();
+        // Memastikan keranjang ter-update saat load jika fungsi ini ada di script.js
+        if (typeof updateCartBadge === "function") {
+          updateCartBadge();
+        }
+      });
+
+      function toggleChat() {
+        const chatBox = document.getElementById("waChatBox");
+        if (chatBox) {
+          chatBox.style.display =
+            chatBox.style.display === "block" ? "none" : "block";
+        }
+      }
+    </script>
+    <script>
+      const params = new URLSearchParams(window.location.search);
+
+      if (params.get("login") === "true") {
+        openLogin(); // 🔥 langsung buka modal login
+      }
+    </script>
+    <div id="productModal" class="product-modal">
+      <div class="product-modal-content">
+        <span class="close-modal" onclick="closeProductModal()">&times;</span>
+
+        <div class="modal-left">
+          <img id="modalImage" src="" alt="" />
+
+          <h2 id="modalName"></h2>
+
+          <p id="modalStock" class="modal-stock"></p>
+
+          <div class="product-rating" id="productRating">
+            ⭐⭐⭐⭐⭐ <span>0.0 (0 review)</span>
+          </div>
+
+          <p id="modalPrice"></p>
+
+          <p id="modalDescription"></p>
+        </div>
+
+        <div class="modal-right">
+          <div>
+            <h3>Customize your meal</h3>
+
+            <label>Catatan:</label>
+            <textarea
+              id="modalNote"
+              placeholder="Tambah catatan pesanan..."
+            ></textarea>
+          </div>
+
+          <div>
+            <div class="modal-total" id="modalTotal">Rp 0</div>
+
+            <div class="modal-qty">
+              <button onclick="changeModalQty(-1)">-</button>
+              <span id="modalQty">1</span>
+              <button onclick="changeModalQty(1)">+</button>
+            </div>
+
+            <button class="modal-cart-btn" onclick="addModalToCart()">
+              Masukkan Keranjang
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+    <audio id="bgMusic" loop>
+      <source src="musik/musik.mp3" type="audio/mpeg" />
+    </audio>
+
+    <script>
+      const music = document.getElementById("bgMusic");
+      const icon = document.getElementById("musicIcon");
+
+      document.addEventListener("DOMContentLoaded", () => {
+        const musicState = localStorage.getItem("musicPlaying");
+
+        if (musicState === "true") {
+          music.play().catch(() => {});
+          if (icon) icon.style.color = "#ff4d4d";
+        }
+      });
+
+      function toggleMusic() {
+        if (music.paused) {
+          music.play();
+          localStorage.setItem("musicPlaying", "true");
+          if (icon) icon.style.color = "#ff4d4d";
+        } else {
+          music.pause();
+          localStorage.setItem("musicPlaying", "false");
+          if (icon) icon.style.color = "black";
+        }
+      }
+    </script>
+    <script>
+      const hamburger = document.getElementById("hamburger");
+      const navWrapper = document.querySelector(".nav-right-wrapper");
+      const overlay = document.getElementById("mobileOverlay");
+
+      hamburger.addEventListener("click", () => {
+        navWrapper.classList.toggle("active");
+        overlay.classList.toggle("active");
+      });
+
+      overlay.addEventListener("click", () => {
+        navWrapper.classList.remove("active");
+        overlay.classList.remove("active");
+      });
+    </script>
+  </body>
+</html>

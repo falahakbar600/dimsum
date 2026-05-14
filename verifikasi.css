@@ -1,0 +1,102 @@
+/* RESET */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+/* BACKGROUND */
+body {
+  background: #e7efd9;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+/* CARD */
+.auth-card {
+  width: 320px;
+  background: #fff;
+  padding: 25px 20px;
+  border-radius: 25px;
+  box-shadow: 0 15px 30px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  position: relative;
+}
+
+/* BACK BUTTON */
+.back {
+  position: absolute;
+  left: 15px;
+  top: 15px;
+  font-size: 18px;
+  cursor: pointer;
+}
+
+/* ICON */
+.icon {
+  font-size: 70px;
+  margin-bottom: 10px;
+}
+
+/* TITLE */
+.auth-card h2 {
+  font-size: 20px;
+  font-weight: 700;
+  margin-bottom: 5px;
+}
+
+/* DESCRIPTION */
+.auth-card p {
+  font-size: 13px;
+  color: #777;
+  margin-bottom: 20px;
+  line-height: 1.4;
+}
+
+/* OTP BOX */
+.otp-container {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+}
+
+.otp-container input {
+  width: 45px;
+  height: 50px;
+  border-radius: 12px;
+  border: none;
+  background: #eee;
+  text-align: center;
+  font-size: 18px;
+  outline: none;
+}
+
+/* RESEND */
+.resend {
+  font-size: 13px;
+  color: #555;
+  margin-bottom: 20px;
+  cursor: pointer;
+  text-decoration: underline;
+}
+
+/* BUTTON */
+button {
+  width: 100%;
+  padding: 12px;
+  border: none;
+  border-radius: 12px;
+  background: linear-gradient(45deg, #f7a21b, #f9b233);
+  color: white;
+  font-weight: bold;
+  font-size: 14px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  opacity: 0.9;
+}

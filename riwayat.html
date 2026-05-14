@@ -1,0 +1,490 @@
+<!-- =========================
+RIWAYAT.HTML (FINAL MODERN VERSION)
+========================= -->
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Riwayat Pesanan - Dapur Anak GEN Z</title>
+
+    <link rel="stylesheet" href="riwayat.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+  </head>
+
+  <body>
+    <div class="history-container">
+      <!-- HEADER -->
+      <div class="orders-header">
+        <h1>MY ORDERS</h1>
+
+        <div class="search-box">
+          <i class="fa-solid fa-magnifying-glass"></i>
+          <input type="text" id="searchOrder" placeholder="Cari pesanan..." />
+        </div>
+      </div>
+
+      <!-- FILTER -->
+      <div class="filter-box">
+        <label for="statusFilter">Filter Status:</label>
+
+        <select id="statusFilter">
+          <option value="all">Semua Status</option>
+          <option value="Diproses">Diproses</option>
+          <option value="Menunggu Verifikasi">Menunggu Verifikasi</option>
+          <option value="Selesai">Selesai</option>
+          <option value="Dibatalkan">Dibatalkan</option>
+        </select>
+      </div>
+
+      <!-- LIST -->
+      <div id="historyList"></div>
+
+      <!-- ACTION -->
+      <div class="history-actions">
+        <button class="clear-btn" onclick="clearHistory()">
+          Hapus Semua Riwayat
+        </button>
+
+        <a href="home.html" class="back-btn"> ← Kembali ke Beranda </a>
+      </div>
+    </div>
+
+    <!-- POPUP DETAIL -->
+    <div id="orderDetailModal" class="order-modal">
+      <div class="order-modal-content">
+        <span class="close-modal" onclick="closeOrderDetail()">&times;</span>
+        <div id="orderDetailContent"></div>
+      </div>
+    </div>
+
+    <script>
+      const userKey = localStorage.getItem("userKey");
+      let orders = JSON.parse(localStorage.getItem("orders_" + userKey)) || [];
+
+      const container = document.getElementById("historyList");
+      const filter = document.getElementById("statusFilter");
+      const searchInput = document.getElementById("searchOrder");
+
+      function renderHistory(status = "all", searchKeyword = "") {
+        container.innerHTML = "";
+
+        if (!orders.length) {
+          container.innerHTML = `
+            <div class="empty-history">
+              <p>Belum ada riwayat pesanan.</p>
+            </div>
+          `;
+          return;
+        }
+
+        let filteredOrders = orders;
+
+        // FILTER STATUS
+        if (status !== "all") {
+          filteredOrders = filteredOrders.filter(
+            (order) => order.status === status,
+          );
+        }
+
+        // SEARCH
+        if (searchKeyword.trim()) {
+          const keyword = searchKeyword.toLowerCase();
+
+          filteredOrders = filteredOrders.filter(
+            (order) =>
+              order.id.toString().includes(keyword) ||
+              order.items.some((item) =>
+                item.nama.toLowerCase().includes(keyword),
+              ),
+          );
+        }
+
+        if (!filteredOrders.length) {
+          container.innerHTML = `
+            <div class="empty-history">
+              <p>Pesanan tidak ditemukan.</p>
+            </div>
+          `;
+          return;
+        }
+
+        filteredOrders
+          .slice()
+          .reverse()
+          .forEach((order) => {
+            container.innerHTML += `
+              <div class="modern-order-card">
+
+                <div class="modern-order-top">
+                  <div class="status-section">
+                    <div class="status-icon">
+                      <i class="fa-solid ${
+                        order.status === "Selesai"
+                          ? "fa-circle-check"
+                          : order.status === "Dibatalkan"
+                            ? "fa-circle-xmark"
+                            : order.status === "Diproses"
+                              ? "fa-spinner"
+                              : "fa-clock"
+                      }"></i>
+                    </div>
+
+                    <div>
+                      <h3 class="${order.status
+                        .toLowerCase()
+                        .replace(/\s/g, "")}">
+                        ${order.status}
+                      </h3>
+                      <p>${order.tanggal}</p>
+                    </div>
+                  </div>
+
+                  <span class="order-id">#${order.id}</span>
+                </div>
+
+                <!-- GANTI bagian order body menjadi seperti ini -->
+
+<div class="modern-order-body">
+  <div class="order-main-wrapper">
+
+    <!-- LOGO BRAND -->
+    <img
+      src="gambar/logo.png"
+      class="order-logo"
+      alt="Dapur Anak GEN Z"
+    />
+
+    <!-- INFO ORDER -->
+    <div class="order-main">
+      <h2>Dapur Anak GEN Z</h2>
+
+      <p>${order.items[0].qty}x ${order.items[0].nama}</p>
+
+      ${
+        order.items.length > 1
+          ? `<small>+${order.items.length - 1} item lainnya</small>`
+          : ""
+      }
+    </div>
+  </div>
+
+  <!-- BUTTON -->
+  <div class="order-buttons">
+    <button
+      class="detail-btn"
+      onclick='showOrderDetail(${JSON.stringify(order)})'
+    >
+      View Detail
+    </button>
+
+    <button
+      class="repeat-btn"
+      onclick='repeatOrder(${JSON.stringify(order.items)})'
+    >
+      Pesan Lagi
+    </button>
+    ${
+      order.status === "Selesai"
+        ? `
+<button
+  class="review-btn"
+  onclick='openReviewModal(${JSON.stringify(order)})'
+>
+  ⭐ Beri Ulasan
+</button>
+`
+        : ""
+    }
+  </div>
+</div>
+              </div>
+            `;
+          });
+      }
+
+      // REPEAT ORDER
+      function repeatOrder(items) {
+        localStorage.setItem("keranjang_" + userKey, JSON.stringify(items));
+
+        alert("Produk berhasil dimasukkan kembali ke keranjang!");
+        window.location.href = "keranjang.html";
+      }
+
+      // DETAIL ORDER
+      // ==========================================
+      // GANTI FULL FUNCTION showOrderDetail()
+      // HAPUS YANG LAMA, GANTI DENGAN INI
+      // ==========================================
+      function showOrderDetail(order) {
+        let itemsHTML = "";
+
+        order.items.forEach((item) => {
+          itemsHTML += `
+      <div class="detail-item">
+
+        <div class="detail-item-left">
+          <img
+            src="${item.fotoUrl || "gambar/logo.png"}"
+            alt="${item.nama}"
+          />
+
+          <div class="detail-item-info">
+            <h4>${item.nama}</h4>
+            <p>${item.qty}x item</p>
+            <small>Catatan: ${item.catatan || "-"}</small>
+          </div>
+        </div>
+
+        <div class="detail-item-price">
+          Rp ${(item.harga * item.qty).toLocaleString("id-ID")}
+        </div>
+
+      </div>
+    `;
+        });
+
+        document.getElementById("orderDetailContent").innerHTML = `
+    
+    <!-- HEADER -->
+    <div class="detail-header">
+
+      <!-- LEFT BANNER -->
+      <div class="detail-banner">
+        <h2>${order.status.toUpperCase()}</h2>
+        <p>Terima kasih telah memesan</p>
+
+        <img
+          src="gambar/logo.png"
+          alt="Dapur Anak GEN Z"
+        />
+      </div>
+
+      <!-- RIGHT DETAIL -->
+      <div>
+
+        <div class="detail-info">
+
+          <div class="detail-box">
+            <label>Order ID</label>
+            <strong>#${order.id}</strong>
+          </div>
+
+          <div class="detail-box">
+            <label>Tanggal</label>
+            <strong>${order.tanggal}</strong>
+          </div>
+
+          <div class="detail-box">
+            <label>Nama Customer</label>
+            <strong>${order.nama}</strong>
+          </div>
+
+          <div class="detail-box">
+            <label>No HP</label>
+            <strong>${order.hp}</strong>
+          </div>
+
+          <div class="detail-box">
+            <label>Metode Pembayaran</label>
+            <strong>${order.metode}</strong>
+          </div>
+
+          <div class="detail-box">
+            <label>Status Pesanan</label>
+            <strong>${order.status}</strong>
+          </div>
+
+        </div>
+
+        <!-- BRAND -->
+        <div class="outlet-card">
+          <img src="gambar/logo.png" alt="Brand Logo" />
+
+          <div>
+            <h3>Dapur Anak GEN Z</h3>
+            <p>${order.alamat}</p>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+    <!-- ORDER SUMMARY -->
+    <div class="order-summary">
+      <h3>Order Summary</h3>
+      ${itemsHTML}
+    </div>
+
+    <!-- PAYMENT -->
+    <div class="payment-summary">
+      <h3>Payment Summary</h3>
+
+      <div class="payment-row">
+        <span>Subtotal</span>
+        <span>Rp ${order.subtotal.toLocaleString("id-ID")}</span>
+      </div>
+
+      <div class="payment-row">
+        <span>Ongkir</span>
+        <span>Rp ${order.ongkir.toLocaleString("id-ID")}</span>
+      </div>
+
+      <div class="payment-row">
+        <span>Catatan Order</span>
+        <span>${order.catatan || "-"}</span>
+      </div>
+
+      <div class="payment-row total">
+        <span>Total</span>
+        <span>Rp ${order.total.toLocaleString("id-ID")}</span>
+      </div>
+    </div>
+
+    <!-- ACTION BUTTON -->
+    <div class="detail-actions">
+
+      <button
+        class="detail-repeat"
+        onclick='repeatOrder(${JSON.stringify(order.items)})'
+      >
+        Pesan Lagi
+      </button>
+
+      <button
+        class="detail-close"
+        onclick="closeOrderDetail()"
+      >
+        Tutup
+      </button>
+
+    </div>
+  `;
+
+        document.getElementById("orderDetailModal").style.display = "flex";
+      }
+
+      function closeOrderDetail() {
+        document.getElementById("orderDetailModal").style.display = "none";
+      }
+
+      // CLEAR HISTORY
+      function clearHistory() {
+        if (!confirm("Yakin ingin menghapus semua riwayat pesanan?")) return;
+
+        localStorage.removeItem("orders_" + userKey);
+
+        alert("Riwayat pesanan berhasil dihapus.");
+        location.reload();
+      }
+
+      // FILTER EVENT
+      filter.addEventListener("change", function () {
+        renderHistory(this.value, searchInput.value);
+      });
+
+      // SEARCH EVENT
+      searchInput.addEventListener("input", function () {
+        renderHistory(filter.value, this.value);
+      });
+
+      // LOAD
+      renderHistory();
+
+      window.addEventListener("click", function (e) {
+        const modal = document.getElementById("orderDetailModal");
+
+        if (e.target === modal) {
+          closeOrderDetail();
+        }
+      });
+
+      let selectedReviewOrder = null;
+      let selectedRating = 5;
+
+      function openReviewModal(order) {
+        selectedReviewOrder = order;
+        document.getElementById("reviewModal").style.display = "flex";
+      }
+
+      function closeReviewModal() {
+        document.getElementById("reviewModal").style.display = "none";
+      }
+
+      function setRating(rating) {
+        selectedRating = rating;
+
+        const stars = document.querySelectorAll("#reviewStars i");
+
+        stars.forEach((star, index) => {
+          if (index < rating) {
+            star.classList.add("active");
+          } else {
+            star.classList.remove("active");
+          }
+        });
+      }
+
+      async function submitReview() {
+        const review = document.getElementById("reviewText").value;
+
+        console.log(selectedReviewOrder.items[0]);
+
+        if (!review.trim()) {
+          alert("Tulis ulasan terlebih dahulu.");
+          return;
+        }
+
+        try {
+          await fetch("http://localhost:3001/api/reviews", {
+            method: "POST",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              order_id: selectedReviewOrder.id,
+              product_id: selectedReviewOrder.items[0].id,
+              user_key: userKey,
+              nama: selectedReviewOrder.nama,
+              rating: selectedRating,
+              review: review,
+            }),
+          });
+
+          alert("Review berhasil dikirim!");
+          closeReviewModal();
+        } catch (err) {
+          alert("Gagal kirim review.");
+        }
+      }
+    </script>
+    <div id="reviewModal" class="review-modal">
+      <div class="review-modal-content">
+        <span class="close-review" onclick="closeReviewModal()">&times;</span>
+
+        <h2>Beri Ulasan</h2>
+
+        <div class="review-stars" id="reviewStars">
+          <i class="fa-solid fa-star" data-value="1" onclick="setRating(1)"></i>
+          <i class="fa-solid fa-star" data-value="2" onclick="setRating(2)"></i>
+          <i class="fa-solid fa-star" data-value="3" onclick="setRating(3)"></i>
+          <i class="fa-solid fa-star" data-value="4" onclick="setRating(4)"></i>
+          <i class="fa-solid fa-star" data-value="5" onclick="setRating(5)"></i>
+        </div>
+
+        <textarea
+          id="reviewText"
+          placeholder="Tulis pengalaman Anda..."
+        ></textarea>
+
+        <button class="review-submit-btn" onclick="submitReview()">
+          Kirim Ulasan
+        </button>
+      </div>
+    </div>
+  </body>
+</html>

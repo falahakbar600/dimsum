@@ -1,0 +1,99 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Orders Admin - Dapur Anak GEN Z</title>
+    <link rel="stylesheet" href="admin.css" />
+  </head>
+
+  <body>
+    <!-- 🔐 CEK LOGIN ADMIN -->
+    <script>
+      const isLogin = localStorage.getItem("isLogin");
+      const role = localStorage.getItem("role");
+
+      if (isLogin !== "true" || role !== "admin") {
+        window.location.href = "../home.html";
+      }
+    </script>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <h2>Dapur Gen Z</h2>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="products.html">Products</a>
+      <a href="orders.html" class="active">Orders</a>
+      <a href="livechat.html">Live Chat</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="#" onclick="logout()">Logout</a>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main">
+      <!-- HEADER -->
+      <div class="orders-header">
+        <h1>Orders</h1>
+
+        <div class="search-box">
+          <input
+            type="text"
+            id="searchOrder"
+            placeholder="Search order ID / customer..."
+          />
+
+          <select id="filterStatus">
+            <option value="">Semua Status</option>
+            <option value="Pending">Pending</option>
+            <option value="Diproses">Diproses</option>
+            <option value="Selesai">Selesai</option>
+            <option value="Dibatalkan">Dibatalkan</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- TABLE ORDERS -->
+      <div class="orders-table-wrapper">
+        <table class="orders-table">
+          <thead>
+            <tr>
+              <th>ID Order</th>
+              <th>Customer</th>
+              <th>Pesanan</th>
+              <th>Total</th>
+              <th>Metode</th>
+              <th>Bukti Bayar</th>
+              <th>Status</th>
+              <th>Tanggal</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+
+          <tbody id="listOrder">
+            <tr>
+              <td colspan="8" class="empty-order">Memuat data order...</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- JS -->
+    <script src="admin.js"></script>
+
+    <script>
+      function logout() {
+        localStorage.removeItem("isLogin");
+        localStorage.removeItem("role");
+        localStorage.removeItem("nama");
+        window.location.href = "../home.html";
+      }
+
+      document.addEventListener("DOMContentLoaded", () => {
+        if (typeof renderOrders === "function") {
+          renderOrders();
+        }
+      });
+    </script>
+  </body>
+</html>

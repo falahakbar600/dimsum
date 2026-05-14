@@ -1,0 +1,94 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Verifikasi OTP</title>
+    <link rel="stylesheet" href="verifikasi.css" />
+  </head>
+  <body>
+    <div class="auth-card">
+      <!-- BACK -->
+      <div class="back" onclick="window.location.href = 'lupa-password.html'">
+        ←
+      </div>
+
+      <!-- ICON -->
+      <div class="icon">🛡️</div>
+
+      <!-- TITLE -->
+      <h2>Verify Code</h2>
+      <p>Masukkan kode verifikasi yang telah dikirim ke email kamu.</p>
+
+      <!-- OTP BOX -->
+      <div class="otp-container">
+        <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*" />
+        <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*" />
+        <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*" />
+        <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*" />
+        <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*" />
+        <input type="text" maxlength="1" inputmode="numeric" pattern="[0-9]*" />
+      </div>
+
+      <!-- RESEND -->
+      <div class="resend">Resend Code</div>
+
+      <!-- BUTTON -->
+      <button onclick="verifikasiOTP()">VERIFY CODE</button>
+    </div>
+
+    <script>
+      const inputs = document.querySelectorAll(".otp-container input");
+
+      // AUTO PINDAH INPUT
+      inputs.forEach((input, index) => {
+        input.addEventListener("input", () => {
+          if (input.value.length === 1 && index < inputs.length - 1) {
+            inputs[index + 1].focus();
+          }
+        });
+
+        input.addEventListener("keydown", (e) => {
+          if (e.key === "Backspace" && !input.value && index > 0) {
+            inputs[index - 1].focus();
+          }
+        });
+      });
+
+      function verifikasiOTP() {
+        let otp = "";
+
+        inputs.forEach((input) => {
+          otp += input.value;
+        });
+
+        const params = new URLSearchParams(window.location.search);
+        const email = params.get("email");
+
+        fetch("http://localhost:3001/api/auth/verify-otp", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            email: email,
+            otp: otp,
+          }),
+        })
+          .then((res) => res.json())
+          .then((data) => {
+            if (data.success) {
+              alert("OTP benar!");
+              window.location.href = "reset-password.html?email=" + email;
+            } else {
+              alert("OTP salah!");
+            }
+          })
+          .catch((err) => {
+            console.error(err);
+            alert("Server error!");
+          });
+      }
+    </script>
+    <script src="script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Live Chat - Dapur Anak GEN Z</title>
+
+    <link rel="stylesheet" href="admin.css" />
+
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
+    />
+  </head>
+
+  <body>
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <h2>Dapur Gen Z</h2>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="products.html">Products</a>
+      <a href="orders.html">Orders</a>
+      <a href="livechat.html" class="active">Live Chat</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="#" onclick="logout()">Logout</a>
+    </div>
+
+    <!-- MAIN -->
+    <div class="main">
+      <div class="topbar">
+        <h1>Live Chat Customer</h1>
+        <span id="adminName">Selamat Datang</span>
+      </div>
+
+      <div class="admin-livechat-container">
+        <!-- SIDEBAR CUSTOMER -->
+        <div class="chat-sidebar">
+          <h3>Daftar Customer</h3>
+          <div id="chatUserList"></div>
+
+          <!-- 🔥 INI -->
+          <div class="chat-user-list" id="chatUserList"></div>
+        </div>
+
+        <!-- AREA CHAT -->
+        <div class="chat-main">
+          <!-- HEADER -->
+          <!-- 🔥 INI -->
+          <div class="chat-header" id="chatCustomerName">Pilih customer</div>
+
+          <!-- BODY CHAT -->
+          <!-- 🔥 INI -->
+          <div class="chat-body" id="chatBody">Belum ada percakapan</div>
+
+          <!-- QUICK ACTION -->
+          <div class="quick-actions">
+            <button onclick="quickReply('Pesanan Diproses')">
+              Pesanan Diproses
+            </button>
+            <button onclick="quickReply('Verifikasi Pembayaran')">
+              Verifikasi Pembayaran
+            </button>
+            <button onclick="quickReply('Pesanan Selesai')">
+              Pesanan Selesai
+            </button>
+            <button onclick="quickReply('Minta Bukti Bayar')">
+              Minta Bukti Bayar
+            </button>
+          </div>
+
+          <!-- INPUT BALAS -->
+          <div class="chat-footer">
+            <input
+              type="text"
+              id="adminReplyInput"
+              placeholder="Tulis balasan..."
+            />
+            <button onclick="sendAdminReply()">Kirim</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <script src="admin.js"></script>
+    <script>
+      // =========================
+      // 🔐 LOGOUT
+      // =========================
+      function logout() {
+        localStorage.removeItem("isLogin");
+        localStorage.removeItem("role");
+        localStorage.removeItem("nama");
+
+        window.location.href = "../home.html";
+      }
+
+      // =========================
+      // 👤 ADMIN NAME
+      // =========================
+      const nama = localStorage.getItem("nama") || "Admin";
+      document.getElementById("adminName").innerText =
+        "Selamat Datang, " + nama;
+    </script>
+  </body>
+</html>

@@ -1,0 +1,232 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Dashboard - Dapur Anak GEN Z</title>
+    <link rel="stylesheet" href="admin.css" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <style>
+      .card canvas {
+        max-height: 300px;
+        width: 100% !important;
+      }
+    </style>
+  </head>
+
+  <body>
+    <!-- 🔐 CEK LOGIN ADMIN -->
+    <script>
+      const isLogin = localStorage.getItem("isLogin");
+      const role = localStorage.getItem("role");
+
+      if (isLogin !== "true" || role !== "admin") {
+        window.location.href = "../home.html";
+      }
+    </script>
+
+    <!-- SIDEBAR -->
+    <div class="sidebar">
+      <h2>Dapur Gen Z</h2>
+      <a href="dashboard.html" class="active">Dashboard</a>
+      <a href="products.html">Products</a>
+      <a href="orders.html">Orders</a>
+      <a href="livechat.html">Live Chat</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="#" onclick="logout()">Logout</a>
+    </div>
+
+    <!-- MAIN CONTENT -->
+    <div class="main">
+      <div class="topbar">
+        <h1>Dashboard</h1>
+        <span id="adminName">Selamat Datang</span>
+      </div>
+
+      <!-- STATISTIK -->
+      <div class="grid-3">
+        <div class="card red">
+          <h2 id="totalProduk">0</h2>
+          <p>Total Produk</p>
+        </div>
+
+        <div class="card green">
+          <h2 id="totalPendapatan">Rp 0</h2>
+          <p>Total Pendapatan</p>
+        </div>
+
+        <div class="card yellow">
+          <h2 id="totalOrder">0</h2>
+          <p>Total Order</p>
+        </div>
+      </div>
+
+      <!-- REVIEW STATS -->
+      <div class="grid-4 review-stats">
+        <div class="card blue">
+          <h2 id="dashboardTotalReview">0</h2>
+          <p>Total Review</p>
+        </div>
+
+        <div class="card gold">
+          <h2 id="dashboardHighlightReview">0</h2>
+          <p>⭐ Highlight Review</p>
+        </div>
+
+        <div class="card red">
+          <h2 id="dashboardSpamReview">0</h2>
+          <p>🛑 Spam Review</p>
+        </div>
+
+        <div class="card purple">
+          <h2 id="dashboardAvgReview">0.0</h2>
+          <p>📊 Avg Rating</p>
+        </div>
+      </div>
+
+      <!-- CHART -->
+      <div class="grid-2">
+        <div class="card">
+          <h3>Grafik Pendapatan</h3>
+          <canvas id="chartBar"></canvas>
+        </div>
+
+        <div class="card">
+          <h3>Komposisi Produk Dijual</h3>
+          <canvas id="chartPie"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <!-- ADMIN JS -->
+    <script src="admin.js"></script>
+
+    <!-- DASHBOARD REALTIME -->
+    <script>
+      // =========================
+      // 📊 BAR CHART PENDAPATAN
+      // =========================
+      async function loadChartPendapatan() {
+        try {
+          const response = await fetch("http://localhost:3001/api/chart-data");
+          const data = await response.json();
+
+          const labels = data.map((item) => item.tanggal);
+          const totals = data.map((item) => item.pendapatan);
+
+          const ctxBar = document.getElementById("chartBar").getContext("2d");
+
+          new Chart(ctxBar, {
+            type: "bar",
+            data: {
+              labels: labels,
+              datasets: [
+                {
+                  label: "Pendapatan (Rp)",
+                  data: totals,
+                  backgroundColor: "#ff5b57",
+                  borderRadius: 5,
+                },
+              ],
+            },
+            options: {
+              responsive: true,
+              scales: {
+                y: {
+                  beginAtZero: true,
+                  ticks: {
+                    callback: function (value) {
+                      return "Rp " + value.toLocaleString("id-ID");
+                    },
+                  },
+                },
+              },
+            },
+          });
+        } catch (error) {
+          console.error("Gagal load chart pendapatan:", error);
+        }
+      }
+
+      // =========================
+      // 🥟 PIE CHART KOMPOSISI
+      // =========================
+      async function loadPieChart() {
+        try {
+          const response = await fetch(
+            "http://localhost:3001/api/product-composition",
+          );
+          const data = await response.json();
+
+          const labels = data.map((item) => item.nama_produk);
+          const totals = data.map((item) => item.total);
+
+          const ctxPie = document.getElementById("chartPie").getContext("2d");
+
+          new Chart(ctxPie, {
+            type: "pie",
+            data: {
+              labels: labels,
+              datasets: [
+                {
+                  data: totals,
+                  backgroundColor: [
+                    "#ef5350",
+                    "#43a047",
+                    "#ffa726",
+                    "#42a5f5",
+                    "#ab47bc",
+                  ],
+                  borderWidth: 2,
+                  borderColor: "#ffffff",
+                },
+              ],
+            },
+            options: {
+              responsive: true,
+              plugins: {
+                legend: {
+                  position: "bottom",
+                },
+              },
+            },
+          });
+        } catch (error) {
+          console.error("Gagal load pie chart:", error);
+        }
+      }
+
+      // =========================
+      // 🔐 LOGOUT
+      // =========================
+      function logout() {
+        localStorage.removeItem("isLogin");
+        localStorage.removeItem("role");
+        localStorage.removeItem("nama");
+
+        window.location.href = "../home.html";
+      }
+
+      // =========================
+      // 👤 ADMIN NAME
+      // =========================
+      const nama = localStorage.getItem("nama") || "Admin";
+      document.getElementById("adminName").innerText =
+        "Selamat Datang, " + nama;
+
+      // =========================
+      // 🚀 LOAD DASHBOARD
+      // =========================
+      document.addEventListener("DOMContentLoaded", () => {
+        if (typeof updateDashboardStats === "function") {
+          updateDashboardStats();
+        }
+
+        loadDashboardReviewStats();
+        loadChartPendapatan();
+        loadPieChart();
+      });
+    </script>
+  </body>
+</html>

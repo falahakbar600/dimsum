@@ -1,0 +1,4 @@
+node_modules/
+.env
+backend-dimsum/.env
+backend-dimsum/node_modules/

@@ -1,0 +1,109 @@
+<!doctype html>
+<html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Admin Reviews</title>
+    <link rel="stylesheet" href="admin.css" />
+  </head>
+  <link rel="icon" href="../gambar/logo.png" />
+  <body>
+    <div class="sidebar">
+      <h2>Dapur Gen Z</h2>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="products.html">Products</a>
+      <a href="orders.html">Orders</a>
+      <a href="livechat.html">Live Chat</a>
+      <a href="reviews.html" class="active">Reviews</a>
+      <a href="#" onclick="logout()">Logout</a>
+    </div>
+
+    <div class="main">
+      <div class="review-header">
+        <h1>Kelola Review Customer</h1>
+      </div>
+
+      <div class="stats-grid">
+        <div class="stats-card">
+          <h3 id="totalReview">0</h3>
+          <p>Total Review</p>
+        </div>
+
+        <div class="stats-card">
+          <h3 id="highlightReview">0</h3>
+          <p>Highlight Review</p>
+        </div>
+
+        <div class="stats-card">
+          <h3 id="spamReview">0</h3>
+          <p>Spam Review</p>
+        </div>
+
+        <div class="stats-card">
+          <h3 id="avgReview">0.0</h3>
+          <p>Rata-rata Rating</p>
+        </div>
+      </div>
+
+      <div class="review-filter-bar">
+        <input
+          type="text"
+          id="reviewSearch"
+          placeholder="Cari nama customer atau review..."
+          oninput="filterReviewsAdmin()"
+        />
+
+        <select id="reviewFilter" onchange="filterReviewsAdmin()">
+          <option value="all">Semua</option>
+          <option value="5">5⭐</option>
+          <option value="4">4⭐</option>
+          <option value="3">3⭐</option>
+          <option value="2">2⭐</option>
+          <option value="1">1⭐</option>
+          <option value="highlight">Highlight</option>
+          <option value="spam">Spam</option>
+        </select>
+
+        <!-- 🔥 EXPORT BUTTONS -->
+        <div class="export-buttons">
+          <button
+            onclick="
+              window.open('http://localhost:3001/api/admin/reviews/export/pdf')
+            "
+            class="export-pdf-btn"
+          >
+            📄 Export PDF
+          </button>
+
+          <button onclick="exportReviewExcel()" class="export-excel-btn">
+            📊 Export Excel
+          </button>
+        </div>
+      </div>
+
+      <div class="review-table-wrapper">
+        <table class="order-table">
+          <thead>
+            <tr>
+              <th>Nama</th>
+              <th>Rating</th>
+              <th>Review</th>
+              <th>Tanggal</th>
+              <th>Status</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
+
+          <tbody id="reviewTable"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <script src="admin.js"></script>
+
+    <script>
+      document.addEventListener("DOMContentLoaded", () => {
+        loadAdminReviews();
+      });
+    </script>
+  </body>
+</html>
