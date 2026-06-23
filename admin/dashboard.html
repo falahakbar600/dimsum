@@ -4,12 +4,16 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Admin Dashboard - Dapur Anak GEN Z</title>
-    <link rel="stylesheet" href="admin.css" />
+
+    <!-- CSS -->
+    <link rel="stylesheet" href="dashboard.css" />
+
+    <!-- Chart.js -->
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
     <style>
       .card canvas {
-        max-height: 300px;
+        max-height: 320px;
         width: 100% !important;
       }
     </style>
@@ -26,26 +30,33 @@
       }
     </script>
 
+    <!-- 🍔 HAMBURGER -->
+    <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+
     <!-- SIDEBAR -->
-    <div class="sidebar">
+    <aside class="sidebar" id="sidebar">
       <h2>Dapur Gen Z</h2>
+
       <a href="dashboard.html" class="active">Dashboard</a>
       <a href="products.html">Products</a>
       <a href="orders.html">Orders</a>
       <a href="livechat.html">Live Chat</a>
       <a href="reviews.html">Reviews</a>
       <a href="#" onclick="logout()">Logout</a>
-    </div>
+    </aside>
 
-    <!-- MAIN CONTENT -->
-    <div class="main">
+    <!-- MAIN -->
+    <main class="main">
+      <!-- TOPBAR -->
       <div class="topbar">
-        <h1>Dashboard</h1>
-        <span id="adminName">Selamat Datang</span>
+        <div>
+          <h1>Dashboard</h1>
+          <span id="adminName">Selamat Datang</span>
+        </div>
       </div>
 
-      <!-- STATISTIK -->
-      <div class="grid-3">
+      <!-- STATISTIK UTAMA -->
+      <section class="grid-3">
         <div class="card red">
           <h2 id="totalProduk">0</h2>
           <p>Total Produk</p>
@@ -60,10 +71,10 @@
           <h2 id="totalOrder">0</h2>
           <p>Total Order</p>
         </div>
-      </div>
+      </section>
 
       <!-- REVIEW STATS -->
-      <div class="grid-4 review-stats">
+      <section class="grid-4 review-stats">
         <div class="card blue">
           <h2 id="dashboardTotalReview">0</h2>
           <p>Total Review</p>
@@ -83,26 +94,28 @@
           <h2 id="dashboardAvgReview">0.0</h2>
           <p>📊 Avg Rating</p>
         </div>
-      </div>
+      </section>
 
-      <!-- CHART -->
-      <div class="grid-2">
+      <!-- CHART SECTION -->
+      <section class="grid-2">
+        <!-- BAR CHART -->
         <div class="card">
-          <h3>Grafik Pendapatan</h3>
+          <h3>📈 Grafik Pendapatan</h3>
           <canvas id="chartBar"></canvas>
         </div>
 
+        <!-- PIE CHART -->
         <div class="card">
-          <h3>Komposisi Produk Dijual</h3>
+          <h3>🥟 Komposisi Produk Dijual</h3>
           <canvas id="chartPie"></canvas>
         </div>
-      </div>
-    </div>
+      </section>
+    </main>
 
     <!-- ADMIN JS -->
     <script src="admin.js"></script>
 
-    <!-- DASHBOARD REALTIME -->
+    <!-- DASHBOARD SCRIPT -->
     <script>
       // =========================
       // 📊 BAR CHART PENDAPATAN
@@ -120,18 +133,24 @@
           new Chart(ctxBar, {
             type: "bar",
             data: {
-              labels: labels,
+              labels,
               datasets: [
                 {
                   label: "Pendapatan (Rp)",
                   data: totals,
                   backgroundColor: "#ff5b57",
-                  borderRadius: 5,
+                  borderRadius: 8,
                 },
               ],
             },
             options: {
               responsive: true,
+              maintainAspectRatio: false,
+              plugins: {
+                legend: {
+                  display: true,
+                },
+              },
               scales: {
                 y: {
                   beginAtZero: true,
@@ -150,7 +169,7 @@
       }
 
       // =========================
-      // 🥟 PIE CHART KOMPOSISI
+      // 🥟 PIE CHART
       // =========================
       async function loadPieChart() {
         try {
@@ -165,9 +184,9 @@
           const ctxPie = document.getElementById("chartPie").getContext("2d");
 
           new Chart(ctxPie, {
-            type: "pie",
+            type: "doughnut",
             data: {
-              labels: labels,
+              labels,
               datasets: [
                 {
                   data: totals,
@@ -178,13 +197,14 @@
                     "#42a5f5",
                     "#ab47bc",
                   ],
-                  borderWidth: 2,
+                  borderWidth: 3,
                   borderColor: "#ffffff",
                 },
               ],
             },
             options: {
               responsive: true,
+              maintainAspectRatio: false,
               plugins: {
                 legend: {
                   position: "bottom",
@@ -223,7 +243,10 @@
           updateDashboardStats();
         }
 
-        loadDashboardReviewStats();
+        if (typeof loadDashboardReviewStats === "function") {
+          loadDashboardReviewStats();
+        }
+
         loadChartPendapatan();
         loadPieChart();
       });

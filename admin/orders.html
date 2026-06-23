@@ -4,11 +4,12 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Orders Admin - Dapur Anak GEN Z</title>
-    <link rel="stylesheet" href="admin.css" />
+
+    <link rel="stylesheet" href="orders.css" />
   </head>
 
   <body>
-    <!-- 🔐 CEK LOGIN ADMIN -->
+    <!-- 🔐 LOGIN CHECK -->
     <script>
       const isLogin = localStorage.getItem("isLogin");
       const role = localStorage.getItem("role");
@@ -18,42 +19,62 @@
       }
     </script>
 
+    <!-- 🍔 HAMBURGER -->
+    <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+
     <!-- SIDEBAR -->
-    <div class="sidebar">
-      <h2>Dapur Gen Z</h2>
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-logo">
+        <h2>Dapur Gen Z</h2>
+      </div>
+
       <a href="dashboard.html">Dashboard</a>
-      <a href="products.html">Products</a>
-      <a href="orders.html" class="active">Orders</a>
-      <a href="livechat.html">Live Chat</a>
+      <a href="products.html"> Products</a>
+      <a href="orders.html" class="active"> Orders</a>
+      <a href="livechat.html"> Live Chat</a>
       <a href="reviews.html">Reviews</a>
-      <a href="#" onclick="logout()">Logout</a>
-    </div>
+      <a href="#" onclick="logout()"> Logout</a>
+    </aside>
 
-    <!-- MAIN CONTENT -->
-    <div class="main">
-      <!-- HEADER -->
-      <div class="orders-header">
-        <h1>Orders</h1>
+    <!-- MAIN -->
+    <main class="main">
+      <!-- TOPBAR -->
+      <div class="topbar">
+        <div>
+          <h1>Orders Management</h1>
+          <p class="topbar-subtitle">
+            Pantau, filter, dan kelola seluruh pesanan customer
+          </p>
+        </div>
 
-        <div class="search-box">
-          <input
-            type="text"
-            id="searchOrder"
-            placeholder="Search order ID / customer..."
-          />
-
-          <select id="filterStatus">
-            <option value="">Semua Status</option>
-            <option value="Pending">Pending</option>
-            <option value="Diproses">Diproses</option>
-            <option value="Selesai">Selesai</option>
-            <option value="Dibatalkan">Dibatalkan</option>
-          </select>
+        <div class="topbar-info-card">
+          <div class="icon-box">📦</div>
+          <div>
+            <h4>Order Monitoring</h4>
+            <p>Kelola transaksi customer dengan cepat & efisien</p>
+          </div>
         </div>
       </div>
 
-      <!-- TABLE ORDERS -->
-      <div class="orders-table-wrapper">
+      <!-- FILTER BAR -->
+      <section class="orders-filter-bar card">
+        <input
+          type="text"
+          id="searchOrder"
+          placeholder="Search order ID / customer..."
+        />
+
+        <select id="filterStatus">
+          <option value="">Semua Status</option>
+          <option value="Pending">Pending</option>
+          <option value="Diproses">Diproses</option>
+          <option value="Selesai">Selesai</option>
+          <option value="Dibatalkan">Dibatalkan</option>
+        </select>
+      </section>
+
+      <!-- TABLE -->
+      <section class="orders-table-wrapper card">
         <table class="orders-table">
           <thead>
             <tr>
@@ -71,24 +92,42 @@
 
           <tbody id="listOrder">
             <tr>
-              <td colspan="8" class="empty-order">Memuat data order...</td>
+              <td colspan="9" class="empty-order">Memuat data order...</td>
             </tr>
           </tbody>
         </table>
-      </div>
-    </div>
+      </section>
+    </main>
 
     <!-- JS -->
     <script src="admin.js"></script>
 
     <script>
+      // =========================
+      // 🔐 LOGOUT
+      // =========================
       function logout() {
         localStorage.removeItem("isLogin");
         localStorage.removeItem("role");
         localStorage.removeItem("nama");
+
         window.location.href = "../home.html";
       }
 
+      // =========================
+      // 🍔 SIDEBAR MOBILE
+      // =========================
+      function toggleSidebar() {
+        const sidebar = document.getElementById("sidebar");
+
+        if (sidebar) {
+          sidebar.classList.toggle("show");
+        }
+      }
+
+      // =========================
+      // LOAD ORDERS
+      // =========================
       document.addEventListener("DOMContentLoaded", () => {
         if (typeof renderOrders === "function") {
           renderOrders();

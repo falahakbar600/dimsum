@@ -398,6 +398,7 @@ function checkoutWhatsApp() {
       "Content-Type": "application/json",
     },
     body: JSON.stringify({
+      user_id: localStorage.getItem("userId"),
       nama,
       telepon: hp,
       alamat,
@@ -679,6 +680,7 @@ function login() {
         localStorage.setItem("username", data.nama || "");
         localStorage.setItem("name", data.nama || "");
         localStorage.setItem("role", data.role);
+        localStorage.setItem("userId", data.id);
         localStorage.setItem("userEmail", email || "");
         localStorage.setItem("email", email || "");
         localStorage.setItem("userKey", email || "");
@@ -893,6 +895,7 @@ function handleGoogleLogin() {
   const nama = params.get("nama");
   const role = params.get("role");
   const email = params.get("email");
+  const userId = params.get("id");
 
   if (nama) {
     localStorage.setItem("isLogin", "true");
@@ -901,6 +904,7 @@ function handleGoogleLogin() {
     localStorage.setItem("userEmail", email);
     localStorage.setItem("email", email);
     localStorage.setItem("userKey", email);
+    localStorage.setItem("userId", userId);
 
     window.history.replaceState({}, document.title, window.location.pathname);
     window.location.reload();
@@ -1250,8 +1254,7 @@ function openProductModal(product) {
   if (rawImgName.startsWith("gambar/")) {
     rawImgName = rawImgName.replace("gambar/", "");
   }
-
-  const imagePath = `../gambar/${encodeURIComponent(rawImgName.trim())}`;
+  const imagePath = `http://localhost:3001/gambar/${encodeURIComponent(rawImgName.trim())}`;
 
   document.getElementById("modalImage").src = imagePath;
   document.getElementById("modalName").innerText = product.nama;
@@ -1370,12 +1373,18 @@ function addModalToCart() {
   if (existing) {
     existing.qty += modalQty;
   } else {
+    let namaFile = selectedProduct.gambar || "";
+
+    if (namaFile.startsWith("gambar/")) {
+      namaFile = namaFile.replace("gambar/", "");
+    }
+
     keranjang.push({
-      id: selectedProduct.id, // 🔥 PENTING UNTUK REVIEW PRODUK
+      id: selectedProduct.id,
       nama: selectedProduct.nama,
       harga: selectedProduct.harga,
       qty: modalQty,
-      fotoUrl: `../gambar/${selectedProduct.gambar}`,
+      fotoUrl: `http://localhost:3001/gambar/${encodeURIComponent(namaFile)}`,
       catatan: note || "-",
     });
   }

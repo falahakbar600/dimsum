@@ -159,12 +159,12 @@ async function renderOrders() {
 
       container.innerHTML += `
         <tr>
-          <td><strong>#${order.id}</strong></td>
+         <td>#${order.id}</td>
 
-          <td>
-            <strong>${order.nama}</strong><br>
-            <small>${order.telepon}</small>
-          </td>
+        <td>
+        <span class="customer-name">${order.nama}</span>
+        <span class="customer-phone">${order.telepon}</span>
+        </td>
 
           <td>${itemsText}</td>
 
@@ -187,7 +187,7 @@ async function renderOrders() {
 </td>
 
           <td>
-            <span class="status-badge ${statusClass}">
+            <span class="status-${statusClass}">
               ${order.status || "Pending"}
             </span>
           </td>
@@ -197,33 +197,33 @@ async function renderOrders() {
           </td>
 
           <td>
-            <div class="action-buttons">
-              <button class="btn-detail"
-                onclick="cetakStruk(${order.id})">
-                Struk
-              </button>
+           <div class="order-actions">
+          <button class="process-btn"
+        onclick="cetakStruk(${order.id})">
+      Struk
+    </button>
 
-              <button class="btn-chat"
-                onclick="openCustomerChat('${order.user_key}')">
-                Chat
-              </button>
+    <button class="complete-btn"
+      onclick="openCustomerChat('${order.user_key}')">
+      Chat
+    </button>
 
-              <button class="btn-edit"
-                onclick="updateStatus(${order.id}, 'Diproses')">
-                Proses
-              </button>
+    <button class="process-btn"
+      onclick="updateStatus(${order.id}, 'Diproses')">
+      Proses
+    </button>
 
-              <button class="btn-done"
-                onclick="updateStatus(${order.id}, 'Selesai')">
-                Selesai
-              </button>
+    <button class="complete-btn"
+      onclick="updateStatus(${order.id}, 'Selesai')">
+      Selesai
+    </button>
 
-              <button class="btn-delete"
-                onclick="updateStatus(${order.id}, 'Dibatalkan')">
-                Batalkan
-              </button>
-            </div>
-          </td>
+    <button class="cancel-btn"
+      onclick="updateStatus(${order.id}, 'Dibatalkan')">
+      Batalkan
+    </button>
+  </div>
+</td>
         </tr>
       `;
     }
@@ -645,8 +645,9 @@ async function loadDashboardReviewStats() {
     document.getElementById("dashboardHighlightReview").innerText =
       reviews.filter((r) => Number(r.highlight) === 1).length;
 
-    document.getElementById("dashboardSpamReview").innerText =
-      reviews.filter((r) => Number(r.spam) === 1).length;
+    document.getElementById("dashboardSpamReview").innerText = reviews.filter(
+      (r) => Number(r.spam) === 1,
+    ).length;
 
     const avg =
       reviews.length > 0
@@ -668,4 +669,11 @@ function exportReviewPDF() {
 
 function exportReviewExcel() {
   window.open(`${API_URL}/admin/reviews/export/excel`, "_blank");
+}
+function toggleSidebar() {
+  const sidebar = document.getElementById("sidebar");
+
+  if (sidebar) {
+    sidebar.classList.toggle("show");
+  }
 }

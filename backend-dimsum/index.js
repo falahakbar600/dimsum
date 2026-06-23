@@ -72,7 +72,7 @@ app.use(passport.session());
 // 🔗 KONEKSI DATABASE
 // =====================
 const db = mysql.createConnection({
-  host: "localhost",
+  host: "127.0.0.1",
   user: "root",
   password: "",
   database: "dimsum_db",
@@ -85,6 +85,12 @@ db.connect((err) => {
   } else {
     console.log("MySQL Connected ✅ (Database: dimsum_db)");
   }
+});
+
+db.query("SELECT 1", (err, result) => {
+  console.log("TEST DB");
+  console.log(err);
+  console.log(result);
 });
 
 const transporter = nodemailer.createTransport({
@@ -110,22 +116,38 @@ passport.use(
       const nama = profile.displayName;
 
       db.query(
-        "SELECT * FROM users WHERE email = ?",
-        [email],
-        (err, result) => {
-          if (result.length > 0) {
-            return done(null, result[0]);
-          } else {
-            db.query(
-              "INSERT INTO users (nama, email, role) VALUES (?, ?, 'user')",
-              [nama, email],
-              () => {
-                return done(null, { nama, email, role: "user" });
-              },
-            );
-          }
-        },
-      );
+  "SELECT * FROM users WHERE email = ?",
+  [email],
+  (err, result) => {
+
+    if (err) {
+      console.error("Error SELECT user:", err);
+      return done(err);
+    }
+
+    if (result && result.length > 0) {
+      return done(null, result[0]);
+    }
+
+    db.query(
+      "INSERT INTO users (nama, email, role) VALUES (?, ?, 'user')",
+      [nama, email],
+      (insertErr) => {
+
+        if (insertErr) {
+          console.error("Error INSERT user:", insertErr);
+          return done(insertErr);
+        }
+
+        return done(null, {
+          nama,
+          email,
+          role: "user",
+        });
+      }
+    );
+  }
+);
     },
   ),
 );
@@ -167,6 +189,7 @@ app.post("/api/auth/login", (req, res) => {
 
       res.json({
         success: true,
+        id: user.id,
         role: user.role,
         nama: user.nama,
       });
@@ -376,6 +399,7 @@ app.get("/api/orders/:id/items", (req, res) => {
 
 app.post("/api/orders", (req, res) => {
   const {
+    user_id,
     nama,
     telepon,
     alamat,
@@ -390,24 +414,26 @@ app.post("/api/orders", (req, res) => {
 
   const orderQuery = `
     INSERT INTO orders 
-    (
-      nama,
-      telepon,
-      alamat,
-      metode_pembayaran,
-      status,
-      catatan,
-      subtotal,
-      ongkir,
-      total,
-      user_key
-    )
-    VALUES (?, ?, ?, ?, 'pending', ?, ?, ?, ?, ?)
+(
+  user_id,
+  nama,
+  telepon,
+  alamat,
+  metode_pembayaran,
+  status,
+  catatan,
+  subtotal,
+  ongkir,
+  total,
+  user_key
+)
+VALUES (?, ?, ?, ?, ?, 'pending', ?, ?, ?, ?, ?)
   `;
 
   db.query(
     orderQuery,
     [
+      user_id,
       nama,
       telepon,
       alamat,
@@ -958,7 +984,7 @@ app.get(
 
     // kirim data ke frontend
     res.redirect(
-      `http://127.0.0.1:5500/home.html?nama=${encodeURIComponent(user.nama)}&role=${encodeURIComponent(user.role)}&email=${encodeURIComponent(user.email)}`,
+      `http://127.0.0.1:5500/home.html?nama=${encodeURIComponent(user.nama)}&role=${user.role}&email=${encodeURIComponent(user.email)}&id=${user.id}`,
     );
   },
 );

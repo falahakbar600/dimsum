@@ -4,60 +4,11 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Products - Admin Dapur Anak GEN Z</title>
-    <link rel="stylesheet" href="admin.css" />
+    <link rel="stylesheet" href="products.css" />
   </head>
+
   <body>
-    <!-- GANTI SIDEBAR LAMA -->
-    <div class="sidebar">
-      <h2>Dapur Gen Z</h2>
-      <a href="dashboard.html">Dashboard</a>
-      <a href="products.html" class="active">Products</a>
-      <a href="orders.html">Orders</a>
-      <a href="livechat.html">Live Chat</a>
-      <a href="reviews.html">Reviews</a>
-      <a href="#" onclick="logout()">Logout</a>
-    </div>
-    <div class="main">
-      <h1>Management Products</h1>
-
-      <div class="card">
-        <h3>Tambah Produk Baru</h3>
-        <div
-          style="
-            display: flex;
-            flex-direction: column;
-            gap: 10px;
-            margin-top: 15px;
-          "
-        >
-          <input
-            type="text"
-            id="nama"
-            placeholder="Nama Produk (Contoh: Somayyy)"
-          />
-          <input type="number" id="harga" placeholder="Harga (Contoh: 18000)" />
-          <input type="number" id="stok" placeholder="Stok (Contoh: 10)" />
-          <textarea
-            id="deskripsi"
-            placeholder="Deskripsi produk (contoh: Dimsum isi ayam lembut)"
-            rows="3"
-          ></textarea>
-          <div class="file-upload">
-            <label for="gambar">📁 Pilih Gambar</label>
-            <input type="file" id="gambar" accept="image/*" />
-          </div>
-          <button class="btn btn-primary" onclick="tambahProduk()">
-            Tambah Menu
-          </button>
-        </div>
-      </div>
-
-      <h2 style="margin-top: 30px">List Produk di Database</h2>
-      <div class="grid" id="listProduk">
-        <p>Memuat data produk...</p>
-      </div>
-    </div>
-    <!-- TAMBAHKAN SCRIPT LOGIN + LOGOUT DI ATAS SCRIPT UTAMA -->
+    <!-- 🔐 LOGIN CHECK -->
     <script>
       const isLogin = localStorage.getItem("isLogin");
       const role = localStorage.getItem("role");
@@ -65,26 +16,118 @@
       if (isLogin !== "true" || role !== "admin") {
         window.location.href = "../home.html";
       }
+    </script>
 
+    <!-- 🍔 HAMBURGER -->
+    <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-logo">
+        <h2>Dapur Gen Z</h2>
+      </div>
+
+      <a href="dashboard.html">Dashboard</a>
+      <a href="products.html" class="active">Products</a>
+      <a href="orders.html">Orders</a>
+      <a href="livechat.html">Live Chat</a>
+      <a href="reviews.html">Reviews</a>
+      <a href="#" onclick="logout()">Logout</a>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main">
+      <!-- HEADER -->
+      <div class="topbar">
+        <div>
+          <h1>Management Products</h1>
+          <p class="topbar-subtitle">
+            Kelola semua menu produk Dapur Gen Z dengan mudah
+          </p>
+        </div>
+
+        <div class="topbar-info-card">
+          <div class="icon-box">🍜</div>
+          <div>
+            <h4>Kelola Produk Dapur Gen Z</h4>
+            <p>Tambah, edit, dan kelola menu dengan praktis</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- FORM TAMBAH PRODUK -->
+      <div class="card">
+        <h3>➕ Tambah Produk Baru</h3>
+
+        <div class="product-form">
+          <input
+            type="text"
+            id="nama"
+            placeholder="Nama Produk (Contoh: Somayyy)"
+          />
+
+          <div class="form-row">
+            <input type="number" id="harga" placeholder="Harga (Rp)" />
+            <input type="number" id="stok" placeholder="Stok" />
+          </div>
+
+          <textarea
+            id="deskripsi"
+            placeholder="Deskripsi Produk"
+            rows="4"
+          ></textarea>
+
+          <div class="file-upload modern-upload">
+            <label for="gambar">
+              📁 Pilih Gambar
+              <small>Format: JPG, PNG, WEBP (Max. 2MB)</small>
+            </label>
+            <input type="file" id="gambar" accept="image/*" />
+          </div>
+
+          <button class="btn btn-primary" onclick="tambahProduk()">
+            ➕ Tambah Menu
+          </button>
+        </div>
+      </div>
+
+      <!-- LIST PRODUK -->
+      <h2 class="section-title">📦 List Produk di Database</h2>
+
+      <div class="grid" id="listProduk">
+        <p>Memuat data produk...</p>
+      </div>
+    </main>
+
+    <!-- SCRIPT -->
+    <script>
       function logout() {
         localStorage.removeItem("isLogin");
         localStorage.removeItem("role");
         localStorage.removeItem("nama");
         window.location.href = "../home.html";
       }
+
+      function toggleSidebar() {
+        const sidebar = document.getElementById("sidebar");
+
+        if (sidebar) {
+          sidebar.classList.toggle("show");
+        }
+      }
     </script>
+
+    <!-- PRODUCT LOGIC -->
     <script>
-      // Alamat API Backend Node.js
       const API_URL = "http://localhost:3001/api/products";
 
-      // 1. Fungsi untuk Mengambil Data dari MySQL dan Menampilkannya
       async function loadProducts() {
         try {
           const response = await fetch(API_URL);
           const products = await response.json();
-          const container = document.getElementById("listProduk");
 
-          container.innerHTML = ""; // Bersihkan kontainer
+          const container = document.getElementById("listProduk");
+          container.innerHTML = "";
 
           if (products.length === 0) {
             container.innerHTML = "<p>Belum ada produk di database.</p>";
@@ -92,23 +135,28 @@
           }
 
           products.forEach((item) => {
-            // PERBAIKAN: Menggunakan item.id dan item.nama sesuai struktur database
-            // Jika gambar tidak muncul, pastikan folder gambarnya benar (misal: ../gambar/${item.gambar})
             container.innerHTML += `
-  <div class="product-card">
-    <img src="http://localhost:3001/gambar/${item.gambar}" 
-         onerror="this.onerror=null; this.src='http://localhost:3001/gambar/default.png';">
+              <div class="product-card">
+                <img src="http://localhost:3001/gambar/${item.gambar}" 
+                     onerror="this.onerror=null; this.src='http://localhost:3001/gambar/default.png';">
 
-    <h4>${item.nama}</h4>
-    <p>Rp ${parseInt(item.harga).toLocaleString("id-ID")}</p>
+                <h4>${item.nama}</h4>
+                <p>Rp ${parseInt(item.harga).toLocaleString("id-ID")}</p>
+                <p>Stok: ${item.stok}</p>
 
-    <button class="edit-btn" onclick="editProduk(${item.id})">Edit</button>
-<button onclick="hapusProduk(${item.id})">Hapus</button>
-  </div>
-`;
+                <button class="edit-btn" onclick="editProduk(${item.id})">
+                  Edit
+                </button>
+
+                <button onclick="hapusProduk(${item.id})">
+                  Hapus
+                </button>
+              </div>
+            `;
           });
         } catch (error) {
           console.error("Gagal memuat produk:", error);
+
           document.getElementById("listProduk").innerHTML =
             "<p>Gagal terhubung ke server backend.</p>";
         }
@@ -118,7 +166,7 @@
         const nama = document.getElementById("nama").value;
         const harga = document.getElementById("harga").value;
         const deskripsi = document.getElementById("deskripsi").value;
-        const stok = document.getElementById("stok").value; // 🔥 TAMBAH
+        const stok = document.getElementById("stok").value;
         const gambar = document.getElementById("gambar").files[0];
 
         if (!nama || !harga || !gambar || !deskripsi || !stok) {
@@ -130,11 +178,11 @@
         formData.append("nama", nama);
         formData.append("harga", harga);
         formData.append("deskripsi", deskripsi);
-        formData.append("stok", stok); // 🔥 TAMBAH
+        formData.append("stok", stok);
         formData.append("gambar", gambar);
 
         try {
-          const response = await fetch("http://localhost:3001/api/products", {
+          const response = await fetch(API_URL, {
             method: "POST",
             body: formData,
           });
@@ -145,7 +193,7 @@
             document.getElementById("nama").value = "";
             document.getElementById("harga").value = "";
             document.getElementById("deskripsi").value = "";
-            document.getElementById("stok").value = ""; // 🔥 TAMBAH
+            document.getElementById("stok").value = "";
             document.getElementById("gambar").value = "";
 
             loadProducts();
@@ -158,23 +206,21 @@
         }
       }
 
-      // 3. Fungsi untuk Hapus Produk
       async function hapusProduk(id) {
-        if (confirm("Yakin ingin menghapus produk ini?")) {
-          try {
-            const response = await fetch(`${API_URL}/${id}`, {
-              method: "DELETE",
-            });
-            if (response.ok) {
-              loadProducts();
-            }
-          } catch (error) {
-            console.error("Gagal menghapus:", error);
+        if (!confirm("Yakin ingin menghapus produk ini?")) return;
+
+        try {
+          const response = await fetch(`${API_URL}/${id}`, {
+            method: "DELETE",
+          });
+
+          if (response.ok) {
+            loadProducts();
           }
+        } catch (error) {
+          console.error("Gagal menghapus:", error);
         }
       }
-
-      window.onload = loadProducts;
 
       async function editProduk(id) {
         try {
@@ -195,6 +241,7 @@
           alert("Gagal membuka data produk");
         }
       }
+
       async function saveEditProduk() {
         const id = document.getElementById("editId").value;
 
@@ -231,20 +278,27 @@
           alert("Server error!");
         }
       }
+
+      function closeEditModal() {
+        document.getElementById("editModal").style.display = "none";
+      }
+
       window.onclick = function (event) {
         const modal = document.getElementById("editModal");
+
         if (event.target == modal) {
           modal.style.display = "none";
         }
       };
-      function closeEditModal() {
-        document.getElementById("editModal").style.display = "none";
-      }
+
+      window.onload = loadProducts;
     </script>
-    <!-- MODAL EDIT PRODUK -->
+
+    <!-- MODAL EDIT -->
     <div id="editModal" class="modal">
       <div class="modal-content">
         <span class="close" onclick="closeEditModal()">&times;</span>
+
         <h2>Edit Produk</h2>
 
         <input type="hidden" id="editId" />

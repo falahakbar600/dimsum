@@ -36,7 +36,7 @@
             <input
               type="text"
               id="searchInput"
-              placeholder="Search for products"
+              placeholder="Cari Produk..."
               autocomplete="off"
             />
 
@@ -191,41 +191,41 @@
             <div class="bar"><div style="width: 1%"></div></div>
           </div>
         </div>
-
-<!-- 🌟 FEATURED REVIEW -->
-<div class="featured-review-box" id="featuredReviewBox">
-  <h3>🌟 Ulasan Pilihan Customer</h3>
-
-  <div id="featuredReviewContent">
-  <span class="featured-badge">BEST REVIEW</span>
-  <p>Belum ada review pilihan.</p>
-</div>
-</div>
-
-<!-- 🔥 FILTER REVIEW -->
-<div class="review-filters">
-  <button onclick="filterReviews('all')">Semua</button>
-  <button onclick="filterReviews(5)">5⭐</button>
-  <button onclick="filterReviews(4)">4⭐</button>
-  <button onclick="filterReviews(3)">3⭐</button>
-  <button onclick="filterReviews(2)">2⭐</button>
-  <button onclick="filterReviews(1)">1⭐</button>
-</div>
-
-        <!-- 🔥 LIST REVIEW -->
-        <div class="review-carousel-wrapper">
-  <button class="review-nav prev" onclick="slideReviews(-1)">❮</button>
-
-  <div id="reviewList" class="review-list"></div>
-
-  <button class="review-nav next" onclick="slideReviews(1)">❯</button>
-</div>
+      </div>
     </section>
+    <!-- 🌟 FEATURED REVIEW -->
+    <div class="featured-review-box" id="featuredReviewBox">
+      <h3>🌟 Ulasan Pilihan Customer</h3>
+
+      <div id="featuredReviewContent">
+        <span class="featured-badge">BEST REVIEW</span>
+        <p>Belum ada review pilihan.</p>
+      </div>
+    </div>
+
+    <!-- 🔥 FILTER REVIEW -->
+    <div class="review-filters">
+      <button onclick="filterReviews('all')">Semua</button>
+      <button onclick="filterReviews(5)">5⭐</button>
+      <button onclick="filterReviews(4)">4⭐</button>
+      <button onclick="filterReviews(3)">3⭐</button>
+      <button onclick="filterReviews(2)">2⭐</button>
+      <button onclick="filterReviews(1)">1⭐</button>
+    </div>
+
+    <!-- 🔥 LIST REVIEW -->
+    <div class="review-carousel-wrapper">
+      <button class="review-nav prev" onclick="slideReviews(-1)">❮</button>
+
+      <div id="reviewList" class="review-list"></div>
+
+      <button class="review-nav next" onclick="slideReviews(1)">❯</button>
+    </div>
 
     <section class="kemitraan-kontak">
       <div class="kontak-container">
         <h2>Hubungi Kami untuk Informasi dan Pemesanan</h2>
-        <span class="nomor-telp">0813-8475-1763</span>
+        <span class="nomor-telp">0812-1952-0330</span>
         <p class="copyright-text">Copyright © 2026 Dimsum Anak Gen Z</p>
       </div>
     </section>
@@ -248,7 +248,7 @@
         </div>
         <div class="wa-chat-footer">
           <a
-            href="https://wa.me/6281384751763"
+            href="https://wa.me/6281219520330"
             target="_blank"
             class="wa-btn-send"
             >Mulai Chat Sekarang</a
@@ -438,7 +438,7 @@
 
         <div class="modal-right">
           <div>
-            <h3>Customize your meal</h3>
+            <h3>Sesuaikan Makanan Anda</h3>
 
             <label>Catatan:</label>
             <textarea
@@ -500,23 +500,23 @@
       }
 
       function renderReviews(reviews) {
-  const container = document.getElementById("reviewList");
+        const container = document.getElementById("reviewList");
 
-  if (!container) return;
+        if (!container) return;
 
-  container.innerHTML = "";
+        container.innerHTML = "";
 
-  if (!reviews.length) {
-    container.innerHTML = `
+        if (!reviews.length) {
+          container.innerHTML = `
       <p class="empty-review">
         Belum ada review untuk filter ini.
       </p>
     `;
-    return;
-  }
+          return;
+        }
 
-  reviews.slice(0, 10).forEach((review) => {
-    container.innerHTML += `
+        reviews.slice(0, 10).forEach((review) => {
+          container.innerHTML += `
       <div class="customer-review-card">
 
         ${
@@ -538,8 +538,8 @@
         <small>- ${review.nama}</small>
       </div>
     `;
-  });
-}
+        });
+      }
 
       function filterReviews(rating) {
         if (rating === "all") {
@@ -570,21 +570,21 @@
       }
 
       async function loadFeaturedReview() {
-  const box = document.getElementById("featuredReviewContent");
-  if (!box) return;
+        const box = document.getElementById("featuredReviewContent");
+        if (!box) return;
 
-  try {
-    const res = await fetch("http://localhost:3001/api/reviews");
-    const reviews = await res.json();
+        try {
+          const res = await fetch("http://localhost:3001/api/reviews");
+          const reviews = await res.json();
 
-    const featured = reviews.find((r) => Number(r.highlight) === 1);
+          const featured = reviews.find((r) => Number(r.highlight) === 1);
 
-    if (!featured) {
-      box.innerHTML = "<p>Belum ada review pilihan.</p>";
-      return;
-    }
+          if (!featured) {
+            box.innerHTML = "<p>Belum ada review pilihan.</p>";
+            return;
+          }
 
-    box.innerHTML = `
+          box.innerHTML = `
   <span class="featured-badge">ULASAN TERBAIK</span>
 
   <div class="review-stars">
@@ -594,51 +594,52 @@
   <p>"${featured.review}"</p>
   <small>- ${featured.nama}</small>
 `;
-  } catch (err) {
-    console.error("Gagal load featured review:", err);
-  }
-}
+        } catch (err) {
+          console.error("Gagal load featured review:", err);
+        }
+      }
 
       document.addEventListener("DOMContentLoaded", () => {
         loadCustomerReviews();
-  loadReviewStats();
-  loadFeaturedReview();
+        loadReviewStats();
+        loadFeaturedReview();
       });
     </script>
     <script>
       let reviewIndex = 0;
-let autoReviewSlide;
+      let autoReviewSlide;
 
-function slideReviews(direction) {
-  const container = document.getElementById("reviewList");
+      function slideReviews(direction) {
+        const container = document.getElementById("reviewList");
 
-  if (!container) return;
+        if (!container) return;
 
-  const cardWidth =
-    container.querySelector(".customer-review-card")?.offsetWidth + 20 || 300;
+        const cardWidth =
+          container.querySelector(".customer-review-card")?.offsetWidth + 20 ||
+          300;
 
-  reviewIndex += direction;
+        reviewIndex += direction;
 
-  const maxIndex =
-    container.children.length -
-    Math.floor(container.offsetWidth / cardWidth);
+        const maxIndex =
+          container.children.length -
+          Math.floor(container.offsetWidth / cardWidth);
 
-  if (reviewIndex < 0) reviewIndex = maxIndex;
-  if (reviewIndex > maxIndex) reviewIndex = 0;
+        if (reviewIndex < 0) reviewIndex = maxIndex;
+        if (reviewIndex > maxIndex) reviewIndex = 0;
 
-  container.scrollTo({
-    left: reviewIndex * cardWidth,
-    behavior: "smooth",
-  });
-}
+        container.scrollTo({
+          left: reviewIndex * cardWidth,
+          behavior: "smooth",
+        });
+      }
 
-function startAutoReviewSlide() {
-  clearInterval(autoReviewSlide);
+      function startAutoReviewSlide() {
+        clearInterval(autoReviewSlide);
 
-  autoReviewSlide = setInterval(() => {
-    slideReviews(1);
-  }, 4000);
-}
+        autoReviewSlide = setInterval(() => {
+          slideReviews(1);
+        }, 4000);
+      }
     </script>
   </body>
 </html>

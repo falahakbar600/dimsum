@@ -1,0 +1,320 @@
+/* =========================
+   DASHBOARD PREMIUM MODERN
+   FULL RESPONSIVE + HAMBURGER
+========================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Poppins", sans-serif;
+}
+
+body {
+  display: flex;
+  background: linear-gradient(to right, #f4f6f9, #eef2f7);
+  min-height: 100vh;
+}
+
+/* =========================
+   🍔 HAMBURGER
+========================= */
+.menu-toggle {
+  display: none;
+  position: fixed;
+  top: 18px;
+  left: 18px;
+  z-index: 99999;
+  background: linear-gradient(135deg, #ff4d4d, #d93636);
+  color: white;
+  border: none;
+  padding: 12px 16px;
+  font-size: 24px;
+  border-radius: 12px;
+  cursor: pointer;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.2);
+}
+
+.menu-toggle:hover {
+  transform: scale(1.05);
+}
+
+/* =========================
+   SIDEBAR
+========================= */
+.sidebar {
+  width: 250px;
+  height: 100vh;
+  background: linear-gradient(180deg, #111827, #0f172a);
+  color: white;
+  padding: 30px 20px;
+  position: fixed;
+  display: flex;
+  flex-direction: column;
+  box-shadow: 4px 0 25px rgba(0, 0, 0, 0.15);
+  transition: 0.3s ease;
+  z-index: 9999;
+}
+
+.sidebar h2 {
+  font-size: 32px;
+  font-weight: 800;
+  text-align: center;
+  margin-bottom: 35px;
+}
+
+.sidebar a {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  color: #e5e7eb;
+  text-decoration: none;
+  margin: 8px 0;
+  padding: 14px 18px;
+  border-radius: 14px;
+  font-size: 16px;
+  font-weight: 500;
+  transition: 0.3s;
+}
+
+.sidebar a:hover,
+.sidebar a.active {
+  background: linear-gradient(135deg, #ff4d4d, #ff6b6b);
+  color: white;
+  transform: translateX(4px);
+}
+
+/* =========================
+   MAIN
+========================= */
+.main {
+  margin-left: 250px;
+  padding: 35px;
+  width: calc(100% - 250px);
+}
+
+/* =========================
+   TOPBAR
+========================= */
+.topbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 35px;
+  padding-bottom: 18px;
+  border-bottom: 1px solid #d1d5db;
+}
+
+.topbar h1 {
+  font-size: 38px;
+  font-weight: 800;
+  color: #111827;
+}
+
+.topbar span {
+  color: #6b7280;
+  font-size: 17px;
+  font-weight: 500;
+}
+
+/* =========================
+   CARD
+========================= */
+.card {
+  background: rgba(255, 255, 255, 0.96);
+  padding: 24px;
+  border-radius: 22px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.07);
+  transition: 0.3s ease;
+  overflow: hidden;
+}
+
+.card:hover {
+  transform: translateY(-6px);
+}
+
+.card h2 {
+  font-size: 36px;
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.card p {
+  font-size: 15px;
+  font-weight: 500;
+}
+
+.card h3 {
+  font-size: 20px;
+  margin-bottom: 18px;
+  color: #111827;
+}
+
+/* =========================
+   GRID
+========================= */
+.grid-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 25px;
+  margin-bottom: 30px;
+}
+
+.grid-4 {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 25px;
+  margin-bottom: 30px;
+}
+
+.grid-2 {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: 25px;
+}
+
+/* =========================
+   CARD COLORS
+========================= */
+.card.red {
+  background: linear-gradient(135deg, #ff4d4d, #ff6b6b);
+  color: white;
+}
+
+.card.green {
+  background: linear-gradient(135deg, #16a34a, #22c55e);
+  color: white;
+}
+
+.card.yellow {
+  background: linear-gradient(135deg, #facc15, #f59e0b);
+  color: #111827;
+}
+
+.card.blue {
+  background: linear-gradient(135deg, #3b82f6, #60a5fa);
+  color: white;
+}
+
+.card.gold {
+  background: linear-gradient(135deg, #fbbf24, #f59e0b);
+  color: #111827;
+}
+
+.card.purple {
+  background: linear-gradient(135deg, #8b5cf6, #a855f7);
+  color: white;
+}
+
+/* =========================
+   CHART
+========================= */
+canvas {
+  width: 100% !important;
+  height: 300px !important;
+}
+
+.card canvas {
+  max-height: 350px;
+}
+
+/* =========================
+   TABLET
+========================= */
+@media (max-width: 1200px) {
+  .grid-4 {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  .grid-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+/* =========================
+   MOBILE
+========================= */
+@media (max-width: 768px) {
+  body {
+    flex-direction: column;
+  }
+
+  .menu-toggle {
+    display: block;
+  }
+
+  .sidebar {
+    left: -100%;
+    top: 0;
+    width: 250px;
+    height: 100%;
+  }
+
+  .sidebar.show {
+    left: 0;
+  }
+
+  .main {
+    margin-left: 0;
+    width: 100%;
+    padding: 85px 20px 20px;
+  }
+
+  .topbar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .topbar h1 {
+    font-size: 30px;
+  }
+
+  .grid-3,
+  .grid-4,
+  .grid-2 {
+    grid-template-columns: 1fr;
+  }
+
+  .card {
+    padding: 20px;
+  }
+
+  .card h2 {
+    font-size: 30px;
+  }
+
+  canvas {
+    height: 220px !important;
+  }
+}
+
+/* =========================
+   SMALL MOBILE
+========================= */
+@media (max-width: 480px) {
+  .sidebar {
+    width: 220px;
+  }
+
+  .topbar h1 {
+    font-size: 24px;
+  }
+
+  .topbar span {
+    font-size: 14px;
+  }
+
+  .card h2 {
+    font-size: 26px;
+  }
+
+  .card p {
+    font-size: 14px;
+  }
+
+  .menu-toggle {
+    padding: 10px 14px;
+    font-size: 20px;
+  }
+}

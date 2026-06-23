@@ -2,49 +2,86 @@
 <html lang="id">
   <head>
     <meta charset="UTF-8" />
-    <title>Admin Reviews</title>
-    <link rel="stylesheet" href="admin.css" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Admin Reviews - Dapur Anak GEN Z</title>
+
+    <link rel="stylesheet" href="reviews.css" />
+    <link rel="icon" href="../gambar/logo.png" />
   </head>
-  <link rel="icon" href="../gambar/logo.png" />
+
   <body>
-    <div class="sidebar">
-      <h2>Dapur Gen Z</h2>
+    <!-- 🔐 LOGIN CHECK -->
+    <script>
+      const isLogin = localStorage.getItem("isLogin");
+      const role = localStorage.getItem("role");
+
+      if (isLogin !== "true" || role !== "admin") {
+        window.location.href = "../home.html";
+      }
+    </script>
+
+    <!-- 🍔 HAMBURGER -->
+    <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-logo">
+        <h2>Dapur Gen Z</h2>
+      </div>
+
       <a href="dashboard.html">Dashboard</a>
       <a href="products.html">Products</a>
       <a href="orders.html">Orders</a>
       <a href="livechat.html">Live Chat</a>
       <a href="reviews.html" class="active">Reviews</a>
       <a href="#" onclick="logout()">Logout</a>
-    </div>
+    </aside>
 
-    <div class="main">
-      <div class="review-header">
-        <h1>Kelola Review Customer</h1>
+    <!-- MAIN -->
+    <main class="main">
+      <!-- TOPBAR -->
+      <div class="topbar">
+        <div>
+          <h1>Kelola Review Customer</h1>
+          <p class="topbar-subtitle">
+            Pantau, filter, dan kelola ulasan customer secara profesional
+          </p>
+        </div>
+
+        <div class="topbar-info-card">
+          <div class="icon-box">⭐</div>
+          <div>
+            <h4>Review Management</h4>
+            <p>Analisis feedback customer & tingkatkan kualitas layanan</p>
+          </div>
+        </div>
       </div>
 
-      <div class="stats-grid">
-        <div class="stats-card">
+      <!-- STATS -->
+      <section class="stats-grid">
+        <div class="stats-card blue">
           <h3 id="totalReview">0</h3>
           <p>Total Review</p>
         </div>
 
-        <div class="stats-card">
+        <div class="stats-card gold">
           <h3 id="highlightReview">0</h3>
           <p>Highlight Review</p>
         </div>
 
-        <div class="stats-card">
+        <div class="stats-card red">
           <h3 id="spamReview">0</h3>
           <p>Spam Review</p>
         </div>
 
-        <div class="stats-card">
+        <div class="stats-card purple">
           <h3 id="avgReview">0.0</h3>
           <p>Rata-rata Rating</p>
         </div>
-      </div>
+      </section>
 
-      <div class="review-filter-bar">
+      <!-- FILTER -->
+      <section class="review-filter-bar card">
         <input
           type="text"
           id="reviewSearch"
@@ -63,7 +100,7 @@
           <option value="spam">Spam</option>
         </select>
 
-        <!-- 🔥 EXPORT BUTTONS -->
+        <!-- EXPORT -->
         <div class="export-buttons">
           <button
             onclick="
@@ -78,9 +115,10 @@
             📊 Export Excel
           </button>
         </div>
-      </div>
+      </section>
 
-      <div class="review-table-wrapper">
+      <!-- TABLE -->
+      <section class="review-table-wrapper card">
         <table class="order-table">
           <thead>
             <tr>
@@ -95,12 +133,38 @@
 
           <tbody id="reviewTable"></tbody>
         </table>
-      </div>
-    </div>
+      </section>
+    </main>
 
+    <!-- SCRIPT -->
     <script src="admin.js"></script>
 
     <script>
+      // =========================
+      // 🔐 LOGOUT
+      // =========================
+      function logout() {
+        localStorage.removeItem("isLogin");
+        localStorage.removeItem("role");
+        localStorage.removeItem("nama");
+
+        window.location.href = "../home.html";
+      }
+
+      // =========================
+      // 🍔 SIDEBAR MOBILE
+      // =========================
+      function toggleSidebar() {
+        const sidebar = document.getElementById("sidebar");
+
+        if (sidebar) {
+          sidebar.classList.toggle("show");
+        }
+      }
+
+      // =========================
+      // LOAD REVIEWS
+      // =========================
       document.addEventListener("DOMContentLoaded", () => {
         loadAdminReviews();
       });
