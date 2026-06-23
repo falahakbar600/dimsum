@@ -116,38 +116,36 @@ passport.use(
       const nama = profile.displayName;
 
       db.query(
-  "SELECT * FROM users WHERE email = ?",
-  [email],
-  (err, result) => {
+        "SELECT * FROM users WHERE email = ?",
+        [email],
+        (err, result) => {
+          if (err) {
+            console.error("Error SELECT user:", err);
+            return done(err);
+          }
 
-    if (err) {
-      console.error("Error SELECT user:", err);
-      return done(err);
-    }
+          if (result && result.length > 0) {
+            return done(null, result[0]);
+          }
 
-    if (result && result.length > 0) {
-      return done(null, result[0]);
-    }
+          db.query(
+            "INSERT INTO users (nama, email, role) VALUES (?, ?, 'user')",
+            [nama, email],
+            (insertErr) => {
+              if (insertErr) {
+                console.error("Error INSERT user:", insertErr);
+                return done(insertErr);
+              }
 
-    db.query(
-      "INSERT INTO users (nama, email, role) VALUES (?, ?, 'user')",
-      [nama, email],
-      (insertErr) => {
-
-        if (insertErr) {
-          console.error("Error INSERT user:", insertErr);
-          return done(insertErr);
-        }
-
-        return done(null, {
-          nama,
-          email,
-          role: "user",
-        });
-      }
-    );
-  }
-);
+              return done(null, {
+                nama,
+                email,
+                role: "user",
+              });
+            },
+          );
+        },
+      );
     },
   ),
 );
@@ -984,7 +982,7 @@ app.get(
 
     // kirim data ke frontend
     res.redirect(
-      `http://127.0.0.1:5500/home.html?nama=${encodeURIComponent(user.nama)}&role=${user.role}&email=${encodeURIComponent(user.email)}&id=${user.id}`,
+      `http://127.0.0.1:5500/index.html?nama=${encodeURIComponent(user.nama)}&role=${user.role}&email=${encodeURIComponent(user.email)}&id=${user.id}`,
     );
   },
 );

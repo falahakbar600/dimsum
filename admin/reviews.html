@@ -16,7 +16,7 @@
       const role = localStorage.getItem("role");
 
       if (isLogin !== "true" || role !== "admin") {
-        window.location.href = "../home.html";
+        window.location.href = "../index.html";
       }
     </script>
 
@@ -148,7 +148,7 @@
         localStorage.removeItem("role");
         localStorage.removeItem("nama");
 
-        window.location.href = "../home.html";
+        window.location.href = "../index.html";
       }
 
       // =========================

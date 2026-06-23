@@ -816,7 +816,7 @@ function register() {
         alert("Register berhasil!");
 
         // redirect ke home / login
-        window.location.href = "home.html";
+        window.location.href = "index.html";
       } else {
         alert(data.message);
       }
@@ -878,7 +878,7 @@ function logout() {
   });
 
   // Force reload bersih tanpa cache
-  window.location.replace("home.html");
+  window.location.replace("index.html");
 }
 
 function loginGoogle() {
