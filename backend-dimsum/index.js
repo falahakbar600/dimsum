@@ -72,11 +72,11 @@ app.use(passport.session());
 // 🔗 KONEKSI DATABASE
 // =====================
 const db = mysql.createConnection({
-  host: "127.0.0.1",
-  user: "root",
-  password: "",
-  database: "dimsum_db",
-  port: 3307,
+  host: process.env.DB_HOST || "127.0.0.1",
+  user: process.env.DB_USER || "root",
+  password: process.env.DB_PASSWORD || "",
+  database: process.env.DB_NAME || "dimsum_db",
+  port: process.env.DB_PORT ? parseInt(process.env.DB_PORT) : 3307,
 });
 
 db.connect((err) => {
@@ -212,9 +212,10 @@ app.get("/api/products", (req, res) => {
       });
     }
 
+    const backendUrl = process.env.BACKEND_URL || "http://localhost:3001";
     const formatted = results.map((item) => ({
       ...item,
-      image: `http://localhost:3001/gambar/${encodeURIComponent(
+      image: `${backendUrl}/gambar/${encodeURIComponent(
         item.gambar.replace("gambar/", "").trim(),
       )}`,
     }));
@@ -961,7 +962,7 @@ app.post("/api/auth/reset-password", (req, res) => {
 // =====================
 // 🚀 JALANKAN SERVER
 // =====================
-const PORT = 3001;
+const PORT = process.env.PORT || 3001;
 
 // =====================
 // 🔗 GOOGLE LOGIN ROUTE
