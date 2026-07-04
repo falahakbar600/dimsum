@@ -271,6 +271,7 @@ body {
 .lang-menu div:hover {
   background: #f5f5f5;
 }
+
 /* MODAL */
 .modal {
   display: none;
@@ -400,8 +401,7 @@ body {
   content: "";
   width: 20px;
   height: 20px;
-  background: url("https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg")
-    no-repeat center;
+  background: url("https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg") no-repeat center;
   background-size: contain;
 }
 
@@ -410,6 +410,7 @@ body {
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
   transform: translateY(-2px);
 }
+
 /* --- 4. CONTAINER FORM (Efek Glassmorphism) --- */
 .cart-container {
   width: 90%;
@@ -425,7 +426,8 @@ body {
 
 /* Header Judul */
 .cart-title {
-  background: #3b1d1d; /* Cokelat Branding */
+  background: #3b1d1d;
+  /* Cokelat Branding */
   color: #ffffff;
   padding: 20px;
   text-align: center;
@@ -485,6 +487,7 @@ body {
 #cart-items-list::-webkit-scrollbar {
   width: 5px;
 }
+
 #cart-items-list::-webkit-scrollbar-thumb {
   background: #ddd;
   border-radius: 10px;
@@ -654,16 +657,16 @@ body {
 }
 
 /* State terpilih */
-.pay-label input[type="radio"]:checked + .pay-card {
+.pay-label input[type="radio"]:checked+.pay-card {
   border-color: #e00000;
   background-color: #fff9f9;
 }
 
-.pay-label input[type="radio"]:checked + .pay-card .radio-ui {
+.pay-label input[type="radio"]:checked+.pay-card .radio-ui {
   border-color: #e00000;
 }
 
-.pay-label input[type="radio"]:checked + .pay-card .radio-ui::after {
+.pay-label input[type="radio"]:checked+.pay-card .radio-ui::after {
   content: "";
   width: 10px;
   height: 10px;
@@ -779,6 +782,7 @@ body {
     opacity: 0;
     transform: translateY(-10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -790,11 +794,13 @@ body {
     opacity: 0;
     transform: translateY(-5px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
+
 .upload-payment-section {
   margin-top: 20px;
   text-align: center;
@@ -997,6 +1003,7 @@ body {
   background: linear-gradient(135deg, #7b2ff7, #f107a3);
   color: white;
 }
+
 /* =========================
    MUSIC ICON NAVBAR
 ========================= */
@@ -1087,6 +1094,7 @@ body {
    MOBILE HAMBURGER FINAL
 ========================= */
 @media (max-width: 768px) {
+
   /* NAVBAR */
   .navbar {
     display: flex;
@@ -1100,6 +1108,7 @@ body {
     width: 100%;
     z-index: 9999;
   }
+
   body {
     padding-top: 70px;
   }
@@ -1236,6 +1245,7 @@ body {
   .auth-menu a:last-child {
     background: #333;
   }
+
   /* HERO */
   .hero {
     height: 300px;
@@ -1273,6 +1283,7 @@ body {
     opacity: 0;
     transform: translateX(100%);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -1313,8 +1324,7 @@ body {
   content: "";
   width: 30px;
   height: 30px;
-  background: url("https://cdn-icons-png.flaticon.com/512/733/733585.png")
-    no-repeat center;
+  background: url("https://cdn-icons-png.flaticon.com/512/733/733585.png") no-repeat center;
   background-size: contain;
 }
 
@@ -1372,8 +1382,10 @@ body {
   font-size: 14px;
   display: block;
 }
+
 /* ANIMASI */
 @keyframes waBounce {
+
   0%,
   100% {
     transform: translateY(0);

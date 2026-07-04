@@ -64,8 +64,8 @@ function loadProductsFromAPI() {
                 
                 <button class="btn-add"
                   onclick='event.stopPropagation(); tambahKeKeranjang(${JSON.stringify(
-                    item.name,
-                  )}, ${Number(item.price)}, ${JSON.stringify(item.image)})'>
+          item.name,
+        )}, ${Number(item.price)}, ${JSON.stringify(item.image)})'>
                   + Keranjang
                 </button>
               </div>
@@ -205,13 +205,12 @@ function renderKeranjang() {
             <strong>${item.nama}</strong>
             <span class="cart-product-price">${formatRupiah(item.harga)}</span>
 
-            ${
-              item.catatan && item.catatan !== "-"
-                ? `<small style="color:#666; display:block; margin-top:4px;">
+            ${item.catatan && item.catatan !== "-"
+          ? `<small style="color:#666; display:block; margin-top:4px;">
                     Catatan: ${item.catatan}
                    </small>`
-                : ""
-            }
+          : ""
+        }
           </div>
         </div>
 
@@ -314,7 +313,7 @@ function initQRISValidation() {
 }
 
 // ===== 🔥 TETAP ADA =====
-function updateQRISState() {}
+function updateQRISState() { }
 
 function updateCheckoutButton() {
   const metode = document.querySelector(

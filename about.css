@@ -87,6 +87,7 @@ body {
   border-radius: 5px;
   cursor: pointer;
 }
+
 .search-results {
   position: absolute;
   top: 110%;
@@ -451,8 +452,7 @@ body {
   content: "";
   width: 30px;
   height: 30px;
-  background: url("https://cdn-icons-png.flaticon.com/512/733/733585.png")
-    no-repeat center;
+  background: url("https://cdn-icons-png.flaticon.com/512/733/733585.png") no-repeat center;
   background-size: contain;
 }
 
@@ -463,10 +463,12 @@ body {
 
 /* ANIMASI */
 @keyframes waBounce {
+
   0%,
   100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-6px);
   }
@@ -527,11 +529,13 @@ body {
     opacity: 0;
     transform: translateY(10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
+
 /* MODAL */
 .modal {
   display: none;
@@ -663,8 +667,7 @@ body {
   content: "";
   width: 20px;
   height: 20px;
-  background: url("https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg")
-    no-repeat center;
+  background: url("https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg") no-repeat center;
   background-size: contain;
 }
 
@@ -673,6 +676,7 @@ body {
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
   transform: translateY(-2px);
 }
+
 .register-text {
   text-align: center;
   margin-top: 15px;
@@ -688,6 +692,7 @@ body {
 .register-text a:hover {
   text-decoration: underline;
 }
+
 /* ================= PRODUCT MODAL WEB VERSION ================= */
 .product-modal {
   display: none;
@@ -871,6 +876,7 @@ body {
     opacity: 0;
     transform: translateX(100%);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -919,10 +925,12 @@ body {
 
 /* ANIMATION */
 @keyframes chatBounce {
+
   0%,
   100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-6px);
   }
@@ -1141,6 +1149,7 @@ body {
     display: none;
   }
 }
+
 /* =========================
    MUSIC ICON NAVBAR
 ========================= */
@@ -1197,6 +1206,7 @@ body {
 .order-history a:hover .history-nav-icon {
   transform: scale(1.12);
 }
+
 /* =========================
    HAMBURGER MOBILE
 ========================= */
@@ -1397,6 +1407,7 @@ body {
     font-size: 28px;
   }
 }
+
 /* =========================
    PRODUCT MODAL MOBILE FIX
 ========================= */

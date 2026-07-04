@@ -1,448 +1,382 @@
 <!doctype html>
 <html lang="id">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dimsum Anak GEN Z - Contact</title>
-    <link rel="stylesheet" href="contact.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-    />
 
-    <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Poppins:wght@300;400;600&display=swap"
-      rel="stylesheet"
-    />
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dimsum Anak GEN Z - Contact</title>
+  <link rel="stylesheet" href="contact.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
-  <body>
-    <div class="navbar">
-      <div class="logo-area">
-        <img src="gambar/logo.png" />
-        <div class="logo-text">
-          <span>DAPUR</span>
-          <span>ANAK GEN Z</span>
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Poppins:wght@300;400;600&display=swap"
+    rel="stylesheet" />
+</head>
+
+<body>
+  <div class="navbar">
+    <div class="logo-area">
+      <img src="gambar/logo.png" />
+      <div class="logo-text">
+        <span>DAPUR</span>
+        <span>ANAK GEN Z</span>
+      </div>
+    </div>
+
+    <!-- HAMBURGER -->
+    <div class="hamburger" id="hamburger">
+      <i class="fa-solid fa-bars"></i>
+    </div>
+
+    <div class="nav-right-wrapper">
+      <div class="nav-top">
+        <div class="search-box">
+          <input type="text" id="searchInput" placeholder="Cari Produk..." autocomplete="off" />
+          <button><i class="fa fa-search"></i></button>
+
+          <div id="searchResults" class="search-results"></div>
+        </div>
+
+        <div class="nav-icons">
+          <div class="order-history">
+            <a href="riwayat.html" title="Riwayat Pesanan">
+              <img
+                src="data:image/svg+xml,%3csvg%20width='20'%20height='18'%20viewBox='0%200%2020%2018'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M4.854%206.54175H15.1457'%20stroke='%23231F20'%20stroke-width='1.5'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3cpath%20d='M4.854%209.70825H15.1457'%20stroke='%23231F20'%20stroke-width='1.5'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3cpath%20d='M1%2017V1.8C1%201.58783%201.07902%201.38434%201.21967%201.23431C1.36032%201.08429%201.55109%201%201.75%201H18.25C18.4489%201%2018.6397%201.08429%2018.7803%201.23431C18.921%201.38434%2019%201.58783%2019%201.8V17L16%2015.4L13%2017L10%2015.4L7%2017L4%2015.4L1%2017Z'%20stroke='%23231F20'%20stroke-width='1.5'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3c/svg%3e"
+                alt="Riwayat Pesanan" class="history-nav-icon" />
+            </a>
+          </div>
+
+          <div class="music-control">
+            <i class="fa-solid fa-music" onclick="toggleMusic()" id="musicIcon"></i>
+          </div>
+
+          <div class="cart-wrapper">
+            <a href="keranjang.html" class="cart-icon">
+              <i class="fa-solid fa-cart-shopping"></i>
+            </a>
+            <span id="cart-count" class="cart-badge">0</span>
+          </div>
         </div>
       </div>
 
-      <!-- HAMBURGER -->
-      <div class="hamburger" id="hamburger">
-        <i class="fa-solid fa-bars"></i>
-      </div>
-
-      <div class="nav-right-wrapper">
-        <div class="nav-top">
-          <div class="search-box">
-            <input
-              type="text"
-              id="searchInput"
-              placeholder="Cari Produk..."
-              autocomplete="off"
-            />
-            <button><i class="fa fa-search"></i></button>
-
-            <div id="searchResults" class="search-results"></div>
-          </div>
-
-          <div class="nav-icons">
-            <div class="order-history">
-              <a href="riwayat.html" title="Riwayat Pesanan">
-                <img
-                  src="data:image/svg+xml,%3csvg%20width='20'%20height='18'%20viewBox='0%200%2020%2018'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M4.854%206.54175H15.1457'%20stroke='%23231F20'%20stroke-width='1.5'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3cpath%20d='M4.854%209.70825H15.1457'%20stroke='%23231F20'%20stroke-width='1.5'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3cpath%20d='M1%2017V1.8C1%201.58783%201.07902%201.38434%201.21967%201.23431C1.36032%201.08429%201.55109%201%201.75%201H18.25C18.4489%201%2018.6397%201.08429%2018.7803%201.23431C18.921%201.38434%2019%201.58783%2019%201.8V17L16%2015.4L13%2017L10%2015.4L7%2017L4%2015.4L1%2017Z'%20stroke='%23231F20'%20stroke-width='1.5'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3c/svg%3e"
-                  alt="Riwayat Pesanan"
-                  class="history-nav-icon"
-                />
-              </a>
-            </div>
-
-            <div class="music-control">
-              <i
-                class="fa-solid fa-music"
-                onclick="toggleMusic()"
-                id="musicIcon"
-              ></i>
-            </div>
-
-            <div class="cart-wrapper">
-              <a href="keranjang.html" class="cart-icon">
-                <i class="fa-solid fa-cart-shopping"></i>
-              </a>
-              <span id="cart-count" class="cart-badge">0</span>
-            </div>
-          </div>
+      <div class="nav-bottom">
+        <div class="menu">
+          <a href="index.html">Beranda</a>
+          <a href="menu.html">Menu</a>
+          <a href="about.html">Tentang Kami</a>
+          <a href="prospek.html">Prospek Bisnis</a>
+          <a href="#" class="active">Kontak</a>
         </div>
 
-        <div class="nav-bottom">
-          <div class="menu">
-            <a href="index.html">Beranda</a>
-            <a href="menu.html">Menu</a>
-            <a href="about.html">Tentang Kami</a>
-            <a href="prospek.html">Prospek Bisnis</a>
-            <a href="#" class="active">Kontak</a>
-          </div>
-
-          <div class="auth-menu">
-            <a
-              href="#"
-              onclick="
+        <div class="auth-menu">
+          <a href="#" onclick="
                 openLogin();
                 return false;
-              "
-              >Masuk</a
-            >
-            <a href="register.html">Daftar</a>
-          </div>
+              ">Masuk</a>
+          <a href="register.html">Daftar</a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="loginModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeLogin()">×</span>
+
+      <h2>Masuk</h2>
+
+      <input type="text" id="email" placeholder="Username / Email" />
+      <input type="password" id="password" placeholder="Password" />
+
+      <button type="button" class="btn-login" onclick="login()">Masuk</button>
+
+      <a href="lupa-password.html" class="forgot">Lupa kata sandi?</a>
+
+      <div class="divider-home">atau masuk dengan</div>
+
+      <button type="button" class="google-btn" onclick="loginGoogle()">
+        Masuk dengan Google
+      </button>
+
+      <!-- 🔥 TAMBAHAN DAFTAR -->
+      <p class="register-text">
+        Belum punya akun? <a href="register.html">Daftar</a>
+      </p>
+    </div>
+  </div>
+
+  <section class="contact-hero">
+    <div class="banner-text">
+      <h1>Pusat <br />Informasi.</h1>
+      <div class="decoration"></div>
+    </div>
+  </section>
+
+  <section class="sejarah-section">
+    <div class="sejarah-container">
+      <div class="sejarah-item">
+        <iframe
+          src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d507479.6054833339!2d106.30456830625!3d-6.434566355779259!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69fb2ad20ed421%3A0x57ac3bb642e8d55f!2sJl.%20Kp.%20Dadap%20Barat%20No.3%2C%20Rw.%20Buntu%2C%20Kec.%20Serpong%2C%20Kota%20Tangerang%20Selatan%2C%20Banten%2015310!5e0!3m2!1sid!2sid!4v1776789315421!5m2!1sid!2sid"
+          width="600" height="450" style="border: 0" allowfullscreen="" loading="lazy"
+          referrerpolicy="no-referrer-when-downgrade"></iframe>
+      </div>
+
+      <div class="sejarah-item">
+        <div class="image-overlay">
+          <img src="https://dimsumchoie.com/wp-content/uploads/2022/03/photographer.jpg" alt="Foto" />
+          <div class="overlay-text">24 Jam</div>
         </div>
       </div>
     </div>
 
-    <div id="loginModal" class="modal">
-      <div class="modal-content">
-        <span class="close-btn" onclick="closeLogin()">×</span>
+    <div class="form-content">
+      <h2>Kirim Pesan</h2>
 
-        <h2>Masuk</h2>
+      <form id="contactForm" onsubmit="kirimPesanKerjasama(event)">
+        <input type="text" id="nama" placeholder="Nama Anda" required />
 
-        <input type="text" id="email" placeholder="Username / Email" />
-        <input type="password" id="password" placeholder="Password" />
+        <input type="tel" id="telepon" placeholder="Nomor Handphone" required />
 
-        <button type="button" class="btn-login" onclick="login()">Masuk</button>
+        <input type="email" id="contact-email" placeholder="Email" required readonly />
 
-        <a href="lupa-password.html" class="forgot">Lupa kata sandi?</a>
+        <textarea id="pesan" placeholder="Pesan atau pertanyaan Anda..." rows="5" required></textarea>
 
-        <div class="divider-home">atau masuk dengan</div>
-
-        <button type="button" class="google-btn" onclick="loginGoogle()">
-          Masuk dengan Google
+        <button type="submit" class="btn-wa-large" style="width: 100%; border: none; cursor: pointer">
+          Kirim Data
         </button>
+      </form>
+    </div>
+  </section>
 
-        <!-- 🔥 TAMBAHAN DAFTAR -->
-        <p class="register-text">
-          Belum punya akun? <a href="register.html">Daftar</a>
-        </p>
+  <footer class="kemitraan-kontak">
+    <div class="kontak-container">
+      <h2>Hubungi Kami untuk Informasi dan Pemesanan</h2>
+      <span class="nomor-telp">0812-1952-0330</span>
+
+      <p class="copyright-text">
+        Copyright © 2026 Dimsum Anak Gen z | Powered by Dimsum Anak Gen Z
+      </p>
+    </div>
+  </footer>
+
+  <div class="whatsapp-wrapper">
+    <div class="wa-chat-box" id="waChatBox">
+      <div class="wa-chat-header">
+        <strong>Dimsum Anak Gen Z</strong>
+        <span class="close-chat" onclick="toggleChat()" style="cursor: pointer">×</span>
+      </div>
+      <div class="wa-chat-body">
+        <div class="wa-bubble">
+          Halo! Lagi mau pesan atau cari info dulu? 😊
+        </div>
+      </div>
+      <div class="wa-chat-footer">
+        <a href="https://wa.me/6281219520330" target="_blank" class="wa-btn-send">
+          Mulai Chat Sekarang
+        </a>
       </div>
     </div>
 
-    <section class="contact-hero">
-      <div class="banner-text">
-        <h1>Pusat <br />Informasi.</h1>
-        <div class="decoration"></div>
-      </div>
-    </section>
+    <div class="whatsapp-float" onclick="toggleChat()" style="cursor: pointer">
+      <span>Chat WhatsApp</span>
+    </div>
+  </div>
 
-    <section class="sejarah-section">
-      <div class="sejarah-container">
-        <div class="sejarah-item">
-          <iframe
-            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d507479.6054833339!2d106.30456830625!3d-6.434566355779259!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x2e69fb2ad20ed421%3A0x57ac3bb642e8d55f!2sJl.%20Kp.%20Dadap%20Barat%20No.3%2C%20Rw.%20Buntu%2C%20Kec.%20Serpong%2C%20Kota%20Tangerang%20Selatan%2C%20Banten%2015310!5e0!3m2!1sid!2sid!4v1776789315421!5m2!1sid!2sid"
-            width="600"
-            height="450"
-            style="border: 0"
-            allowfullscreen=""
-            loading="lazy"
-            referrerpolicy="no-referrer-when-downgrade"
-          ></iframe>
+  <!-- MODERN LIVE CHAT WIDGET -->
+  <div class="modern-chat-widget">
+    <!-- CHAT PANEL -->
+    <div class="modern-chat-box" id="modernChatBox">
+      <div class="modern-chat-header">
+        <div class="chat-brand">
+          <strong>Dapur Anak GEN Z</strong>
+          <small>Layanan Chat</small>
         </div>
+        <span class="close-chat" onclick="toggleModernChat()">×</span>
+      </div>
 
-        <div class="sejarah-item">
-          <div class="image-overlay">
-            <img
-              src="https://dimsumchoie.com/wp-content/uploads/2022/03/photographer.jpg"
-              alt="Foto"
-            />
-            <div class="overlay-text">24 Jam</div>
-          </div>
+      <div class="modern-chat-body" id="modernChatBody">
+        <div class="modern-chat-message admin">
+          Halo! Saya admin Dapur Anak GEN Z 😊 Ada yang bisa saya bantu hari
+          ini?
         </div>
       </div>
 
-      <div class="form-content">
-        <h2>Kirim Pesan</h2>
-
-        <form id="contactForm" onsubmit="kirimPesanKerjasama(event)">
-          <input type="text" id="nama" placeholder="Nama Anda" required />
-
-          <input
-            type="tel"
-            id="telepon"
-            placeholder="Nomor Handphone"
-            required
-          />
-
-          <input
-            type="email"
-            id="contact-email"
-            placeholder="Email"
-            required
-            readonly
-          />
-
-          <textarea
-            id="pesan"
-            placeholder="Pesan atau pertanyaan Anda..."
-            rows="5"
-            required
-          ></textarea>
-
-          <button
-            type="submit"
-            class="btn-wa-large"
-            style="width: 100%; border: none; cursor: pointer"
-          >
-            Kirim Data
-          </button>
-        </form>
-      </div>
-    </section>
-
-    <footer class="kemitraan-kontak">
-      <div class="kontak-container">
-        <h2>Hubungi Kami untuk Informasi dan Pemesanan</h2>
-        <span class="nomor-telp">0812-1952-0330</span>
-
-        <p class="copyright-text">
-          Copyright © 2026 Dimsum Anak Gen z | Powered by Dimsum Anak Gen Z
-        </p>
-      </div>
-    </footer>
-
-    <div class="whatsapp-wrapper">
-      <div class="wa-chat-box" id="waChatBox">
-        <div class="wa-chat-header">
-          <strong>Dimsum Anak Gen Z</strong>
-          <span
-            class="close-chat"
-            onclick="toggleChat()"
-            style="cursor: pointer"
-            >×</span
-          >
-        </div>
-        <div class="wa-chat-body">
-          <div class="wa-bubble">
-            Halo! Lagi mau pesan atau cari info dulu? 😊
-          </div>
-        </div>
-        <div class="wa-chat-footer">
-          <a
-            href="https://wa.me/6281219520330"
-            target="_blank"
-            class="wa-btn-send"
-          >
-            Mulai Chat Sekarang
-          </a>
-        </div>
-      </div>
-
-      <div
-        class="whatsapp-float"
-        onclick="toggleChat()"
-        style="cursor: pointer"
-      >
-        <span>Chat WhatsApp</span>
+      <div class="modern-chat-footer">
+        <input type="text" id="modernChatInput" placeholder="Tulis pertanyaan Anda" />
+        <button onclick="sendModernChat()">
+          <i class="fa-solid fa-arrow-up"></i>
+        </button>
       </div>
     </div>
 
-    <!-- MODERN LIVE CHAT WIDGET -->
-    <div class="modern-chat-widget">
-      <!-- CHAT PANEL -->
-      <div class="modern-chat-box" id="modernChatBox">
-        <div class="modern-chat-header">
-          <div class="chat-brand">
-            <strong>Dapur Anak GEN Z</strong>
-            <small>Layanan Chat</small>
-          </div>
-          <span class="close-chat" onclick="toggleModernChat()">×</span>
+    <!-- FLOAT BUTTON -->
+    <div class="modern-chat-button" onclick="toggleModernChat()">
+      <i class="fa-solid fa-comments"></i>
+      <span>Live Chat</span>
+    </div>
+  </div>
+  <div class="mobile-overlay" id="mobileOverlay"></div>
+  <script src="script.js"></script>
+  <script>
+    const hamburger = document.getElementById("hamburger");
+    const navWrapper = document.querySelector(".nav-right-wrapper");
+    const overlay = document.getElementById("mobileOverlay");
+
+    hamburger.addEventListener("click", () => {
+      navWrapper.classList.toggle("active");
+      overlay.classList.toggle("active");
+    });
+
+    overlay.addEventListener("click", () => {
+      navWrapper.classList.remove("active");
+      overlay.classList.remove("active");
+    });
+
+    function toggleChat() {
+      const chatBox = document.getElementById("waChatBox");
+      if (chatBox) {
+        chatBox.style.display =
+          chatBox.style.display === "block" ? "none" : "block";
+      }
+    }
+    const API_URL = "https://dimsum-production-216a.up.railway.app/api/products";
+  </script>
+
+  <script>
+    // Fungsi Toggle Menu Mobile
+    function toggleMenu() {
+      const menu = document.getElementById("menuNav");
+      menu.classList.toggle("active");
+    }
+
+    // Fungsi Toggle WhatsApp Chat
+    function toggleChat() {
+      const chatBox = document.getElementById("waChatBox");
+      if (chatBox.style.display === "block") {
+        chatBox.style.display = "none";
+      } else {
+        chatBox.style.display = "block";
+      }
+    }
+  </script>
+  <div id="productModal" class="product-modal">
+    <div class="product-modal-content">
+      <span class="close-modal" onclick="closeProductModal()">&times;</span>
+
+      <div class="modal-left">
+        <img id="modalImage" src="" alt="" />
+        <h2 id="modalName"></h2>
+        <p id="modalPrice"></p>
+        <p id="modalDescription"></p>
+      </div>
+
+      <div class="modal-right">
+        <div>
+          <h3>Sesuaikan Makanan Anda</h3>
+
+          <label>Catatan:</label>
+          <textarea id="modalNote" placeholder="Tambah catatan pesanan..."></textarea>
         </div>
 
-        <div class="modern-chat-body" id="modernChatBody">
-          <div class="modern-chat-message admin">
-            Halo! Saya admin Dapur Anak GEN Z 😊 Ada yang bisa saya bantu hari
-            ini?
-          </div>
-        </div>
+        <div>
+          <div class="modal-total" id="modalTotal">Rp 0</div>
 
-        <div class="modern-chat-footer">
-          <input
-            type="text"
-            id="modernChatInput"
-            placeholder="Tulis pertanyaan Anda"
-          />
-          <button onclick="sendModernChat()">
-            <i class="fa-solid fa-arrow-up"></i>
+          <div class="modal-qty">
+            <button onclick="changeModalQty(-1)">-</button>
+            <span id="modalQty">1</span>
+            <button onclick="changeModalQty(1)">+</button>
+          </div>
+
+          <button class="modal-cart-btn" onclick="addModalToCart()">
+            Masukkan Keranjang
           </button>
         </div>
       </div>
-
-      <!-- FLOAT BUTTON -->
-      <div class="modern-chat-button" onclick="toggleModernChat()">
-        <i class="fa-solid fa-comments"></i>
-        <span>Live Chat</span>
-      </div>
     </div>
-    <div class="mobile-overlay" id="mobileOverlay"></div>
-    <script src="script.js"></script>
-    <script>
-      const hamburger = document.getElementById("hamburger");
-      const navWrapper = document.querySelector(".nav-right-wrapper");
-      const overlay = document.getElementById("mobileOverlay");
+  </div>
+  <audio id="bgMusic" loop>
+    <source src="musik/musik.mp3" type="audio/mpeg" />
+  </audio>
 
-      hamburger.addEventListener("click", () => {
-        navWrapper.classList.toggle("active");
-        overlay.classList.toggle("active");
-      });
+  <script>
+    const music = document.getElementById("bgMusic");
+    const icon = document.getElementById("musicIcon");
 
-      overlay.addEventListener("click", () => {
-        navWrapper.classList.remove("active");
-        overlay.classList.remove("active");
-      });
+    document.addEventListener("DOMContentLoaded", () => {
+      const musicState = localStorage.getItem("musicPlaying");
 
-      function toggleChat() {
-        const chatBox = document.getElementById("waChatBox");
-        if (chatBox) {
-          chatBox.style.display =
-            chatBox.style.display === "block" ? "none" : "block";
-        }
+      if (musicState === "true") {
+        music.play().catch(() => { });
+        if (icon) icon.style.color = "#ff4d4d";
       }
-      const API_URL = "https://dimsum-production-216a.up.railway.app/api/products";
-    </script>
+    });
 
-    <script>
-      // Fungsi Toggle Menu Mobile
-      function toggleMenu() {
-        const menu = document.getElementById("menuNav");
-        menu.classList.toggle("active");
+    function toggleMusic() {
+      if (music.paused) {
+        music.play();
+        localStorage.setItem("musicPlaying", "true");
+        if (icon) icon.style.color = "#ff4d4d";
+      } else {
+        music.pause();
+        localStorage.setItem("musicPlaying", "false");
+        if (icon) icon.style.color = "black";
       }
+    }
+  </script>
 
-      // Fungsi Toggle WhatsApp Chat
-      function toggleChat() {
-        const chatBox = document.getElementById("waChatBox");
-        if (chatBox.style.display === "block") {
-          chatBox.style.display = "none";
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      document.getElementById("nama").value =
+        localStorage.getItem("username") ||
+        localStorage.getItem("name") ||
+        "";
+
+      document.getElementById("contact-email").value =
+        localStorage.getItem("email") ||
+        localStorage.getItem("userEmail") ||
+        "";
+
+      document.getElementById("telepon").value =
+        localStorage.getItem("phone") ||
+        localStorage.getItem("telepon") ||
+        "";
+    });
+
+    async function kirimPesanKerjasama(event) {
+      event.preventDefault();
+
+      const nama = document.getElementById("nama").value;
+      const telepon = document.getElementById("telepon").value;
+      const email = document.getElementById("contact-email").value;
+      const pesan = document.getElementById("pesan").value;
+
+      try {
+        const response = await fetch("https://dimsum-production-216a.up.railway.app/api/contact", {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({
+            nama,
+            telepon,
+            email,
+            pesan,
+          }),
+        });
+
+        const result = await response.json();
+
+        if (result.success) {
+          alert("Pesan berhasil dikirim ke email admin!");
+          document.getElementById("contactForm").reset();
         } else {
-          chatBox.style.display = "block";
+          alert("Gagal mengirim pesan.");
         }
+      } catch (error) {
+        console.error(error);
+        alert("Terjadi kesalahan server.");
       }
-    </script>
-    <div id="productModal" class="product-modal">
-      <div class="product-modal-content">
-        <span class="close-modal" onclick="closeProductModal()">&times;</span>
+    }
+  </script>
+</body>
 
-        <div class="modal-left">
-          <img id="modalImage" src="" alt="" />
-          <h2 id="modalName"></h2>
-          <p id="modalPrice"></p>
-          <p id="modalDescription"></p>
-        </div>
-
-        <div class="modal-right">
-          <div>
-            <h3>Sesuaikan Makanan Anda</h3>
-
-            <label>Catatan:</label>
-            <textarea
-              id="modalNote"
-              placeholder="Tambah catatan pesanan..."
-            ></textarea>
-          </div>
-
-          <div>
-            <div class="modal-total" id="modalTotal">Rp 0</div>
-
-            <div class="modal-qty">
-              <button onclick="changeModalQty(-1)">-</button>
-              <span id="modalQty">1</span>
-              <button onclick="changeModalQty(1)">+</button>
-            </div>
-
-            <button class="modal-cart-btn" onclick="addModalToCart()">
-              Masukkan Keranjang
-            </button>
-          </div>
-        </div>
-      </div>
-    </div>
-    <audio id="bgMusic" loop>
-      <source src="musik/musik.mp3" type="audio/mpeg" />
-    </audio>
-
-    <script>
-      const music = document.getElementById("bgMusic");
-      const icon = document.getElementById("musicIcon");
-
-      document.addEventListener("DOMContentLoaded", () => {
-        const musicState = localStorage.getItem("musicPlaying");
-
-        if (musicState === "true") {
-          music.play().catch(() => {});
-          if (icon) icon.style.color = "#ff4d4d";
-        }
-      });
-
-      function toggleMusic() {
-        if (music.paused) {
-          music.play();
-          localStorage.setItem("musicPlaying", "true");
-          if (icon) icon.style.color = "#ff4d4d";
-        } else {
-          music.pause();
-          localStorage.setItem("musicPlaying", "false");
-          if (icon) icon.style.color = "black";
-        }
-      }
-    </script>
-
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        document.getElementById("nama").value =
-          localStorage.getItem("username") ||
-          localStorage.getItem("name") ||
-          "";
-
-        document.getElementById("contact-email").value =
-          localStorage.getItem("email") ||
-          localStorage.getItem("userEmail") ||
-          "";
-
-        document.getElementById("telepon").value =
-          localStorage.getItem("phone") ||
-          localStorage.getItem("telepon") ||
-          "";
-      });
-
-      async function kirimPesanKerjasama(event) {
-        event.preventDefault();
-
-        const nama = document.getElementById("nama").value;
-        const telepon = document.getElementById("telepon").value;
-        const email = document.getElementById("contact-email").value;
-        const pesan = document.getElementById("pesan").value;
-
-        try {
-          const response = await fetch("https://dimsum-production-216a.up.railway.app/api/contact", {
-            method: "POST",
-            headers: {
-              "Content-Type": "application/json",
-            },
-            body: JSON.stringify({
-              nama,
-              telepon,
-              email,
-              pesan,
-            }),
-          });
-
-          const result = await response.json();
-
-          if (result.success) {
-            alert("Pesan berhasil dikirim ke email admin!");
-            document.getElementById("contactForm").reset();
-          } else {
-            alert("Gagal mengirim pesan.");
-          }
-        } catch (error) {
-          console.error(error);
-          alert("Terjadi kesalahan server.");
-        }
-      }
-    </script>
-  </body>
 </html>

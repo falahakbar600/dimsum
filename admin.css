@@ -260,6 +260,7 @@ canvas {
 .file-upload label:hover {
   background: #ddd;
 }
+
 .edit-btn {
   width: 100%;
   padding: 10px;
@@ -275,6 +276,7 @@ canvas {
 .edit-btn:hover {
   background: #388e3c;
 }
+
 .modal {
   display: none;
   position: fixed;
@@ -831,7 +833,7 @@ canvas {
   background: white;
   padding: 30px;
   border-radius: 20px;
-  box-shadow: 0 10px 25px rgba(0,0,0,0.08);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
 }
 
 .order-table {
@@ -953,7 +955,7 @@ canvas {
   background: white;
   padding: 20px;
   border-radius: 18px;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.08);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
 }
 
 .stats-card h3 {

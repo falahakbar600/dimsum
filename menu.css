@@ -179,10 +179,13 @@ body {
   gap: 20px;
   align-items: center;
 }
+
 /* LOGIN & REGISTER */
 .auth-menu a {
-  text-decoration: none; /* ❌ hilangin garis bawah */
-  color: #444; /* 🔥 samain kayak menu */
+  text-decoration: none;
+  /* ❌ hilangin garis bawah */
+  color: #444;
+  /* 🔥 samain kayak menu */
   font-size: 14px;
   font-weight: 500;
   transition: 0.3s;
@@ -190,7 +193,8 @@ body {
 
 /* HOVER */
 .auth-menu a:hover {
-  color: #e53935; /* 🔥 merah kayak menu */
+  color: #e53935;
+  /* 🔥 merah kayak menu */
 }
 
 /* OPTIONAL: kasih active style */
@@ -289,6 +293,7 @@ body {
   position: relative;
   overflow: hidden;
 }
+
 .menu-container::before {
   content: "";
   position: absolute;
@@ -296,6 +301,7 @@ body {
   background: rgba(255, 255, 255, 0.88);
   z-index: 0;
 }
+
 .menu-item {
   position: relative;
   z-index: 2;
@@ -307,9 +313,11 @@ body {
   margin-bottom: 20px;
   user-select: none;
 }
+
 .menu-item:hover:not(.is-flipped) {
   transform: translateY(-8px);
 }
+
 .menu-item.is-flipped {
   transform: rotateY(180deg);
 }
@@ -455,8 +463,7 @@ body {
   content: "";
   width: 30px;
   height: 30px;
-  background: url("https://cdn-icons-png.flaticon.com/512/733/733585.png")
-    no-repeat center;
+  background: url("https://cdn-icons-png.flaticon.com/512/733/733585.png") no-repeat center;
   background-size: contain;
 }
 
@@ -467,19 +474,23 @@ body {
 
 /* ANIMASI */
 @keyframes waBounce {
+
   0%,
   100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-6px);
   }
 }
+
 @keyframes fadeUp {
   from {
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -606,6 +617,7 @@ body {
     transform: translateX(100%);
     opacity: 0;
   }
+
   to {
     transform: translateX(0);
     opacity: 1;
@@ -622,6 +634,7 @@ body {
 .mobile-only {
   display: none;
 }
+
 @media (max-width: 768px) {
   .mobile-only {
     display: flex;
@@ -761,8 +774,7 @@ body {
   content: "";
   width: 20px;
   height: 20px;
-  background: url("https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg")
-    no-repeat center;
+  background: url("https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg") no-repeat center;
   background-size: contain;
 }
 
@@ -778,6 +790,7 @@ body {
     opacity: 0;
     transform: scale(0.9);
   }
+
   to {
     opacity: 1;
     transform: scale(1);
@@ -936,6 +949,7 @@ body {
   background: rgba(229, 57, 53, 0.9);
   transform: scale(1.08) rotate(90deg);
 }
+
 /* LEFT SIDE */
 .modal-left {
   width: 48%;
@@ -1086,6 +1100,7 @@ body {
   position: relative;
   z-index: 999999;
 }
+
 .toast-success {
   border-left: 5px solid #25d366;
 }
@@ -1107,6 +1122,7 @@ body {
     opacity: 0;
     transform: translateX(100%);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -1138,6 +1154,7 @@ body {
   animation: waBounce 2s infinite;
   padding: 0;
 }
+
 .modern-chat-button span {
   display: none !important;
 }
@@ -1146,6 +1163,7 @@ body {
   font-size: 24px;
   color: white;
 }
+
 .modern-chat-button:hover {
   transform: scale(1.05);
 }
@@ -1153,6 +1171,7 @@ body {
 .modern-chat-button i {
   font-size: 24px;
 }
+
 /* CHAT BOX */
 .modern-chat-box {
   display: none;
@@ -1350,6 +1369,7 @@ body {
    MOBILE HAMBURGER FINAL
 ========================= */
 @media (max-width: 768px) {
+
   /* NAVBAR */
   .navbar {
     display: flex;
@@ -1363,6 +1383,7 @@ body {
     width: 100%;
     z-index: 9999;
   }
+
   body {
     padding-top: 70px;
   }

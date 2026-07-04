@@ -260,6 +260,7 @@ body {
 .lang-menu div:hover {
   background: #f5f5f5;
 }
+
 /* --- HERO SECTION --- */
 .contact-hero {
   height: 300px;
@@ -296,7 +297,8 @@ body {
 .decoration {
   width: 60px;
   height: 4px;
-  background-color: #ff5b57; /* Ubah ke merah */
+  background-color: #ff5b57;
+  /* Ubah ke merah */
   margin-top: 5px;
 }
 
@@ -439,7 +441,8 @@ body {
   font-weight: bold;
   margin-bottom: 30px;
   display: block;
-  color: white; /* Ubah ke merah */
+  color: white;
+  /* Ubah ke merah */
 }
 
 .btn-wa-large {
@@ -498,8 +501,7 @@ body {
   content: "";
   width: 30px;
   height: 30px;
-  background: url("https://cdn-icons-png.flaticon.com/512/733/733585.png")
-    no-repeat center;
+  background: url("https://cdn-icons-png.flaticon.com/512/733/733585.png") no-repeat center;
   background-size: contain;
 }
 
@@ -510,10 +512,12 @@ body {
 
 /* ANIMASI */
 @keyframes waBounce {
+
   0%,
   100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-6px);
   }
@@ -574,6 +578,7 @@ body {
     opacity: 0;
     transform: translateY(10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -710,8 +715,7 @@ body {
   content: "";
   width: 20px;
   height: 20px;
-  background: url("https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg")
-    no-repeat center;
+  background: url("https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg") no-repeat center;
   background-size: contain;
 }
 
@@ -748,6 +752,7 @@ body {
   .hero {
     height: 300px;
   }
+
   .hero h1 {
     font-size: 24px;
   }
@@ -756,6 +761,7 @@ body {
     flex-direction: column;
     text-align: center;
   }
+
   .nomor-telp {
     font-size: 28px;
   }
@@ -1020,6 +1026,7 @@ body {
     opacity: 0;
     transform: translateX(100%);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -1180,6 +1187,7 @@ body {
     display: none;
   }
 }
+
 /* =========================
    MUSIC ICON NAVBAR
 ========================= */
@@ -1252,7 +1260,7 @@ body {
 .mobile-overlay {
   position: fixed;
   inset: 0;
-  background: rgba(0,0,0,0.45);
+  background: rgba(0, 0, 0, 0.45);
   opacity: 0;
   visibility: hidden;
   transition: 0.3s;
@@ -1268,6 +1276,7 @@ body {
    MOBILE HAMBURGER FINAL
 ========================= */
 @media (max-width: 768px) {
+
   /* NAVBAR */
   .navbar {
     display: flex;
@@ -1281,6 +1290,7 @@ body {
     width: 100%;
     z-index: 9999;
   }
+
   body {
     padding-top: 70px;
   }
@@ -1417,6 +1427,7 @@ body {
   .auth-menu a:last-child {
     background: #333;
   }
+
   /* HERO */
   .hero {
     height: 300px;
@@ -1438,7 +1449,7 @@ body {
   }
 }
 
-  @media (max-width: 768px) {
+@media (max-width: 768px) {
   .sejarah-container {
     flex-direction: column;
     gap: 18px;

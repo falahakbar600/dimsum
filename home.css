@@ -279,6 +279,7 @@ body {
   z-index: 2;
   position: relative;
 }
+
 .menu-subtitle {
   color: #666;
   font-size: 14px;
@@ -328,6 +329,7 @@ body {
   background: linear-gradient(to bottom, #4b0000, #b20000);
   color: white;
 }
+
 .menu-back {
   background: #fff;
   color: #3b1d1d;
@@ -351,6 +353,7 @@ body {
   object-fit: cover;
   transition: 0.3s;
 }
+
 .menu-item:hover .menu-front img {
   transform: scale(1.1);
 }
@@ -460,12 +463,14 @@ body {
   z-index: 2;
   color: white;
 }
+
 .nomor-telp {
   font-size: 42px;
   font-weight: bold;
   margin: 20px 0;
   display: block;
 }
+
 .copyright-text {
   font-size: 12px;
   color: rgba(255, 255, 255, 0.6);
@@ -485,7 +490,8 @@ body {
 }
 
 .btn-selengkapnya:hover {
-  background-color: #e00000; /* Warna saat kursor di atas tombol */
+  background-color: #e00000;
+  /* Warna saat kursor di atas tombol */
   transform: translateY(-3px);
   box-shadow: 0 6px 20px rgba(255, 91, 87, 0.4);
 }
@@ -524,8 +530,7 @@ body {
   content: "";
   width: 30px;
   height: 30px;
-  background: url("https://cdn-icons-png.flaticon.com/512/733/733585.png")
-    no-repeat center;
+  background: url("https://cdn-icons-png.flaticon.com/512/733/733585.png") no-repeat center;
   background-size: contain;
 }
 
@@ -556,20 +561,24 @@ body {
   justify-content: space-between;
   font-weight: bold;
 }
+
 .wa-chat-body {
   padding: 15px;
   background: #f0f0f0;
 }
+
 .wa-bubble {
   background: white;
   padding: 10px;
   border-radius: 10px;
   font-size: 13px;
 }
+
 .wa-chat-footer {
   padding: 15px;
   text-align: center;
 }
+
 .wa-btn-send {
   background: #25d366;
   color: white;
@@ -671,6 +680,7 @@ body {
 .divider-home::after {
   right: 0;
 }
+
 .close-btn {
   position: absolute;
   top: 14px;
@@ -723,8 +733,7 @@ body {
   content: "";
   width: 20px;
   height: 20px;
-  background: url("https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg")
-    no-repeat center;
+  background: url("https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg") no-repeat center;
   background-size: contain;
 }
 
@@ -733,31 +742,38 @@ body {
   box-shadow: 0 6px 15px rgba(0, 0, 0, 0.08);
   transform: translateY(-2px);
 }
+
 /* --- ANIMATIONS --- */
 @keyframes waBounce {
+
   0%,
   100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-10px);
   }
 }
+
 @keyframes fadeUp {
   from {
     opacity: 0;
     transform: translateY(20px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
   }
 }
+
 @keyframes fadeIn {
   from {
     opacity: 0;
     transform: scale(0.9);
   }
+
   to {
     opacity: 1;
     transform: scale(1);
@@ -775,6 +791,7 @@ body {
   .hero {
     height: 300px;
   }
+
   .hero h1 {
     font-size: 24px;
   }
@@ -783,6 +800,7 @@ body {
     flex-direction: column;
     text-align: center;
   }
+
   .nomor-telp {
     font-size: 28px;
   }
@@ -863,6 +881,7 @@ body {
   display: flex;
   flex-direction: column;
 }
+
 /* ================= PRODUCT MODAL WEB VERSION ================= */
 .product-modal {
   display: none;
@@ -1050,6 +1069,7 @@ body {
     opacity: 0;
     transform: translateX(100%);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -1299,6 +1319,7 @@ body {
    MOBILE HAMBURGER FINAL
 ========================= */
 @media (max-width: 768px) {
+
   /* NAVBAR */
   .navbar {
     display: flex;
@@ -1312,6 +1333,7 @@ body {
     width: 100%;
     z-index: 9999;
   }
+
   body {
     padding-top: 70px;
   }
@@ -1448,6 +1470,7 @@ body {
   .auth-menu a:last-child {
     background: #333;
   }
+
   /* HERO */
   .hero {
     height: 300px;

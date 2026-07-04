@@ -6,7 +6,7 @@ const db = mysql.createConnection({
   user: process.env.DB_USER || "root",
   password: process.env.DB_PASSWORD || "",
   database: process.env.DB_NAME || "dimsum_db",
-  port: process.env.DB_PORT ? parseInt(process.env.DB_PORT) : 3307 
+  port: process.env.DB_PORT ? parseInt(process.env.DB_PORT) : 3307
 });
 
 // Menjalankan proses koneksi

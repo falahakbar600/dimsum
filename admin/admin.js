@@ -175,15 +175,14 @@ async function renderOrders() {
           <td>${order.metode_pembayaran}</td>
 
 <td>
-  ${
-    order.bukti_bayar
-      ? `<a href="https://dimsum-production-216a.up.railway.app/upload/${order.bukti_bayar}"
+  ${order.bukti_bayar
+          ? `<a href="https://dimsum-production-216a.up.railway.app/upload/${order.bukti_bayar}"
             target="_blank"
             class="btn-bukti">
             Lihat Bukti
          </a>`
-      : "-"
-  }
+          : "-"
+        }
 </td>
 
           <td>
@@ -401,14 +400,13 @@ async function loadChatCustomers() {
     <div class="customer-info">
       <strong>${cust.nama}</strong>
       <small>
-        ${
-          cust.last_time
-            ? new Date(cust.last_time).toLocaleTimeString("id-ID", {
-                hour: "2-digit",
-                minute: "2-digit",
-              })
-            : ""
-        }
+        ${cust.last_time
+        ? new Date(cust.last_time).toLocaleTimeString("id-ID", {
+          hour: "2-digit",
+          minute: "2-digit",
+        })
+        : ""
+      }
       </small>
     </div>
 
@@ -553,8 +551,8 @@ function updateReviewStats(reviews) {
   const avg =
     reviews.length > 0
       ? (
-          reviews.reduce((sum, r) => sum + Number(r.rating), 0) / reviews.length
-        ).toFixed(1)
+        reviews.reduce((sum, r) => sum + Number(r.rating), 0) / reviews.length
+      ).toFixed(1)
       : "0.0";
 
   document.getElementById("highlightReview").innerText = highlightCount;
@@ -605,13 +603,12 @@ function renderAdminReviews(reviews) {
         <td>${new Date(review.created_at).toLocaleDateString("id-ID")}</td>
 
 <td>
-  ${
-    review.spam == 1
-      ? '<span class="status-spam">Spam</span>'
-      : review.highlight == 1
-        ? '<span class="status-highlight">Highlight</span>'
-        : '<span class="status-normal">Normal</span>'
-  }
+  ${review.spam == 1
+        ? '<span class="status-spam">Spam</span>'
+        : review.highlight == 1
+          ? '<span class="status-highlight">Highlight</span>'
+          : '<span class="status-normal">Normal</span>'
+      }
 </td>
 
 <td>
@@ -652,9 +649,9 @@ async function loadDashboardReviewStats() {
     const avg =
       reviews.length > 0
         ? (
-            reviews.reduce((sum, r) => sum + Number(r.rating), 0) /
-            reviews.length
-          ).toFixed(1)
+          reviews.reduce((sum, r) => sum + Number(r.rating), 0) /
+          reviews.length
+        ).toFixed(1)
         : "0.0";
 
     document.getElementById("dashboardAvgReview").innerText = avg;

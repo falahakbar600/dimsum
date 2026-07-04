@@ -1,173 +1,168 @@
 <!doctype html>
 <html lang="id">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Admin Reviews - Dapur Anak GEN Z</title>
 
-    <link rel="stylesheet" href="reviews.css" />
-    <link rel="icon" href="../gambar/logo.png" />
-  </head>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Reviews - Dapur Anak GEN Z</title>
 
-  <body>
-    <!-- 🔐 LOGIN CHECK -->
-    <script>
-      const isLogin = localStorage.getItem("isLogin");
-      const role = localStorage.getItem("role");
+  <link rel="stylesheet" href="reviews.css" />
+  <link rel="icon" href="../gambar/logo.png" />
+</head>
 
-      if (isLogin !== "true" || role !== "admin") {
-        window.location.href = "../index.html";
-      }
-    </script>
+<body>
+  <!-- 🔐 LOGIN CHECK -->
+  <script>
+    const isLogin = localStorage.getItem("isLogin");
+    const role = localStorage.getItem("role");
 
-    <!-- 🍔 HAMBURGER -->
-    <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+    if (isLogin !== "true" || role !== "admin") {
+      window.location.href = "../index.html";
+    }
+  </script>
 
-    <!-- SIDEBAR -->
-    <aside class="sidebar" id="sidebar">
-      <div class="sidebar-logo">
-        <h2>Dapur Gen Z</h2>
+  <!-- 🍔 HAMBURGER -->
+  <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <div class="sidebar-logo">
+      <h2>Dapur Gen Z</h2>
+    </div>
+
+    <a href="dashboard.html">Dashboard</a>
+    <a href="products.html">Products</a>
+    <a href="orders.html">Orders</a>
+    <a href="livechat.html">Live Chat</a>
+    <a href="reviews.html" class="active">Reviews</a>
+    <a href="#" onclick="logout()">Logout</a>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+    <!-- TOPBAR -->
+    <div class="topbar">
+      <div>
+        <h1>Kelola Review Customer</h1>
+        <p class="topbar-subtitle">
+          Pantau, filter, dan kelola ulasan customer secara profesional
+        </p>
       </div>
 
-      <a href="dashboard.html">Dashboard</a>
-      <a href="products.html">Products</a>
-      <a href="orders.html">Orders</a>
-      <a href="livechat.html">Live Chat</a>
-      <a href="reviews.html" class="active">Reviews</a>
-      <a href="#" onclick="logout()">Logout</a>
-    </aside>
-
-    <!-- MAIN -->
-    <main class="main">
-      <!-- TOPBAR -->
-      <div class="topbar">
+      <div class="topbar-info-card">
+        <div class="icon-box">⭐</div>
         <div>
-          <h1>Kelola Review Customer</h1>
-          <p class="topbar-subtitle">
-            Pantau, filter, dan kelola ulasan customer secara profesional
-          </p>
-        </div>
-
-        <div class="topbar-info-card">
-          <div class="icon-box">⭐</div>
-          <div>
-            <h4>Review Management</h4>
-            <p>Analisis feedback customer & tingkatkan kualitas layanan</p>
-          </div>
+          <h4>Review Management</h4>
+          <p>Analisis feedback customer & tingkatkan kualitas layanan</p>
         </div>
       </div>
+    </div>
 
-      <!-- STATS -->
-      <section class="stats-grid">
-        <div class="stats-card blue">
-          <h3 id="totalReview">0</h3>
-          <p>Total Review</p>
-        </div>
+    <!-- STATS -->
+    <section class="stats-grid">
+      <div class="stats-card blue">
+        <h3 id="totalReview">0</h3>
+        <p>Total Review</p>
+      </div>
 
-        <div class="stats-card gold">
-          <h3 id="highlightReview">0</h3>
-          <p>Highlight Review</p>
-        </div>
+      <div class="stats-card gold">
+        <h3 id="highlightReview">0</h3>
+        <p>Highlight Review</p>
+      </div>
 
-        <div class="stats-card red">
-          <h3 id="spamReview">0</h3>
-          <p>Spam Review</p>
-        </div>
+      <div class="stats-card red">
+        <h3 id="spamReview">0</h3>
+        <p>Spam Review</p>
+      </div>
 
-        <div class="stats-card purple">
-          <h3 id="avgReview">0.0</h3>
-          <p>Rata-rata Rating</p>
-        </div>
-      </section>
+      <div class="stats-card purple">
+        <h3 id="avgReview">0.0</h3>
+        <p>Rata-rata Rating</p>
+      </div>
+    </section>
 
-      <!-- FILTER -->
-      <section class="review-filter-bar card">
-        <input
-          type="text"
-          id="reviewSearch"
-          placeholder="Cari nama customer atau review..."
-          oninput="filterReviewsAdmin()"
-        />
+    <!-- FILTER -->
+    <section class="review-filter-bar card">
+      <input type="text" id="reviewSearch" placeholder="Cari nama customer atau review..."
+        oninput="filterReviewsAdmin()" />
 
-        <select id="reviewFilter" onchange="filterReviewsAdmin()">
-          <option value="all">Semua</option>
-          <option value="5">5⭐</option>
-          <option value="4">4⭐</option>
-          <option value="3">3⭐</option>
-          <option value="2">2⭐</option>
-          <option value="1">1⭐</option>
-          <option value="highlight">Highlight</option>
-          <option value="spam">Spam</option>
-        </select>
+      <select id="reviewFilter" onchange="filterReviewsAdmin()">
+        <option value="all">Semua</option>
+        <option value="5">5⭐</option>
+        <option value="4">4⭐</option>
+        <option value="3">3⭐</option>
+        <option value="2">2⭐</option>
+        <option value="1">1⭐</option>
+        <option value="highlight">Highlight</option>
+        <option value="spam">Spam</option>
+      </select>
 
-        <!-- EXPORT -->
-        <div class="export-buttons">
-          <button
-            onclick="
+      <!-- EXPORT -->
+      <div class="export-buttons">
+        <button onclick="
               window.open('https://dimsum-production-216a.up.railway.app/api/admin/reviews/export/pdf')
-            "
-            class="export-pdf-btn"
-          >
-            📄 Export PDF
-          </button>
+            " class="export-pdf-btn">
+          📄 Export PDF
+        </button>
 
-          <button onclick="exportReviewExcel()" class="export-excel-btn">
-            📊 Export Excel
-          </button>
-        </div>
-      </section>
+        <button onclick="exportReviewExcel()" class="export-excel-btn">
+          📊 Export Excel
+        </button>
+      </div>
+    </section>
 
-      <!-- TABLE -->
-      <section class="review-table-wrapper card">
-        <table class="order-table">
-          <thead>
-            <tr>
-              <th>Nama</th>
-              <th>Rating</th>
-              <th>Review</th>
-              <th>Tanggal</th>
-              <th>Status</th>
-              <th>Aksi</th>
-            </tr>
-          </thead>
+    <!-- TABLE -->
+    <section class="review-table-wrapper card">
+      <table class="order-table">
+        <thead>
+          <tr>
+            <th>Nama</th>
+            <th>Rating</th>
+            <th>Review</th>
+            <th>Tanggal</th>
+            <th>Status</th>
+            <th>Aksi</th>
+          </tr>
+        </thead>
 
-          <tbody id="reviewTable"></tbody>
-        </table>
-      </section>
-    </main>
+        <tbody id="reviewTable"></tbody>
+      </table>
+    </section>
+  </main>
 
-    <!-- SCRIPT -->
-    <script src="admin.js"></script>
+  <!-- SCRIPT -->
+  <script src="admin.js"></script>
 
-    <script>
-      // =========================
-      // 🔐 LOGOUT
-      // =========================
-      function logout() {
-        localStorage.removeItem("isLogin");
-        localStorage.removeItem("role");
-        localStorage.removeItem("nama");
+  <script>
+    // =========================
+    // 🔐 LOGOUT
+    // =========================
+    function logout() {
+      localStorage.removeItem("isLogin");
+      localStorage.removeItem("role");
+      localStorage.removeItem("nama");
 
-        window.location.href = "../index.html";
+      window.location.href = "../index.html";
+    }
+
+    // =========================
+    // 🍔 SIDEBAR MOBILE
+    // =========================
+    function toggleSidebar() {
+      const sidebar = document.getElementById("sidebar");
+
+      if (sidebar) {
+        sidebar.classList.toggle("show");
       }
+    }
 
-      // =========================
-      // 🍔 SIDEBAR MOBILE
-      // =========================
-      function toggleSidebar() {
-        const sidebar = document.getElementById("sidebar");
+    // =========================
+    // LOAD REVIEWS
+    // =========================
+    document.addEventListener("DOMContentLoaded", () => {
+      loadAdminReviews();
+    });
+  </script>
+</body>
 
-        if (sidebar) {
-          sidebar.classList.toggle("show");
-        }
-      }
-
-      // =========================
-      // LOAD REVIEWS
-      // =========================
-      document.addEventListener("DOMContentLoaded", () => {
-        loadAdminReviews();
-      });
-    </script>
-  </body>
 </html>

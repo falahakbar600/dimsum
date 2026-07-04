@@ -91,7 +91,7 @@ db.connect((err) => {
     console.error("Koneksi MySQL gagal ❌:", err);
   } else {
     console.log("MySQL Connected ✅ (Database: dimsum_db)");
-    
+
     // Jalankan auto migration tabel database
     const sqlPath = path.join(__dirname, "database.sql");
     if (fs.existsSync(sqlPath)) {
@@ -1149,9 +1149,9 @@ app.get("/api/admin/reviews/export/pdf", async (req, res) => {
         const avgRating =
           totalReview > 0
             ? (
-                reviews.reduce((sum, r) => sum + Number(r.rating), 0) /
-                totalReview
-              ).toFixed(1)
+              reviews.reduce((sum, r) => sum + Number(r.rating), 0) /
+              totalReview
+            ).toFixed(1)
             : "0.0";
 
         const positive = reviews.filter((r) => Number(r.rating) >= 4).length;
@@ -1335,9 +1335,9 @@ app.get("/api/admin/reviews/export/excel", async (req, res) => {
         const avgRating =
           totalReview > 0
             ? (
-                reviews.reduce((sum, r) => sum + Number(r.rating), 0) /
-                totalReview
-              ).toFixed(1)
+              reviews.reduce((sum, r) => sum + Number(r.rating), 0) /
+              totalReview
+            ).toFixed(1)
             : 0;
 
         const positive = reviews.filter((r) => r.rating >= 4).length;

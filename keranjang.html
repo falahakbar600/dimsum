@@ -1,523 +1,458 @@
 <!doctype html>
 <html lang="id">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Keranjang - Dapur Anak GEN Z</title>
 
-    <link rel="stylesheet" href="keranjang.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-    />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Keranjang - Dapur Anak GEN Z</title>
 
-    <link
-      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Montserrat:wght@600;700&display=swap"
-      rel="stylesheet"
-    />
-  </head>
+  <link rel="stylesheet" href="keranjang.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
 
-  <body>
-    <div class="navbar">
-      <div class="logo-area">
-        <img src="gambar/logo.png" />
-        <div class="logo-text">
-          <span>DAPUR</span>
-          <span>ANAK GEN Z</span>
+  <link
+    href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&family=Montserrat:wght@600;700&display=swap"
+    rel="stylesheet" />
+</head>
+
+<body>
+  <div class="navbar">
+    <div class="logo-area">
+      <img src="gambar/logo.png" />
+      <div class="logo-text">
+        <span>DAPUR</span>
+        <span>ANAK GEN Z</span>
+      </div>
+    </div>
+
+    <!-- HAMBURGER -->
+    <div class="hamburger" id="hamburger">
+      <i class="fa-solid fa-bars"></i>
+    </div>
+
+    <div class="nav-right-wrapper">
+      <div class="nav-top">
+        <div class="search-box">
+          <input type="text" id="searchInput" placeholder="Cari Produk..." autocomplete="off" />
+
+          <button>
+            <i class="fa fa-search"></i>
+          </button>
+
+          <div id="searchResults" class="search-results"></div>
+        </div>
+
+        <div class="nav-icons">
+          <div class="order-history">
+            <a href="riwayat.html" title="Riwayat Pesanan">
+              <img
+                src="data:image/svg+xml,%3csvg%20width='20'%20height='18'%20viewBox='0%200%2020%2018'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M4.854%206.54175H15.1457'%20stroke='%23231F20'%20stroke-width='1.5'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3cpath%20d='M4.854%209.70825H15.1457'%20stroke='%23231F20'%20stroke-width='1.5'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3cpath%20d='M1%2017V1.8C1%201.58783%201.07902%201.38434%201.21967%201.23431C1.36032%201.08429%201.55109%201%201.75%201H18.25C18.4489%201%2018.6397%201.08429%2018.7803%201.23431C18.921%201.38434%2019%201.58783%2019%201.8V17L16%2015.4L13%2017L10%2015.4L7%2017L4%2015.4L1%2017Z'%20stroke='%23231F20'%20stroke-width='1.5'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3c/svg%3e"
+                alt="Riwayat Pesanan" class="history-nav-icon" />
+            </a>
+          </div>
+
+          <div class="music-control">
+            <i class="fa-solid fa-music" onclick="toggleMusic()" id="musicIcon"></i>
+          </div>
+          <div class="cart-wrapper">
+            <a href="keranjang.html" class="cart-icon">
+              <i class="fa-solid fa-cart-shopping"></i>
+            </a>
+            <span id="cart-count" class="cart-badge-home">0</span>
+          </div>
         </div>
       </div>
 
-      <!-- HAMBURGER -->
-      <div class="hamburger" id="hamburger">
-        <i class="fa-solid fa-bars"></i>
-      </div>
-
-      <div class="nav-right-wrapper">
-        <div class="nav-top">
-          <div class="search-box">
-            <input
-              type="text"
-              id="searchInput"
-              placeholder="Cari Produk..."
-              autocomplete="off"
-            />
-
-            <button>
-              <i class="fa fa-search"></i>
-            </button>
-
-            <div id="searchResults" class="search-results"></div>
-          </div>
-
-          <div class="nav-icons">
-            <div class="order-history">
-              <a href="riwayat.html" title="Riwayat Pesanan">
-                <img
-                  src="data:image/svg+xml,%3csvg%20width='20'%20height='18'%20viewBox='0%200%2020%2018'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M4.854%206.54175H15.1457'%20stroke='%23231F20'%20stroke-width='1.5'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3cpath%20d='M4.854%209.70825H15.1457'%20stroke='%23231F20'%20stroke-width='1.5'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3cpath%20d='M1%2017V1.8C1%201.58783%201.07902%201.38434%201.21967%201.23431C1.36032%201.08429%201.55109%201%201.75%201H18.25C18.4489%201%2018.6397%201.08429%2018.7803%201.23431C18.921%201.38434%2019%201.58783%2019%201.8V17L16%2015.4L13%2017L10%2015.4L7%2017L4%2015.4L1%2017Z'%20stroke='%23231F20'%20stroke-width='1.5'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3c/svg%3e"
-                  alt="Riwayat Pesanan"
-                  class="history-nav-icon"
-                />
-              </a>
-            </div>
-
-            <div class="music-control">
-              <i
-                class="fa-solid fa-music"
-                onclick="toggleMusic()"
-                id="musicIcon"
-              ></i>
-            </div>
-            <div class="cart-wrapper">
-              <a href="keranjang.html" class="cart-icon">
-                <i class="fa-solid fa-cart-shopping"></i>
-              </a>
-              <span id="cart-count" class="cart-badge-home">0</span>
-            </div>
-          </div>
+      <div class="nav-bottom">
+        <div class="menu">
+          <a href="index.html" data-lang="Beranda">Beranda</a>
+          <a href="menu.html" data-lang="Menu">Menu</a>
+          <a href="about.html" data-lang="Tentang Kami">Tentang Kami</a>
+          <a href="prospek.html" data-lang="Prospek Bisnis">Prospek Bisnis</a>
+          <a href="contact.html" data-lang="Kontak">Kontak</a>
         </div>
 
-        <div class="nav-bottom">
-          <div class="menu">
-            <a href="index.html" data-lang="Beranda">Beranda</a>
-            <a href="menu.html" data-lang="Menu">Menu</a>
-            <a href="about.html" data-lang="Tentang Kami">Tentang Kami</a>
-            <a href="prospek.html" data-lang="Prospek Bisnis">Prospek Bisnis</a>
-            <a href="contact.html" data-lang="Kontak">Kontak</a>
-          </div>
-
-          <div class="auth-menu">
-            <a
-              href="#"
-              onclick="
+        <div class="auth-menu">
+          <a href="#" onclick="
                 openLogin();
                 return false;
-              "
-              >Login</a
-            >
-            <a href="register.html">Register</a>
-          </div>
+              ">Login</a>
+          <a href="register.html">Register</a>
         </div>
       </div>
     </div>
+  </div>
 
-    <div id="loginModal" class="modal">
-      <div class="modal-content">
-        <span class="close-btn" onclick="closeLogin()">×</span>
+  <div id="loginModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeLogin()">×</span>
 
-        <h2>Masuk</h2>
+      <h2>Masuk</h2>
 
-        <input type="text" id="email" placeholder="Username / Email" />
-        <input type="password" id="password" placeholder="Password" />
+      <input type="text" id="email" placeholder="Username / Email" />
+      <input type="password" id="password" placeholder="Password" />
 
-        <button type="button" class="btn-login" onclick="login()">Login</button>
+      <button type="button" class="btn-login" onclick="login()">Login</button>
 
-        <a href="lupa-password.html" class="forgot">Lupa kata sandi?</a>
+      <a href="lupa-password.html" class="forgot">Lupa kata sandi?</a>
 
-        <div class="divider-home">atau masuk dengan</div>
+      <div class="divider-home">atau masuk dengan</div>
 
-        <button type="button" class="google-btn" onclick="loginGoogle()">
-          Login dengan Google
-        </button>
+      <button type="button" class="google-btn" onclick="loginGoogle()">
+        Login dengan Google
+      </button>
 
-        <!-- 🔥 TAMBAHAN DAFTAR -->
-        <p class="register-text">
-          Belum punya akun? <a href="register.html">Daftar</a>
-        </p>
-      </div>
+      <!-- 🔥 TAMBAHAN DAFTAR -->
+      <p class="register-text">
+        Belum punya akun? <a href="register.html">Daftar</a>
+      </p>
+    </div>
+  </div>
+
+  <div class="cart-container">
+    <div class="cart-header">
+      <h2 class="cart-title">Data Pemesanan</h2>
     </div>
 
-    <div class="cart-container">
-      <div class="cart-header">
-        <h2 class="cart-title">Data Pemesanan</h2>
+    <div class="cart-body">
+      <div class="cart-helper">
+        <h3>Daftar Pesanan</h3>
+        <a href="menu.html" class="btn-add-more">+ Tambah Menu</a>
       </div>
 
-      <div class="cart-body">
-        <div class="cart-helper">
-          <h3>Daftar Pesanan</h3>
-          <a href="menu.html" class="btn-add-more">+ Tambah Menu</a>
+      <div id="cart-items-list"></div>
+
+      <hr class="divider" />
+
+      <div class="order-form">
+        <h3>Informasi Pengiriman</h3>
+
+        <div class="form-group">
+          <label for="customer-name">Nama Lengkap</label>
+          <input type="text" id="customer-name" placeholder="Masukkan nama penerima" required />
         </div>
 
-        <div id="cart-items-list"></div>
+        <div class="form-group">
+          <label for="customer-phone">Nomor Telepon (WhatsApp)</label>
+          <input type="tel" id="customer-phone" placeholder="Nomor WhatsApp aktif" required />
+        </div>
 
-        <hr class="divider" />
+        <div class="form-group">
+          <label for="customer-address">Alamat Lengkap</label>
+          <textarea id="customer-address" placeholder="Alamat lengkap pengiriman" rows="3" required></textarea>
+        </div>
 
-        <div class="order-form">
-          <h3>Informasi Pengiriman</h3>
+        <div class="form-group">
+          <label for="customer-note">Catatan (Opsional)</label>
+          <input type="text" id="customer-note" placeholder="Catatan tambahan (opsional)" />
+        </div>
 
-          <div class="form-group">
-            <label for="customer-name">Nama Lengkap</label>
-            <input
-              type="text"
-              id="customer-name"
-              placeholder="Masukkan nama penerima"
-              required
-            />
-          </div>
+        <div class="form-group">
+          <label for="delivery-area">Area Pengiriman</label>
+          <select id="delivery-area" onchange="updateTotalHarga()">
+            <option value="5000">BSD / Serpong - Rp 5.000</option>
+            <option value="10000">Tangerang Selatan - Rp 10.000</option>
+            <option value="15000">Luar Tangerang Selatan - Rp 15.000</option>
+          </select>
+        </div>
 
-          <div class="form-group">
-            <label for="customer-phone">Nomor Telepon (WhatsApp)</label>
-            <input
-              type="tel"
-              id="customer-phone"
-              placeholder="Nomor WhatsApp aktif"
-              required
-            />
-          </div>
+        <div class="payment-method-section">
+          <h3 class="payment-title">Metode Pembayaran</h3>
 
-          <div class="form-group">
-            <label for="customer-address">Alamat Lengkap</label>
-            <textarea
-              id="customer-address"
-              placeholder="Alamat lengkap pengiriman"
-              rows="3"
-              required
-            ></textarea>
-          </div>
+          <label class="pay-label">
+            <input type="radio" name="payment-option" value="COD" checked />
+            <div class="pay-card">
+              <div class="radio-ui"></div>
+              <span class="pay-text">Cash on Delivery (COD)</span>
+            </div>
+          </label>
 
-          <div class="form-group">
-            <label for="customer-note">Catatan (Opsional)</label>
-            <input
-              type="text"
-              id="customer-note"
-              placeholder="Catatan tambahan (opsional)"
-            />
-          </div>
+          <label class="pay-label">
+            <input type="radio" name="payment-option" value="QRIS" />
+            <div class="pay-card">
+              <div class="radio-ui"></div>
+              <span class="pay-text">
+                QRIS <span class="badge-blue">Otomatis</span>
+              </span>
+            </div>
+          </label>
 
-          <div class="form-group">
-            <label for="delivery-area">Area Pengiriman</label>
-            <select id="delivery-area" onchange="updateTotalHarga()">
-              <option value="5000">BSD / Serpong - Rp 5.000</option>
-              <option value="10000">Tangerang Selatan - Rp 10.000</option>
-              <option value="15000">Luar Tangerang Selatan - Rp 15.000</option>
-            </select>
-          </div>
+          <div id="qris-display" class="qris-box">
+            <h3 class="qris-title">Pembayaran QRIS</h3>
 
-          <div class="payment-method-section">
-            <h3 class="payment-title">Metode Pembayaran</h3>
+            <p class="qris-instruction">
+              Scan QR berikut untuk menyelesaikan pembayaran
+            </p>
 
-            <label class="pay-label">
-              <input type="radio" name="payment-option" value="COD" checked />
-              <div class="pay-card">
-                <div class="radio-ui"></div>
-                <span class="pay-text">Cash on Delivery (COD)</span>
-              </div>
-            </label>
-
-            <label class="pay-label">
-              <input type="radio" name="payment-option" value="QRIS" />
-              <div class="pay-card">
-                <div class="radio-ui"></div>
-                <span class="pay-text">
-                  QRIS <span class="badge-blue">Otomatis</span>
-                </span>
-              </div>
-            </label>
-
-            <div id="qris-display" class="qris-box">
-              <h3 class="qris-title">Pembayaran QRIS</h3>
-
-              <p class="qris-instruction">
-                Scan QR berikut untuk menyelesaikan pembayaran
-              </p>
-
-              <img
-                src="gambar/qris.jpeg"
-                alt="QRIS"
-                class="qris-image"
-                onerror="
+            <img src="gambar/qris.jpeg" alt="QRIS" class="qris-image" onerror="
                   this.src =
                     'https://api.qrserver.com/v1/create-qr-code/?size=220x220&data=DapurAnakGenZ'
-                "
-              />
+                " />
 
-              <div class="payment-summary-box">
-                <p>
-                  <strong>Total Pembayaran:</strong>
-                  <span id="total-bayar">Rp 0</span>
-                </p>
+            <div class="payment-summary-box">
+              <p>
+                <strong>Total Pembayaran:</strong>
+                <span id="total-bayar">Rp 0</span>
+              </p>
 
-                <p>
-                  <strong>Status:</strong>
-                  Menunggu Pembayaran
-                </p>
-              </div>
+              <p>
+                <strong>Status:</strong>
+                Menunggu Pembayaran
+              </p>
+            </div>
 
-              <div
-                class="upload-payment-section"
-                id="upload-payment-section"
-                style="display: none"
-              >
-                <label class="upload-label"> Upload Bukti Pembayaran </label>
+            <div class="upload-payment-section" id="upload-payment-section" style="display: none">
+              <label class="upload-label"> Upload Bukti Pembayaran </label>
 
-                <input type="file" id="payment-proof" accept="image/*" />
+              <input type="file" id="payment-proof" accept="image/*" />
 
-                <button
-                  type="button"
-                  class="confirm-payment-btn"
-                  onclick="konfirmasiPembayaranQRIS()"
-                >
-                  Konfirmasi Pembayaran
-                </button>
+              <button type="button" class="confirm-payment-btn" onclick="konfirmasiPembayaranQRIS()">
+                Konfirmasi Pembayaran
+              </button>
 
-                <p id="payment-status-message"></p>
-              </div>
+              <p id="payment-status-message"></p>
             </div>
           </div>
         </div>
       </div>
+    </div>
 
-      <div class="cart-footer">
-        <div class="total-row">
-          <span>Subtotal:</span>
-          <span id="subtotal-price">Rp 0</span>
+    <div class="cart-footer">
+      <div class="total-row">
+        <span>Subtotal:</span>
+        <span id="subtotal-price">Rp 0</span>
+      </div>
+
+      <div class="total-row">
+        <span>Ongkir:</span>
+        <span id="shipping-price">Rp 5.000</span>
+      </div>
+
+      <div class="total-row total-final">
+        <span>Total Pembayaran:</span>
+        <span id="cart-total-price">Rp 0</span>
+      </div>
+
+      <button class="checkout-btn" onclick="checkoutWhatsApp()">
+        Pesan via WhatsApp Sekarang
+      </button>
+    </div>
+  </div>
+
+  <div class="whatsapp-wrapper">
+    <div class="wa-chat-box" id="waChatBox">
+      <div class="wa-chat-header">
+        <strong>Dimsum Anak Gen Z</strong>
+        <span class="close-chat" onclick="toggleChat()" style="cursor: pointer">×</span>
+      </div>
+
+      <div class="wa-chat-body">
+        <div class="wa-bubble">
+          Halo! Lagi mau pesan atau cari info dulu? 😊
         </div>
+      </div>
 
-        <div class="total-row">
-          <span>Ongkir:</span>
-          <span id="shipping-price">Rp 5.000</span>
-        </div>
-
-        <div class="total-row total-final">
-          <span>Total Pembayaran:</span>
-          <span id="cart-total-price">Rp 0</span>
-        </div>
-
-        <button class="checkout-btn" onclick="checkoutWhatsApp()">
-          Pesan via WhatsApp Sekarang
-        </button>
+      <div class="wa-chat-footer">
+        <a href="https://wa.me/6281219520330" target="_blank" class="wa-btn-send">
+          Mulai Chat Sekarang
+        </a>
       </div>
     </div>
 
-    <div class="whatsapp-wrapper">
-      <div class="wa-chat-box" id="waChatBox">
-        <div class="wa-chat-header">
-          <strong>Dimsum Anak Gen Z</strong>
-          <span
-            class="close-chat"
-            onclick="toggleChat()"
-            style="cursor: pointer"
-            >×</span
-          >
-        </div>
-
-        <div class="wa-chat-body">
-          <div class="wa-bubble">
-            Halo! Lagi mau pesan atau cari info dulu? 😊
-          </div>
-        </div>
-
-        <div class="wa-chat-footer">
-          <a
-            href="https://wa.me/6281219520330"
-            target="_blank"
-            class="wa-btn-send"
-          >
-            Mulai Chat Sekarang
-          </a>
-        </div>
-      </div>
-
-      <div class="whatsapp-float" onclick="toggleChat()">
-        <span>Chat WhatsApp</span>
-      </div>
+    <div class="whatsapp-float" onclick="toggleChat()">
+      <span>Chat WhatsApp</span>
     </div>
+  </div>
 
-    <!-- MODERN LIVE CHAT WIDGET -->
-    <div class="modern-chat-widget">
-      <!-- CHAT PANEL -->
-      <div class="modern-chat-box" id="modernChatBox">
-        <div class="modern-chat-header">
-          <div class="chat-brand">
-            <strong>Dapur Anak GEN Z</strong>
-            <small>Live Assistant</small>
-          </div>
-          <span class="close-chat" onclick="toggleModernChat()">×</span>
+  <!-- MODERN LIVE CHAT WIDGET -->
+  <div class="modern-chat-widget">
+    <!-- CHAT PANEL -->
+    <div class="modern-chat-box" id="modernChatBox">
+      <div class="modern-chat-header">
+        <div class="chat-brand">
+          <strong>Dapur Anak GEN Z</strong>
+          <small>Live Assistant</small>
+        </div>
+        <span class="close-chat" onclick="toggleModernChat()">×</span>
+      </div>
+
+      <div class="modern-chat-body" id="modernChatBody">
+        <div class="modern-chat-message admin">
+          Halo! Saya siap membantu pesanan, pembayaran, atau status order Anda
+          😊
         </div>
 
-        <div class="modern-chat-body" id="modernChatBody">
-          <div class="modern-chat-message admin">
-            Halo! Saya siap membantu pesanan, pembayaran, atau status order Anda
-            😊
-          </div>
-
-          <div class="quick-chat-actions">
-            <button onclick="quickChat('status pesanan')">Cek Status</button>
-            <button onclick="quickChat('sudah bayar qris')">
-              Konfirmasi Bayar
-            </button>
-            <button onclick="quickChat('ubah alamat')">Ubah Alamat</button>
-            <button onclick="quickChat('whatsapp admin')">
-              WhatsApp Admin
-            </button>
-          </div>
-        </div>
-
-        <div class="modern-chat-footer">
-          <input
-            type="text"
-            id="modernChatInput"
-            placeholder="Tulis pertanyaan Anda"
-          />
-          <button onclick="sendModernChat()">
-            <i class="fa-solid fa-arrow-up"></i>
+        <div class="quick-chat-actions">
+          <button onclick="quickChat('status pesanan')">Cek Status</button>
+          <button onclick="quickChat('sudah bayar qris')">
+            Konfirmasi Bayar
+          </button>
+          <button onclick="quickChat('ubah alamat')">Ubah Alamat</button>
+          <button onclick="quickChat('whatsapp admin')">
+            WhatsApp Admin
           </button>
         </div>
       </div>
 
-      <!-- FLOAT BUTTON -->
-      <div class="modern-chat-button" onclick="toggleModernChat()">
-        <i class="fa-solid fa-comments"></i>
-        <span>Live Chat</span>
+      <div class="modern-chat-footer">
+        <input type="text" id="modernChatInput" placeholder="Tulis pertanyaan Anda" />
+        <button onclick="sendModernChat()">
+          <i class="fa-solid fa-arrow-up"></i>
+        </button>
       </div>
     </div>
 
-    <script>
-      const menuToggle = document.getElementById("menu-toggle");
-      const menuNav = document.getElementById("menu-nav");
+    <!-- FLOAT BUTTON -->
+    <div class="modern-chat-button" onclick="toggleModernChat()">
+      <i class="fa-solid fa-comments"></i>
+      <span>Live Chat</span>
+    </div>
+  </div>
 
-      if (menuToggle && menuNav) {
-        menuToggle.addEventListener("click", () => {
-          menuNav.classList.toggle("active");
-        });
+  <script>
+    const menuToggle = document.getElementById("menu-toggle");
+    const menuNav = document.getElementById("menu-nav");
 
-        document.addEventListener("click", (e) => {
-          if (!menuToggle.contains(e.target) && !menuNav.contains(e.target)) {
-            menuNav.classList.remove("active");
-          }
-        });
-      }
-    </script>
+    if (menuToggle && menuNav) {
+      menuToggle.addEventListener("click", () => {
+        menuNav.classList.toggle("active");
+      });
 
-    <script>
-      document.addEventListener("DOMContentLoaded", () => {
-        try {
-          const userKey = localStorage.getItem("userKey");
+      document.addEventListener("click", (e) => {
+        if (!menuToggle.contains(e.target) && !menuNav.contains(e.target)) {
+          menuNav.classList.remove("active");
+        }
+      });
+    }
+  </script>
 
-          if (userKey && localStorage.getItem("isLogin") === "true") {
-            const data = JSON.parse(
-              localStorage.getItem("keranjang_" + userKey),
-            );
-            window.keranjang = Array.isArray(data) ? data : [];
-          } else {
-            window.keranjang = [];
-          }
-        } catch (e) {
+  <script>
+    document.addEventListener("DOMContentLoaded", () => {
+      try {
+        const userKey = localStorage.getItem("userKey");
+
+        if (userKey && localStorage.getItem("isLogin") === "true") {
+          const data = JSON.parse(
+            localStorage.getItem("keranjang_" + userKey),
+          );
+          window.keranjang = Array.isArray(data) ? data : [];
+        } else {
           window.keranjang = [];
         }
-      });
-    </script>
-    <div class="mobile-overlay" id="mobileOverlay"></div>
-    <script src="script.js"></script>
-    <script>
-      const hamburger = document.getElementById("hamburger");
-      const navWrapper = document.querySelector(".nav-right-wrapper");
-      const overlay = document.getElementById("mobileOverlay");
-
-      hamburger.addEventListener("click", () => {
-        navWrapper.classList.toggle("active");
-        overlay.classList.toggle("active");
-      });
-
-      overlay.addEventListener("click", () => {
-        navWrapper.classList.remove("active");
-        overlay.classList.remove("active");
-      });
-
-      function toggleChat() {
-        const chatBox = document.getElementById("waChatBox");
-        if (chatBox) {
-          chatBox.style.display =
-            chatBox.style.display === "block" ? "none" : "block";
-        }
+      } catch (e) {
+        window.keranjang = [];
       }
-      const API_URL = "https://dimsum-production-216a.up.railway.app/api/products";
-    </script>
+    });
+  </script>
+  <div class="mobile-overlay" id="mobileOverlay"></div>
+  <script src="script.js"></script>
+  <script>
+    const hamburger = document.getElementById("hamburger");
+    const navWrapper = document.querySelector(".nav-right-wrapper");
+    const overlay = document.getElementById("mobileOverlay");
 
-    <script>
-      // Fungsi Toggle Menu Mobile
-      function toggleMenu() {
-        const menu = document.getElementById("menuNav");
-        menu.classList.toggle("active");
+    hamburger.addEventListener("click", () => {
+      navWrapper.classList.toggle("active");
+      overlay.classList.toggle("active");
+    });
+
+    overlay.addEventListener("click", () => {
+      navWrapper.classList.remove("active");
+      overlay.classList.remove("active");
+    });
+
+    function toggleChat() {
+      const chatBox = document.getElementById("waChatBox");
+      if (chatBox) {
+        chatBox.style.display =
+          chatBox.style.display === "block" ? "none" : "block";
       }
+    }
+    const API_URL = "https://dimsum-production-216a.up.railway.app/api/products";
+  </script>
 
-      // Fungsi Toggle WhatsApp Chat
-      function toggleChat() {
-        const chatBox = document.getElementById("waChatBox");
-        if (chatBox.style.display === "block") {
-          chatBox.style.display = "none";
-        } else {
-          chatBox.style.display = "block";
-        }
+  <script>
+    // Fungsi Toggle Menu Mobile
+    function toggleMenu() {
+      const menu = document.getElementById("menuNav");
+      menu.classList.toggle("active");
+    }
+
+    // Fungsi Toggle WhatsApp Chat
+    function toggleChat() {
+      const chatBox = document.getElementById("waChatBox");
+      if (chatBox.style.display === "block") {
+        chatBox.style.display = "none";
+      } else {
+        chatBox.style.display = "block";
       }
-    </script>
+    }
+  </script>
 
-    <div id="productModal" class="product-modal">
-      <div class="product-modal-content">
-        <span class="close-modal" onclick="closeProductModal()">&times;</span>
+  <div id="productModal" class="product-modal">
+    <div class="product-modal-content">
+      <span class="close-modal" onclick="closeProductModal()">&times;</span>
 
-        <div class="modal-left">
-          <img id="modalImage" src="" alt="" />
-          <h2 id="modalName"></h2>
-          <p id="modalPrice"></p>
-          <p id="modalDescription"></p>
+      <div class="modal-left">
+        <img id="modalImage" src="" alt="" />
+        <h2 id="modalName"></h2>
+        <p id="modalPrice"></p>
+        <p id="modalDescription"></p>
+      </div>
+
+      <div class="modal-right">
+        <div>
+          <h3>Sesuaikan Makanan Anda</h3>
+
+          <label>Catatan:</label>
+          <textarea id="modalNote" placeholder="Tambah catatan pesanan..."></textarea>
         </div>
 
-        <div class="modal-right">
-          <div>
-            <h3>Sesuaikan Makanan Anda</h3>
+        <div>
+          <div class="modal-total" id="modalTotal">Rp 0</div>
 
-            <label>Catatan:</label>
-            <textarea
-              id="modalNote"
-              placeholder="Tambah catatan pesanan..."
-            ></textarea>
+          <div class="modal-qty">
+            <button onclick="changeModalQty(-1)">-</button>
+            <span id="modalQty">1</span>
+            <button onclick="changeModalQty(1)">+</button>
           </div>
 
-          <div>
-            <div class="modal-total" id="modalTotal">Rp 0</div>
-
-            <div class="modal-qty">
-              <button onclick="changeModalQty(-1)">-</button>
-              <span id="modalQty">1</span>
-              <button onclick="changeModalQty(1)">+</button>
-            </div>
-
-            <button class="modal-cart-btn" onclick="addModalToCart()">
-              Masukkan Keranjang
-            </button>
-          </div>
+          <button class="modal-cart-btn" onclick="addModalToCart()">
+            Masukkan Keranjang
+          </button>
         </div>
       </div>
     </div>
+  </div>
 
-    <audio id="bgMusic" loop>
-      <source src="musik/musik.mp3" type="audio/mpeg" />
-    </audio>
+  <audio id="bgMusic" loop>
+    <source src="musik/musik.mp3" type="audio/mpeg" />
+  </audio>
 
-    <script>
-      const music = document.getElementById("bgMusic");
-      const icon = document.getElementById("musicIcon");
+  <script>
+    const music = document.getElementById("bgMusic");
+    const icon = document.getElementById("musicIcon");
 
-      document.addEventListener("DOMContentLoaded", () => {
-        const musicState = localStorage.getItem("musicPlaying");
+    document.addEventListener("DOMContentLoaded", () => {
+      const musicState = localStorage.getItem("musicPlaying");
 
-        if (musicState === "true") {
-          music.play().catch(() => {});
-          if (icon) icon.style.color = "#ff4d4d";
-        }
-      });
-
-      function toggleMusic() {
-        if (music.paused) {
-          music.play();
-          localStorage.setItem("musicPlaying", "true");
-          if (icon) icon.style.color = "#ff4d4d";
-        } else {
-          music.pause();
-          localStorage.setItem("musicPlaying", "false");
-          if (icon) icon.style.color = "black";
-        }
+      if (musicState === "true") {
+        music.play().catch(() => { });
+        if (icon) icon.style.color = "#ff4d4d";
       }
-    </script>
-  </body>
+    });
+
+    function toggleMusic() {
+      if (music.paused) {
+        music.play();
+        localStorage.setItem("musicPlaying", "true");
+        if (icon) icon.style.color = "#ff4d4d";
+      } else {
+        music.pause();
+        localStorage.setItem("musicPlaying", "false");
+        if (icon) icon.style.color = "black";
+      }
+    }
+  </script>
+</body>
+
 </html>

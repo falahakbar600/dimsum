@@ -1,339 +1,316 @@
 <!doctype html>
 <html lang="id">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Dimsum Anak GEN Z - Beranda</title>
-    <link rel="stylesheet" href="home.css" />
-    <link
-      rel="stylesheet"
-      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css"
-    />
-    <link
-      href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Poppins:wght@300;400;600&display=swap"
-      rel="stylesheet"
-    />
-  </head>
 
-  <body>
-    <div class="navbar">
-      <div class="logo-area">
-        <img src="gambar/logo.png" />
-        <div class="logo-text">
-          <span>DAPUR</span>
-          <span>ANAK GEN Z</span>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Dimsum Anak GEN Z - Beranda</title>
+  <link rel="stylesheet" href="home.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&family=Poppins:wght@300;400;600&display=swap"
+    rel="stylesheet" />
+</head>
+
+<body>
+  <div class="navbar">
+    <div class="logo-area">
+      <img src="gambar/logo.png" />
+      <div class="logo-text">
+        <span>DAPUR</span>
+        <span>ANAK GEN Z</span>
+      </div>
+    </div>
+
+    <!-- HAMBURGER -->
+    <div class="hamburger" id="hamburger">
+      <i class="fa-solid fa-bars"></i>
+    </div>
+
+    <div class="nav-right-wrapper">
+      <div class="nav-top">
+        <div class="search-box">
+          <input type="text" id="searchInput" placeholder="Cari Produk..." autocomplete="off" />
+
+          <button>
+            <i class="fa fa-search"></i>
+          </button>
+
+          <div id="searchResults" class="search-results"></div>
+        </div>
+
+        <div class="nav-icons">
+          <div class="order-history">
+            <a href="riwayat.html" title="Riwayat Pesanan">
+              <img
+                src="data:image/svg+xml,%3csvg%20width='20'%20height='18'%20viewBox='0%200%2020%2018'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M4.854%206.54175H15.1457'%20stroke='%23231F20'%20stroke-width='1.5'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3cpath%20d='M4.854%209.70825H15.1457'%20stroke='%23231F20'%20stroke-width='1.5'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3cpath%20d='M1%2017V1.8C1%201.58783%201.07902%201.38434%201.21967%201.23431C1.36032%201.08429%201.55109%201%201.75%201H18.25C18.4489%201%2018.6397%201.08429%2018.7803%201.23431C18.921%201.38434%2019%201.58783%2019%201.8V17L16%2015.4L13%2017L10%2015.4L7%2017L4%2015.4L1%2017Z'%20stroke='%23231F20'%20stroke-width='1.5'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3c/svg%3e"
+                alt="Riwayat Pesanan" class="history-nav-icon" />
+            </a>
+          </div>
+
+          <!-- ICON MUSIC -->
+          <div class="music-control">
+            <i class="fa-solid fa-music" onclick="toggleMusic()" id="musicIcon"></i>
+          </div>
+
+          <div class="cart-wrapper">
+            <a href="keranjang.html" class="cart-icon">
+              <i class="fa-solid fa-cart-shopping"></i>
+            </a>
+            <span id="cart-count" class="cart-badge-home">0</span>
+          </div>
         </div>
       </div>
 
-      <!-- HAMBURGER -->
-      <div class="hamburger" id="hamburger">
-        <i class="fa-solid fa-bars"></i>
-      </div>
-
-      <div class="nav-right-wrapper">
-        <div class="nav-top">
-          <div class="search-box">
-            <input
-              type="text"
-              id="searchInput"
-              placeholder="Cari Produk..."
-              autocomplete="off"
-            />
-
-            <button>
-              <i class="fa fa-search"></i>
-            </button>
-
-            <div id="searchResults" class="search-results"></div>
-          </div>
-
-          <div class="nav-icons">
-            <div class="order-history">
-              <a href="riwayat.html" title="Riwayat Pesanan">
-                <img
-                  src="data:image/svg+xml,%3csvg%20width='20'%20height='18'%20viewBox='0%200%2020%2018'%20fill='none'%20xmlns='http://www.w3.org/2000/svg'%3e%3cpath%20d='M4.854%206.54175H15.1457'%20stroke='%23231F20'%20stroke-width='1.5'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3cpath%20d='M4.854%209.70825H15.1457'%20stroke='%23231F20'%20stroke-width='1.5'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3cpath%20d='M1%2017V1.8C1%201.58783%201.07902%201.38434%201.21967%201.23431C1.36032%201.08429%201.55109%201%201.75%201H18.25C18.4489%201%2018.6397%201.08429%2018.7803%201.23431C18.921%201.38434%2019%201.58783%2019%201.8V17L16%2015.4L13%2017L10%2015.4L7%2017L4%2015.4L1%2017Z'%20stroke='%23231F20'%20stroke-width='1.5'%20stroke-linecap='round'%20stroke-linejoin='round'/%3e%3c/svg%3e"
-                  alt="Riwayat Pesanan"
-                  class="history-nav-icon"
-                />
-              </a>
-            </div>
-
-            <!-- ICON MUSIC -->
-            <div class="music-control">
-              <i
-                class="fa-solid fa-music"
-                onclick="toggleMusic()"
-                id="musicIcon"
-              ></i>
-            </div>
-
-            <div class="cart-wrapper">
-              <a href="keranjang.html" class="cart-icon">
-                <i class="fa-solid fa-cart-shopping"></i>
-              </a>
-              <span id="cart-count" class="cart-badge-home">0</span>
-            </div>
-          </div>
+      <div class="nav-bottom">
+        <div class="menu">
+          <a href="#" class="active">Beranda</a>
+          <a href="menu.html">Menu</a>
+          <a href="about.html">Tentang Kami</a>
+          <a href="prospek.html">Prospek Bisnis</a>
+          <a href="contact.html">Kontak</a>
         </div>
 
-        <div class="nav-bottom">
-          <div class="menu">
-            <a href="#" class="active">Beranda</a>
-            <a href="menu.html">Menu</a>
-            <a href="about.html">Tentang Kami</a>
-            <a href="prospek.html">Prospek Bisnis</a>
-            <a href="contact.html">Kontak</a>
-          </div>
-
-          <div class="auth-menu">
-            <a
-              href="#"
-              onclick="
+        <div class="auth-menu">
+          <a href="#" onclick="
                 openLogin();
                 return false;
-              "
-              >Masuk</a
-            >
-            <a href="register.html">Daftar</a>
-          </div>
+              ">Masuk</a>
+          <a href="register.html">Daftar</a>
         </div>
       </div>
     </div>
+  </div>
 
-    <div id="loginModal" class="modal">
-      <div class="modal-content">
-        <span class="close-btn" onclick="closeLogin()">×</span>
+  <div id="loginModal" class="modal">
+    <div class="modal-content">
+      <span class="close-btn" onclick="closeLogin()">×</span>
 
-        <h2>Masuk</h2>
+      <h2>Masuk</h2>
 
-        <input type="text" id="email" placeholder="Username / Email" />
-        <input type="password" id="password" placeholder="Password" />
+      <input type="text" id="email" placeholder="Username / Email" />
+      <input type="password" id="password" placeholder="Password" />
 
-        <button type="button" class="btn-login" onclick="login()">Masuk</button>
+      <button type="button" class="btn-login" onclick="login()">Masuk</button>
 
-        <a href="lupa-password.html" class="forgot">Lupa kata sandi?</a>
+      <a href="lupa-password.html" class="forgot">Lupa kata sandi?</a>
 
-        <div class="divider-home">atau masuk dengan</div>
+      <div class="divider-home">atau masuk dengan</div>
 
-        <button type="button" class="google-btn" onclick="loginGoogle()">
-          Masuk dengan Google
-        </button>
+      <button type="button" class="google-btn" onclick="loginGoogle()">
+        Masuk dengan Google
+      </button>
 
-        <!-- 🔥 TAMBAHAN DAFTAR -->
-        <p class="register-text">
-          Belum punya akun? <a href="register.html">Daftar</a>
+      <!-- 🔥 TAMBAHAN DAFTAR -->
+      <p class="register-text">
+        Belum punya akun? <a href="register.html">Daftar</a>
+      </p>
+    </div>
+  </div>
+
+  <section class="hero">
+    <video autoplay muted loop playsinline class="video-bg">
+      <source src="gambar/IMG_1941.MOV" type="video/mp4" />
+    </video>
+
+    <div class="hero-content">
+      <h1 data-lang="title">Dimsum Anak GEN Z</h1>
+      <p data-lang="subtitle">Pelopor Dimsum Kaki 5 - Tangerang Selatan</p>
+    </div>
+  </section>
+
+  <section class="our-menu">
+    <h2 class="menu-title">Menu Kami</h2>
+    <p class="menu-subtitle">Klik menu untuk detail harga</p>
+
+    <div class="menu-wrapper" id="home-menu"></div>
+
+    <div class="menu-footer">
+      <a href="menu.html" class="btn-selengkapnya">Lihat Semua Menu →</a>
+    </div>
+  </section>
+
+  <section class="prospek-bisnis">
+    <div class="prospek-container">
+      <div class="prospek-image">
+        <img src="gambar/logo.png" alt="Bisnis Dimsum" />
+      </div>
+      <div class="prospek-content">
+        <h2>Prospek Bisnis</h2>
+        <p>
+          Dapur Anak Gen Z hadir sebagai peluang usaha kuliner yang
+          menjanjikan dengan konsep sederhana namun sangat menguntungkan.
         </p>
+        <a href="prospek.html" class="btn-selengkapnya">Selengkapnya</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="rating-section">
+    <div class="rating-summary">
+      <h2 id="avgRating">⭐ 0.0/5</h2>
+      <p id="totalReviews">0 Ulasan Pelanggan</p>
+
+      <div class="rating-bars">
+        <div>
+          <span>5⭐</span>
+          <div class="bar">
+            <div style="width: 90%"></div>
+          </div>
+        </div>
+        <div>
+          <span>4⭐</span>
+          <div class="bar">
+            <div style="width: 7%"></div>
+          </div>
+        </div>
+        <div>
+          <span>3⭐</span>
+          <div class="bar">
+            <div style="width: 2%"></div>
+          </div>
+        </div>
+        <div>
+          <span>2⭐</span>
+          <div class="bar">
+            <div style="width: 1%"></div>
+          </div>
+        </div>
+        <div>
+          <span>1⭐</span>
+          <div class="bar">
+            <div style="width: 1%"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+  <!-- 🌟 FEATURED REVIEW -->
+  <div class="featured-review-box" id="featuredReviewBox">
+    <h3>🌟 Ulasan Pilihan Customer</h3>
+
+    <div id="featuredReviewContent">
+      <span class="featured-badge">BEST REVIEW</span>
+      <p>Belum ada review pilihan.</p>
+    </div>
+  </div>
+
+  <!-- 🔥 FILTER REVIEW -->
+  <div class="review-filters">
+    <button onclick="filterReviews('all')">Semua</button>
+    <button onclick="filterReviews(5)">5⭐</button>
+    <button onclick="filterReviews(4)">4⭐</button>
+    <button onclick="filterReviews(3)">3⭐</button>
+    <button onclick="filterReviews(2)">2⭐</button>
+    <button onclick="filterReviews(1)">1⭐</button>
+  </div>
+
+  <!-- 🔥 LIST REVIEW -->
+  <div class="review-carousel-wrapper">
+    <button class="review-nav prev" onclick="slideReviews(-1)">❮</button>
+
+    <div id="reviewList" class="review-list"></div>
+
+    <button class="review-nav next" onclick="slideReviews(1)">❯</button>
+  </div>
+
+  <section class="kemitraan-kontak">
+    <div class="kontak-container">
+      <h2>Hubungi Kami untuk Informasi dan Pemesanan</h2>
+      <span class="nomor-telp">0812-1952-0330</span>
+      <p class="copyright-text">Copyright © 2026 Dimsum Anak Gen Z</p>
+    </div>
+  </section>
+
+  <div class="whatsapp-wrapper">
+    <div class="wa-chat-box" id="waChatBox">
+      <div class="wa-chat-header">
+        <strong>Dimsum Anak Gen Z</strong>
+        <span class="close-chat" onclick="toggleChat()" style="cursor: pointer">×</span>
+      </div>
+      <div class="wa-chat-body">
+        <div class="wa-bubble">
+          Halo! Lagi mau pesan atau cari info dulu? 😊
+        </div>
+      </div>
+      <div class="wa-chat-footer">
+        <a href="https://wa.me/6281219520330" target="_blank" class="wa-btn-send">Mulai Chat Sekarang</a>
+      </div>
+    </div>
+    <div class="whatsapp-float" onclick="toggleChat()">
+      <span>Chat WhatsApp</span>
+    </div>
+  </div>
+
+  <!-- MODERN LIVE CHAT WIDGET -->
+  <div class="modern-chat-widget">
+    <!-- CHAT PANEL -->
+    <div class="modern-chat-box" id="modernChatBox">
+      <div class="modern-chat-header">
+        <div class="chat-brand">
+          <strong>Dapur Anak GEN Z</strong>
+          <small>Layanan Chat</small>
+        </div>
+        <span class="close-chat" onclick="toggleModernChat()">×</span>
+      </div>
+
+      <div class="modern-chat-body" id="modernChatBody">
+        <div class="modern-chat-message admin">
+          Halo! Saya admin Dapur Anak GEN Z 😊 Ada yang bisa saya bantu hari
+          ini?
+        </div>
+      </div>
+
+      <div class="modern-chat-footer">
+        <input type="text" id="modernChatInput" placeholder="Tulis pertanyaan Anda" />
+        <button onclick="sendModernChat()">
+          <i class="fa-solid fa-arrow-up"></i>
+        </button>
       </div>
     </div>
 
-    <section class="hero">
-      <video autoplay muted loop playsinline class="video-bg">
-        <source src="gambar/IMG_1941.MOV" type="video/mp4" />
-      </video>
-
-      <div class="hero-content">
-        <h1 data-lang="title">Dimsum Anak GEN Z</h1>
-        <p data-lang="subtitle">Pelopor Dimsum Kaki 5 - Tangerang Selatan</p>
-      </div>
-    </section>
-
-    <section class="our-menu">
-      <h2 class="menu-title">Menu Kami</h2>
-      <p class="menu-subtitle">Klik menu untuk detail harga</p>
-
-      <div class="menu-wrapper" id="home-menu"></div>
-
-      <div class="menu-footer">
-        <a href="menu.html" class="btn-selengkapnya">Lihat Semua Menu →</a>
-      </div>
-    </section>
-
-    <section class="prospek-bisnis">
-      <div class="prospek-container">
-        <div class="prospek-image">
-          <img src="gambar/logo.png" alt="Bisnis Dimsum" />
-        </div>
-        <div class="prospek-content">
-          <h2>Prospek Bisnis</h2>
-          <p>
-            Dapur Anak Gen Z hadir sebagai peluang usaha kuliner yang
-            menjanjikan dengan konsep sederhana namun sangat menguntungkan.
-          </p>
-          <a href="prospek.html" class="btn-selengkapnya">Selengkapnya</a>
-        </div>
-      </div>
-    </section>
-
-    <section class="rating-section">
-      <div class="rating-summary">
-        <h2 id="avgRating">⭐ 0.0/5</h2>
-        <p id="totalReviews">0 Ulasan Pelanggan</p>
-
-        <div class="rating-bars">
-          <div>
-            <span>5⭐</span>
-            <div class="bar"><div style="width: 90%"></div></div>
-          </div>
-          <div>
-            <span>4⭐</span>
-            <div class="bar"><div style="width: 7%"></div></div>
-          </div>
-          <div>
-            <span>3⭐</span>
-            <div class="bar"><div style="width: 2%"></div></div>
-          </div>
-          <div>
-            <span>2⭐</span>
-            <div class="bar"><div style="width: 1%"></div></div>
-          </div>
-          <div>
-            <span>1⭐</span>
-            <div class="bar"><div style="width: 1%"></div></div>
-          </div>
-        </div>
-      </div>
-    </section>
-    <!-- 🌟 FEATURED REVIEW -->
-    <div class="featured-review-box" id="featuredReviewBox">
-      <h3>🌟 Ulasan Pilihan Customer</h3>
-
-      <div id="featuredReviewContent">
-        <span class="featured-badge">BEST REVIEW</span>
-        <p>Belum ada review pilihan.</p>
-      </div>
+    <!-- FLOAT BUTTON -->
+    <div class="modern-chat-button" onclick="toggleModernChat()">
+      <i class="fa-solid fa-comments"></i>
+      <span>Live Chat</span>
     </div>
+  </div>
+  <div class="mobile-overlay" id="mobileOverlay"></div>
+  <script src="script.js"></script>
+  <script>
+    const hamburger = document.getElementById("hamburger");
+    const navWrapper = document.querySelector(".nav-right-wrapper");
+    const overlay = document.getElementById("mobileOverlay");
 
-    <!-- 🔥 FILTER REVIEW -->
-    <div class="review-filters">
-      <button onclick="filterReviews('all')">Semua</button>
-      <button onclick="filterReviews(5)">5⭐</button>
-      <button onclick="filterReviews(4)">4⭐</button>
-      <button onclick="filterReviews(3)">3⭐</button>
-      <button onclick="filterReviews(2)">2⭐</button>
-      <button onclick="filterReviews(1)">1⭐</button>
-    </div>
+    hamburger.addEventListener("click", () => {
+      navWrapper.classList.toggle("active");
+      overlay.classList.toggle("active");
+    });
 
-    <!-- 🔥 LIST REVIEW -->
-    <div class="review-carousel-wrapper">
-      <button class="review-nav prev" onclick="slideReviews(-1)">❮</button>
+    overlay.addEventListener("click", () => {
+      navWrapper.classList.remove("active");
+      overlay.classList.remove("active");
+    });
 
-      <div id="reviewList" class="review-list"></div>
-
-      <button class="review-nav next" onclick="slideReviews(1)">❯</button>
-    </div>
-
-    <section class="kemitraan-kontak">
-      <div class="kontak-container">
-        <h2>Hubungi Kami untuk Informasi dan Pemesanan</h2>
-        <span class="nomor-telp">0812-1952-0330</span>
-        <p class="copyright-text">Copyright © 2026 Dimsum Anak Gen Z</p>
-      </div>
-    </section>
-
-    <div class="whatsapp-wrapper">
-      <div class="wa-chat-box" id="waChatBox">
-        <div class="wa-chat-header">
-          <strong>Dimsum Anak Gen Z</strong>
-          <span
-            class="close-chat"
-            onclick="toggleChat()"
-            style="cursor: pointer"
-            >×</span
-          >
-        </div>
-        <div class="wa-chat-body">
-          <div class="wa-bubble">
-            Halo! Lagi mau pesan atau cari info dulu? 😊
-          </div>
-        </div>
-        <div class="wa-chat-footer">
-          <a
-            href="https://wa.me/6281219520330"
-            target="_blank"
-            class="wa-btn-send"
-            >Mulai Chat Sekarang</a
-          >
-        </div>
-      </div>
-      <div class="whatsapp-float" onclick="toggleChat()">
-        <span>Chat WhatsApp</span>
-      </div>
-    </div>
-
-    <!-- MODERN LIVE CHAT WIDGET -->
-    <div class="modern-chat-widget">
-      <!-- CHAT PANEL -->
-      <div class="modern-chat-box" id="modernChatBox">
-        <div class="modern-chat-header">
-          <div class="chat-brand">
-            <strong>Dapur Anak GEN Z</strong>
-            <small>Layanan Chat</small>
-          </div>
-          <span class="close-chat" onclick="toggleModernChat()">×</span>
-        </div>
-
-        <div class="modern-chat-body" id="modernChatBody">
-          <div class="modern-chat-message admin">
-            Halo! Saya admin Dapur Anak GEN Z 😊 Ada yang bisa saya bantu hari
-            ini?
-          </div>
-        </div>
-
-        <div class="modern-chat-footer">
-          <input
-            type="text"
-            id="modernChatInput"
-            placeholder="Tulis pertanyaan Anda"
-          />
-          <button onclick="sendModernChat()">
-            <i class="fa-solid fa-arrow-up"></i>
-          </button>
-        </div>
-      </div>
-
-      <!-- FLOAT BUTTON -->
-      <div class="modern-chat-button" onclick="toggleModernChat()">
-        <i class="fa-solid fa-comments"></i>
-        <span>Live Chat</span>
-      </div>
-    </div>
-    <div class="mobile-overlay" id="mobileOverlay"></div>
-    <script src="script.js"></script>
-    <script>
-      const hamburger = document.getElementById("hamburger");
-      const navWrapper = document.querySelector(".nav-right-wrapper");
-      const overlay = document.getElementById("mobileOverlay");
-
-      hamburger.addEventListener("click", () => {
-        navWrapper.classList.toggle("active");
-        overlay.classList.toggle("active");
-      });
-
-      overlay.addEventListener("click", () => {
-        navWrapper.classList.remove("active");
-        overlay.classList.remove("active");
-      });
-
-      function toggleChat() {
-        const chatBox = document.getElementById("waChatBox");
-        if (chatBox) {
-          chatBox.style.display =
-            chatBox.style.display === "block" ? "none" : "block";
-        }
+    function toggleChat() {
+      const chatBox = document.getElementById("waChatBox");
+      if (chatBox) {
+        chatBox.style.display =
+          chatBox.style.display === "block" ? "none" : "block";
       }
-      const API_URL = "https://dimsum-production-216a.up.railway.app/api/products";
+    }
+    const API_URL = "https://dimsum-production-216a.up.railway.app/api/products";
 
-      async function loadHomeMenu() {
-        try {
-          const res = await fetch("https://dimsum-production-216a.up.railway.app/api/products");
-          const data = await res.json();
+    async function loadHomeMenu() {
+      try {
+        const res = await fetch("https://dimsum-production-216a.up.railway.app/api/products");
+        const data = await res.json();
 
-          const container = document.getElementById("home-menu");
-          container.innerHTML = "";
+        const container = document.getElementById("home-menu");
+        container.innerHTML = "";
 
-          // tampilkan 4 produk saja (home)
-          data.slice(0, 4).forEach((item) => {
-            const html = `
+        // tampilkan 4 produk saja (home)
+        data.slice(0, 4).forEach((item) => {
+          const html = `
         <div class="menu-item" onclick='openProductModal(${JSON.stringify(item)})'>
           <div class="menu-front">
             <div class="img-container">
@@ -351,11 +328,10 @@
             </div>
 
             <div class="stock-info">
-              ${
-                item.stok > 0
-                  ? "Sisa stok: " + item.stok
-                  : '<span class="stok-habis">Stok Habis</span>'
-              }
+              ${item.stok > 0
+              ? "Sisa stok: " + item.stok
+              : '<span class="stok-habis">Stok Habis</span>'
+            }
             </div>
 
             <button class="btn-add"
@@ -368,166 +344,162 @@
         </div>
       `;
 
-            container.innerHTML += html;
-          });
-        } catch (err) {
-          console.error("Gagal load home:", err);
-        }
+          container.innerHTML += html;
+        });
+      } catch (err) {
+        console.error("Gagal load home:", err);
       }
+    }
 
-      document.addEventListener("DOMContentLoaded", loadHomeMenu);
+    document.addEventListener("DOMContentLoaded", loadHomeMenu);
 
-      async function updateStokUI() {
-        try {
-          const res = await fetch(API_URL);
-          const data = await res.json();
+    async function updateStokUI() {
+      try {
+        const res = await fetch(API_URL);
+        const data = await res.json();
 
-          data.forEach((item) => {
-            const nama = item.nama;
-            const stok = item.stok;
+        data.forEach((item) => {
+          const nama = item.nama;
+          const stok = item.stok;
 
-            const stokElem = document.getElementById("stok-" + nama);
-            const btn = document.getElementById("btn-" + nama);
+          const stokElem = document.getElementById("stok-" + nama);
+          const btn = document.getElementById("btn-" + nama);
 
-            if (!stokElem || !btn) return;
+          if (!stokElem || !btn) return;
 
-            if (stok > 0) {
-              stokElem.innerText = "Sisa stok: " + stok;
-              btn.disabled = false;
-              btn.innerText = "+ Keranjang";
-            } else {
-              stokElem.innerHTML = '<span class="stok-habis">Stok Habis</span>';
-              btn.disabled = true;
-              btn.innerText = "Tidak Tersedia";
-            }
-          });
-        } catch (err) {
-          console.error("Gagal ambil stok:", err);
-        }
+          if (stok > 0) {
+            stokElem.innerText = "Sisa stok: " + stok;
+            btn.disabled = false;
+            btn.innerText = "+ Keranjang";
+          } else {
+            stokElem.innerHTML = '<span class="stok-habis">Stok Habis</span>';
+            btn.disabled = true;
+            btn.innerText = "Tidak Tersedia";
+          }
+        });
+      } catch (err) {
+        console.error("Gagal ambil stok:", err);
       }
+    }
 
-      document.addEventListener("DOMContentLoaded", updateStokUI);
-    </script>
+    document.addEventListener("DOMContentLoaded", updateStokUI);
+  </script>
 
-    <script>
-      const params = new URLSearchParams(window.location.search);
+  <script>
+    const params = new URLSearchParams(window.location.search);
 
-      if (params.get("login") === "true") {
-        openLogin(); // 🔥 langsung buka modal login
-      }
-    </script>
-    <!-- PRODUCT DETAIL MODAL -->
-    <div id="productModal" class="product-modal">
-      <div class="product-modal-content">
-        <span class="close-modal" onclick="closeProductModal()">&times;</span>
+    if (params.get("login") === "true") {
+      openLogin(); // 🔥 langsung buka modal login
+    }
+  </script>
+  <!-- PRODUCT DETAIL MODAL -->
+  <div id="productModal" class="product-modal">
+    <div class="product-modal-content">
+      <span class="close-modal" onclick="closeProductModal()">&times;</span>
 
-        <div class="modal-left">
-          <img id="modalImage" src="" alt="" />
+      <div class="modal-left">
+        <img id="modalImage" src="" alt="" />
 
-          <h2 id="modalName"></h2>
+        <h2 id="modalName"></h2>
 
-          <p id="modalStock" class="modal-stock"></p>
+        <p id="modalStock" class="modal-stock"></p>
 
-          <div class="product-rating" id="productRating">
-            ⭐⭐⭐⭐⭐ <span>0.0 (0 review)</span>
-          </div>
-
-          <p id="modalPrice"></p>
-          <p id="modalDescription"></p>
+        <div class="product-rating" id="productRating">
+          ⭐⭐⭐⭐⭐ <span>0.0 (0 review)</span>
         </div>
 
-        <div class="modal-right">
-          <div>
-            <h3>Sesuaikan Makanan Anda</h3>
+        <p id="modalPrice"></p>
+        <p id="modalDescription"></p>
+      </div>
 
-            <label>Catatan:</label>
-            <textarea
-              id="modalNote"
-              placeholder="Tambah catatan pesanan..."
-            ></textarea>
+      <div class="modal-right">
+        <div>
+          <h3>Sesuaikan Makanan Anda</h3>
+
+          <label>Catatan:</label>
+          <textarea id="modalNote" placeholder="Tambah catatan pesanan..."></textarea>
+        </div>
+
+        <div>
+          <div class="modal-total" id="modalTotal">Rp 0</div>
+
+          <div class="modal-qty">
+            <button onclick="changeModalQty(-1)">-</button>
+            <span id="modalQty">1</span>
+            <button onclick="changeModalQty(1)">+</button>
           </div>
 
-          <div>
-            <div class="modal-total" id="modalTotal">Rp 0</div>
-
-            <div class="modal-qty">
-              <button onclick="changeModalQty(-1)">-</button>
-              <span id="modalQty">1</span>
-              <button onclick="changeModalQty(1)">+</button>
-            </div>
-
-            <button class="modal-cart-btn" onclick="addModalToCart()">
-              Masukkan Keranjang
-            </button>
-          </div>
+          <button class="modal-cart-btn" onclick="addModalToCart()">
+            Masukkan Keranjang
+          </button>
         </div>
       </div>
     </div>
+  </div>
 
-    <audio id="bgMusic" loop>
-      <source src="musik/musik.mp3" type="audio/mpeg" />
-    </audio>
+  <audio id="bgMusic" loop>
+    <source src="musik/musik.mp3" type="audio/mpeg" />
+  </audio>
 
-    <script>
-      const music = document.getElementById("bgMusic");
-      const icon = document.getElementById("musicIcon");
+  <script>
+    const music = document.getElementById("bgMusic");
+    const icon = document.getElementById("musicIcon");
 
-      function toggleMusic() {
-        if (music.paused) {
-          music.play();
-          icon.style.color = "#ff4d4d";
-        } else {
-          music.pause();
-          icon.style.color = "black";
-        }
+    function toggleMusic() {
+      if (music.paused) {
+        music.play();
+        icon.style.color = "#ff4d4d";
+      } else {
+        music.pause();
+        icon.style.color = "black";
       }
-    </script>
-    <script>
-      let allReviews = [];
+    }
+  </script>
+  <script>
+    let allReviews = [];
 
-      async function loadCustomerReviews() {
-        try {
-          const res = await fetch("https://dimsum-production-216a.up.railway.app/api/reviews");
-          const reviews = await res.json();
+    async function loadCustomerReviews() {
+      try {
+        const res = await fetch("https://dimsum-production-216a.up.railway.app/api/reviews");
+        const reviews = await res.json();
 
-          allReviews = reviews;
+        allReviews = reviews;
 
-          renderReviews(allReviews);
-          startAutoReviewSlide();
-        } catch (err) {
-          console.error("Gagal load review:", err);
-        }
+        renderReviews(allReviews);
+        startAutoReviewSlide();
+      } catch (err) {
+        console.error("Gagal load review:", err);
       }
+    }
 
-      function renderReviews(reviews) {
-        const container = document.getElementById("reviewList");
+    function renderReviews(reviews) {
+      const container = document.getElementById("reviewList");
 
-        if (!container) return;
+      if (!container) return;
 
-        container.innerHTML = "";
+      container.innerHTML = "";
 
-        if (!reviews.length) {
-          container.innerHTML = `
+      if (!reviews.length) {
+        container.innerHTML = `
       <p class="empty-review">
         Belum ada review untuk filter ini.
       </p>
     `;
-          return;
-        }
+        return;
+      }
 
-        reviews.slice(0, 10).forEach((review) => {
-          container.innerHTML += `
+      reviews.slice(0, 10).forEach((review) => {
+        container.innerHTML += `
       <div class="customer-review-card">
 
-        ${
-          review.highlight == 1
+        ${review.highlight == 1
             ? `
           <div class="best-review-label">
             🔥 Highlight Review
           </div>
         `
             : ""
-        }
+          }
 
         <div class="review-stars">
           ${"⭐".repeat(review.rating)}
@@ -538,53 +510,53 @@
         <small>- ${review.nama}</small>
       </div>
     `;
-        });
+      });
+    }
+
+    function filterReviews(rating) {
+      if (rating === "all") {
+        renderReviews(allReviews);
+        return;
       }
 
-      function filterReviews(rating) {
-        if (rating === "all") {
-          renderReviews(allReviews);
+      const filtered = allReviews.filter(
+        (review) => Number(review.rating) === Number(rating),
+      );
+
+      renderReviews(filtered);
+    }
+
+    async function loadReviewStats() {
+      try {
+        const res = await fetch("https://dimsum-production-216a.up.railway.app/api/reviews/stats");
+        const stats = await res.json();
+
+        document.getElementById("avgRating").innerText =
+          `⭐ ${stats.avg_rating || 0}/5`;
+
+        document.getElementById("totalReviews").innerText =
+          `${stats.total_reviews || 0} Ulasan Pelanggan`;
+      } catch (err) {
+        console.error("Gagal load review stats:", err);
+      }
+    }
+
+    async function loadFeaturedReview() {
+      const box = document.getElementById("featuredReviewContent");
+      if (!box) return;
+
+      try {
+        const res = await fetch("https://dimsum-production-216a.up.railway.app/api/reviews");
+        const reviews = await res.json();
+
+        const featured = reviews.find((r) => Number(r.highlight) === 1);
+
+        if (!featured) {
+          box.innerHTML = "<p>Belum ada review pilihan.</p>";
           return;
         }
 
-        const filtered = allReviews.filter(
-          (review) => Number(review.rating) === Number(rating),
-        );
-
-        renderReviews(filtered);
-      }
-
-      async function loadReviewStats() {
-        try {
-          const res = await fetch("https://dimsum-production-216a.up.railway.app/api/reviews/stats");
-          const stats = await res.json();
-
-          document.getElementById("avgRating").innerText =
-            `⭐ ${stats.avg_rating || 0}/5`;
-
-          document.getElementById("totalReviews").innerText =
-            `${stats.total_reviews || 0} Ulasan Pelanggan`;
-        } catch (err) {
-          console.error("Gagal load review stats:", err);
-        }
-      }
-
-      async function loadFeaturedReview() {
-        const box = document.getElementById("featuredReviewContent");
-        if (!box) return;
-
-        try {
-          const res = await fetch("https://dimsum-production-216a.up.railway.app/api/reviews");
-          const reviews = await res.json();
-
-          const featured = reviews.find((r) => Number(r.highlight) === 1);
-
-          if (!featured) {
-            box.innerHTML = "<p>Belum ada review pilihan.</p>";
-            return;
-          }
-
-          box.innerHTML = `
+        box.innerHTML = `
   <span class="featured-badge">ULASAN TERBAIK</span>
 
   <div class="review-stars">
@@ -594,52 +566,53 @@
   <p>"${featured.review}"</p>
   <small>- ${featured.nama}</small>
 `;
-        } catch (err) {
-          console.error("Gagal load featured review:", err);
-        }
+      } catch (err) {
+        console.error("Gagal load featured review:", err);
       }
+    }
 
-      document.addEventListener("DOMContentLoaded", () => {
-        loadCustomerReviews();
-        loadReviewStats();
-        loadFeaturedReview();
+    document.addEventListener("DOMContentLoaded", () => {
+      loadCustomerReviews();
+      loadReviewStats();
+      loadFeaturedReview();
+    });
+  </script>
+  <script>
+    let reviewIndex = 0;
+    let autoReviewSlide;
+
+    function slideReviews(direction) {
+      const container = document.getElementById("reviewList");
+
+      if (!container) return;
+
+      const cardWidth =
+        container.querySelector(".customer-review-card")?.offsetWidth + 20 ||
+        300;
+
+      reviewIndex += direction;
+
+      const maxIndex =
+        container.children.length -
+        Math.floor(container.offsetWidth / cardWidth);
+
+      if (reviewIndex < 0) reviewIndex = maxIndex;
+      if (reviewIndex > maxIndex) reviewIndex = 0;
+
+      container.scrollTo({
+        left: reviewIndex * cardWidth,
+        behavior: "smooth",
       });
-    </script>
-    <script>
-      let reviewIndex = 0;
-      let autoReviewSlide;
+    }
 
-      function slideReviews(direction) {
-        const container = document.getElementById("reviewList");
+    function startAutoReviewSlide() {
+      clearInterval(autoReviewSlide);
 
-        if (!container) return;
+      autoReviewSlide = setInterval(() => {
+        slideReviews(1);
+      }, 4000);
+    }
+  </script>
+</body>
 
-        const cardWidth =
-          container.querySelector(".customer-review-card")?.offsetWidth + 20 ||
-          300;
-
-        reviewIndex += direction;
-
-        const maxIndex =
-          container.children.length -
-          Math.floor(container.offsetWidth / cardWidth);
-
-        if (reviewIndex < 0) reviewIndex = maxIndex;
-        if (reviewIndex > maxIndex) reviewIndex = 0;
-
-        container.scrollTo({
-          left: reviewIndex * cardWidth,
-          behavior: "smooth",
-        });
-      }
-
-      function startAutoReviewSlide() {
-        clearInterval(autoReviewSlide);
-
-        autoReviewSlide = setInterval(() => {
-          slideReviews(1);
-        }, 4000);
-      }
-    </script>
-  </body>
 </html>

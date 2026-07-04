@@ -1,255 +1,257 @@
 <!doctype html>
 <html lang="id">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Admin Dashboard - Dapur Anak GEN Z</title>
 
-    <!-- CSS -->
-    <link rel="stylesheet" href="dashboard.css" />
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Dashboard - Dapur Anak GEN Z</title>
 
-    <!-- Chart.js -->
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <!-- CSS -->
+  <link rel="stylesheet" href="dashboard.css" />
 
-    <style>
-      .card canvas {
-        max-height: 320px;
-        width: 100% !important;
-      }
-    </style>
-  </head>
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
-  <body>
-    <!-- 🔐 CEK LOGIN ADMIN -->
-    <script>
-      const isLogin = localStorage.getItem("isLogin");
-      const role = localStorage.getItem("role");
+  <style>
+    .card canvas {
+      max-height: 320px;
+      width: 100% !important;
+    }
+  </style>
+</head>
 
-      if (isLogin !== "true" || role !== "admin") {
-        window.location.href = "../index.html";
-      }
-    </script>
+<body>
+  <!-- 🔐 CEK LOGIN ADMIN -->
+  <script>
+    const isLogin = localStorage.getItem("isLogin");
+    const role = localStorage.getItem("role");
 
-    <!-- 🍔 HAMBURGER -->
-    <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
+    if (isLogin !== "true" || role !== "admin") {
+      window.location.href = "../index.html";
+    }
+  </script>
 
-    <!-- SIDEBAR -->
-    <aside class="sidebar" id="sidebar">
-      <h2>Dapur Gen Z</h2>
+  <!-- 🍔 HAMBURGER -->
+  <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
 
-      <a href="dashboard.html" class="active">Dashboard</a>
-      <a href="products.html">Products</a>
-      <a href="orders.html">Orders</a>
-      <a href="livechat.html">Live Chat</a>
-      <a href="reviews.html">Reviews</a>
-      <a href="#" onclick="logout()">Logout</a>
-    </aside>
+  <!-- SIDEBAR -->
+  <aside class="sidebar" id="sidebar">
+    <h2>Dapur Gen Z</h2>
 
-    <!-- MAIN -->
-    <main class="main">
-      <!-- TOPBAR -->
-      <div class="topbar">
-        <div>
-          <h1>Dashboard</h1>
-          <span id="adminName">Selamat Datang</span>
-        </div>
+    <a href="dashboard.html" class="active">Dashboard</a>
+    <a href="products.html">Products</a>
+    <a href="orders.html">Orders</a>
+    <a href="livechat.html">Live Chat</a>
+    <a href="reviews.html">Reviews</a>
+    <a href="#" onclick="logout()">Logout</a>
+  </aside>
+
+  <!-- MAIN -->
+  <main class="main">
+    <!-- TOPBAR -->
+    <div class="topbar">
+      <div>
+        <h1>Dashboard</h1>
+        <span id="adminName">Selamat Datang</span>
+      </div>
+    </div>
+
+    <!-- STATISTIK UTAMA -->
+    <section class="grid-3">
+      <div class="card red">
+        <h2 id="totalProduk">0</h2>
+        <p>Total Produk</p>
       </div>
 
-      <!-- STATISTIK UTAMA -->
-      <section class="grid-3">
-        <div class="card red">
-          <h2 id="totalProduk">0</h2>
-          <p>Total Produk</p>
-        </div>
+      <div class="card green">
+        <h2 id="totalPendapatan">Rp 0</h2>
+        <p>Total Pendapatan</p>
+      </div>
 
-        <div class="card green">
-          <h2 id="totalPendapatan">Rp 0</h2>
-          <p>Total Pendapatan</p>
-        </div>
+      <div class="card yellow">
+        <h2 id="totalOrder">0</h2>
+        <p>Total Order</p>
+      </div>
+    </section>
 
-        <div class="card yellow">
-          <h2 id="totalOrder">0</h2>
-          <p>Total Order</p>
-        </div>
-      </section>
+    <!-- REVIEW STATS -->
+    <section class="grid-4 review-stats">
+      <div class="card blue">
+        <h2 id="dashboardTotalReview">0</h2>
+        <p>Total Review</p>
+      </div>
 
-      <!-- REVIEW STATS -->
-      <section class="grid-4 review-stats">
-        <div class="card blue">
-          <h2 id="dashboardTotalReview">0</h2>
-          <p>Total Review</p>
-        </div>
+      <div class="card gold">
+        <h2 id="dashboardHighlightReview">0</h2>
+        <p>⭐ Highlight Review</p>
+      </div>
 
-        <div class="card gold">
-          <h2 id="dashboardHighlightReview">0</h2>
-          <p>⭐ Highlight Review</p>
-        </div>
+      <div class="card red">
+        <h2 id="dashboardSpamReview">0</h2>
+        <p>🛑 Spam Review</p>
+      </div>
 
-        <div class="card red">
-          <h2 id="dashboardSpamReview">0</h2>
-          <p>🛑 Spam Review</p>
-        </div>
+      <div class="card purple">
+        <h2 id="dashboardAvgReview">0.0</h2>
+        <p>📊 Avg Rating</p>
+      </div>
+    </section>
 
-        <div class="card purple">
-          <h2 id="dashboardAvgReview">0.0</h2>
-          <p>📊 Avg Rating</p>
-        </div>
-      </section>
+    <!-- CHART SECTION -->
+    <section class="grid-2">
+      <!-- BAR CHART -->
+      <div class="card">
+        <h3>📈 Grafik Pendapatan</h3>
+        <canvas id="chartBar"></canvas>
+      </div>
 
-      <!-- CHART SECTION -->
-      <section class="grid-2">
-        <!-- BAR CHART -->
-        <div class="card">
-          <h3>📈 Grafik Pendapatan</h3>
-          <canvas id="chartBar"></canvas>
-        </div>
+      <!-- PIE CHART -->
+      <div class="card">
+        <h3>🥟 Komposisi Produk Dijual</h3>
+        <canvas id="chartPie"></canvas>
+      </div>
+    </section>
+  </main>
 
-        <!-- PIE CHART -->
-        <div class="card">
-          <h3>🥟 Komposisi Produk Dijual</h3>
-          <canvas id="chartPie"></canvas>
-        </div>
-      </section>
-    </main>
+  <!-- ADMIN JS -->
+  <script src="admin.js"></script>
 
-    <!-- ADMIN JS -->
-    <script src="admin.js"></script>
+  <!-- DASHBOARD SCRIPT -->
+  <script>
+    // =========================
+    // 📊 BAR CHART PENDAPATAN
+    // =========================
+    async function loadChartPendapatan() {
+      try {
+        const response = await fetch("https://dimsum-production-216a.up.railway.app/api/chart-data");
+        const data = await response.json();
 
-    <!-- DASHBOARD SCRIPT -->
-    <script>
-      // =========================
-      // 📊 BAR CHART PENDAPATAN
-      // =========================
-      async function loadChartPendapatan() {
-        try {
-          const response = await fetch("https://dimsum-production-216a.up.railway.app/api/chart-data");
-          const data = await response.json();
+        const labels = data.map((item) => item.tanggal);
+        const totals = data.map((item) => item.pendapatan);
 
-          const labels = data.map((item) => item.tanggal);
-          const totals = data.map((item) => item.pendapatan);
+        const ctxBar = document.getElementById("chartBar").getContext("2d");
 
-          const ctxBar = document.getElementById("chartBar").getContext("2d");
-
-          new Chart(ctxBar, {
-            type: "bar",
-            data: {
-              labels,
-              datasets: [
-                {
-                  label: "Pendapatan (Rp)",
-                  data: totals,
-                  backgroundColor: "#ff5b57",
-                  borderRadius: 8,
-                },
-              ],
-            },
-            options: {
-              responsive: true,
-              maintainAspectRatio: false,
-              plugins: {
-                legend: {
-                  display: true,
-                },
+        new Chart(ctxBar, {
+          type: "bar",
+          data: {
+            labels,
+            datasets: [
+              {
+                label: "Pendapatan (Rp)",
+                data: totals,
+                backgroundColor: "#ff5b57",
+                borderRadius: 8,
               },
-              scales: {
-                y: {
-                  beginAtZero: true,
-                  ticks: {
-                    callback: function (value) {
-                      return "Rp " + value.toLocaleString("id-ID");
-                    },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                display: true,
+              },
+            },
+            scales: {
+              y: {
+                beginAtZero: true,
+                ticks: {
+                  callback: function (value) {
+                    return "Rp " + value.toLocaleString("id-ID");
                   },
                 },
               },
             },
-          });
-        } catch (error) {
-          console.error("Gagal load chart pendapatan:", error);
-        }
+          },
+        });
+      } catch (error) {
+        console.error("Gagal load chart pendapatan:", error);
       }
+    }
 
-      // =========================
-      // 🥟 PIE CHART
-      // =========================
-      async function loadPieChart() {
-        try {
-          const response = await fetch(
-            "https://dimsum-production-216a.up.railway.app/api/product-composition",
-          );
-          const data = await response.json();
+    // =========================
+    // 🥟 PIE CHART
+    // =========================
+    async function loadPieChart() {
+      try {
+        const response = await fetch(
+          "https://dimsum-production-216a.up.railway.app/api/product-composition",
+        );
+        const data = await response.json();
 
-          const labels = data.map((item) => item.nama_produk);
-          const totals = data.map((item) => item.total);
+        const labels = data.map((item) => item.nama_produk);
+        const totals = data.map((item) => item.total);
 
-          const ctxPie = document.getElementById("chartPie").getContext("2d");
+        const ctxPie = document.getElementById("chartPie").getContext("2d");
 
-          new Chart(ctxPie, {
-            type: "doughnut",
-            data: {
-              labels,
-              datasets: [
-                {
-                  data: totals,
-                  backgroundColor: [
-                    "#ef5350",
-                    "#43a047",
-                    "#ffa726",
-                    "#42a5f5",
-                    "#ab47bc",
-                  ],
-                  borderWidth: 3,
-                  borderColor: "#ffffff",
-                },
-              ],
-            },
-            options: {
-              responsive: true,
-              maintainAspectRatio: false,
-              plugins: {
-                legend: {
-                  position: "bottom",
-                },
+        new Chart(ctxPie, {
+          type: "doughnut",
+          data: {
+            labels,
+            datasets: [
+              {
+                data: totals,
+                backgroundColor: [
+                  "#ef5350",
+                  "#43a047",
+                  "#ffa726",
+                  "#42a5f5",
+                  "#ab47bc",
+                ],
+                borderWidth: 3,
+                borderColor: "#ffffff",
+              },
+            ],
+          },
+          options: {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+              legend: {
+                position: "bottom",
               },
             },
-          });
-        } catch (error) {
-          console.error("Gagal load pie chart:", error);
-        }
+          },
+        });
+      } catch (error) {
+        console.error("Gagal load pie chart:", error);
+      }
+    }
+
+    // =========================
+    // 🔐 LOGOUT
+    // =========================
+    function logout() {
+      localStorage.removeItem("isLogin");
+      localStorage.removeItem("role");
+      localStorage.removeItem("nama");
+
+      window.location.href = "../index.html";
+    }
+
+    // =========================
+    // 👤 ADMIN NAME
+    // =========================
+    const nama = localStorage.getItem("nama") || "Admin";
+    document.getElementById("adminName").innerText =
+      "Selamat Datang, " + nama;
+
+    // =========================
+    // 🚀 LOAD DASHBOARD
+    // =========================
+    document.addEventListener("DOMContentLoaded", () => {
+      if (typeof updateDashboardStats === "function") {
+        updateDashboardStats();
       }
 
-      // =========================
-      // 🔐 LOGOUT
-      // =========================
-      function logout() {
-        localStorage.removeItem("isLogin");
-        localStorage.removeItem("role");
-        localStorage.removeItem("nama");
-
-        window.location.href = "../index.html";
+      if (typeof loadDashboardReviewStats === "function") {
+        loadDashboardReviewStats();
       }
 
-      // =========================
-      // 👤 ADMIN NAME
-      // =========================
-      const nama = localStorage.getItem("nama") || "Admin";
-      document.getElementById("adminName").innerText =
-        "Selamat Datang, " + nama;
+      loadChartPendapatan();
+      loadPieChart();
+    });
+  </script>
+</body>
 
-      // =========================
-      // 🚀 LOAD DASHBOARD
-      // =========================
-      document.addEventListener("DOMContentLoaded", () => {
-        if (typeof updateDashboardStats === "function") {
-          updateDashboardStats();
-        }
-
-        if (typeof loadDashboardReviewStats === "function") {
-          loadDashboardReviewStats();
-        }
-
-        loadChartPendapatan();
-        loadPieChart();
-      });
-    </script>
-  </body>
 </html>

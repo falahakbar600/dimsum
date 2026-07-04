@@ -93,7 +93,7 @@ body {
   text-align: center;
   border-radius: 18px;
   color: #777;
-  box-shadow: 0 6px 18px rgba(0,0,0,0.05);
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
 }
 
 /* =========================
@@ -103,7 +103,7 @@ body {
   background: white;
   border-radius: 18px;
   overflow: hidden;
-  box-shadow: 0 8px 20px rgba(0,0,0,0.06);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.06);
   margin-bottom: 25px;
   border: 1px solid #eee;
 }
@@ -514,7 +514,7 @@ body {
 
   font-size: 34px;
 
-  box-shadow: 0 8px 20px rgba(0,0,0,0.18);
+  box-shadow: 0 8px 20px rgba(0, 0, 0, 0.18);
 }
 
 /* WARNA ICON */
@@ -800,6 +800,7 @@ body {
     opacity: 0;
     transform: scale(0.92);
   }
+
   to {
     opacity: 1;
     transform: scale(1);

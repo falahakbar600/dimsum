@@ -5,6 +5,7 @@
   box-sizing: border-box;
   font-family: "Poppins", sans-serif;
 }
+
 body {
   background: #fff;
   overflow-x: hidden;
@@ -86,6 +87,7 @@ body {
   border-radius: 5px;
   cursor: pointer;
 }
+
 .search-results {
   position: absolute;
   top: 110%;
@@ -140,6 +142,7 @@ body {
   display: flex;
   flex-direction: column;
 }
+
 /* ICON AREA */
 .nav-icons {
   display: flex;
@@ -258,6 +261,7 @@ body {
 .lang-menu div:hover {
   background: #f5f5f5;
 }
+
 /* --- HERO SECTION --- */
 .prospek-hero {
   height: 300px;
@@ -277,11 +281,13 @@ body {
   height: 100%;
   background: rgba(0, 0, 0, 0.6);
 }
+
 .banner-text {
   position: relative;
   z-index: 2;
   color: white;
 }
+
 .banner-text h1 {
   font-size: 50px;
   font-family: "Montserrat", sans-serif;
@@ -293,7 +299,8 @@ body {
 .decoration {
   width: 60px;
   height: 4px;
-  background-color: #ff5b57; /* Ubah ke merah agar konsisten */
+  background-color: #ff5b57;
+  /* Ubah ke merah agar konsisten */
   margin-top: 5px;
 }
 
@@ -314,6 +321,7 @@ body {
 .sejarah-image {
   flex: 1;
 }
+
 .sejarah-image img {
   width: 100%;
   border-radius: 20px;
@@ -323,11 +331,13 @@ body {
 .sejarah-content {
   flex: 1.2;
 }
+
 .icon-bunga {
   width: 40px;
   margin-bottom: 15px;
   opacity: 0.6;
 }
+
 .sejarah-content h2 {
   font-size: 32px;
   color: #3b1d1d;
@@ -336,6 +346,7 @@ body {
   letter-spacing: 1px;
   margin-bottom: 20px;
 }
+
 .sejarah-content p {
   font-size: 14px;
   color: #666;
@@ -354,6 +365,7 @@ body {
   text-align: center;
   position: relative;
 }
+
 .kemitraan-kontak::before {
   content: "";
   position: absolute;
@@ -374,6 +386,7 @@ body {
   font-weight: 700;
   margin-bottom: 20px;
 }
+
 .nomor-telp {
   font-size: 45px;
   font-weight: bold;
@@ -438,8 +451,7 @@ body {
   content: "";
   width: 30px;
   height: 30px;
-  background: url("https://cdn-icons-png.flaticon.com/512/733/733585.png")
-    no-repeat center;
+  background: url("https://cdn-icons-png.flaticon.com/512/733/733585.png") no-repeat center;
   background-size: contain;
 }
 
@@ -450,10 +462,12 @@ body {
 
 /* ANIMASI */
 @keyframes waBounce {
+
   0%,
   100% {
     transform: translateY(0);
   }
+
   50% {
     transform: translateY(-6px);
   }
@@ -514,6 +528,7 @@ body {
     opacity: 0;
     transform: translateY(10px);
   }
+
   to {
     opacity: 1;
     transform: translateY(0);
@@ -650,8 +665,7 @@ body {
   content: "";
   width: 20px;
   height: 20px;
-  background: url("https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg")
-    no-repeat center;
+  background: url("https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg") no-repeat center;
   background-size: contain;
 }
 
@@ -676,6 +690,7 @@ body {
 .register-text a:hover {
   text-decoration: underline;
 }
+
 /* ================= PRODUCT MODAL WEB VERSION ================= */
 .product-modal {
   display: none;
@@ -859,6 +874,7 @@ body {
     opacity: 0;
     transform: translateX(100%);
   }
+
   to {
     opacity: 1;
     transform: translateX(0);
@@ -890,6 +906,7 @@ body {
   animation: waBounce 2s infinite;
   padding: 0;
 }
+
 .modern-chat-button span {
   display: none !important;
 }
@@ -898,6 +915,7 @@ body {
   font-size: 24px;
   color: white;
 }
+
 .modern-chat-button:hover {
   transform: scale(1.05);
 }
@@ -1010,6 +1028,7 @@ body {
     height: 70vh;
   }
 }
+
 /* =========================
    MUSIC ICON NAVBAR
 ========================= */
@@ -1094,6 +1113,7 @@ body {
   opacity: 1;
   visibility: visible;
 }
+
 .cart-badge-home {
   position: absolute;
   top: -8px;
@@ -1257,6 +1277,7 @@ body {
     font-size: 28px;
   }
 }
+
 /* TARO PALING BAWAH CSS */
 @media (max-width: 768px) {
   .modern-chat-widget {
@@ -1267,6 +1288,7 @@ body {
 
 /* EFEK BOUNCE */
 @keyframes liveChatBounce {
+
   0%,
   100% {
     transform: translateY(0);
