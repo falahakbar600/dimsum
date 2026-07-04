@@ -77,6 +77,7 @@ const db = mysql.createConnection({
   password: process.env.DB_PASSWORD || "",
   database: process.env.DB_NAME || "dimsum_db",
   port: process.env.DB_PORT ? parseInt(process.env.DB_PORT) : 3307,
+  multipleStatements: true,
 });
 
 db.connect((err) => {
@@ -84,6 +85,21 @@ db.connect((err) => {
     console.error("Koneksi MySQL gagal ❌:", err);
   } else {
     console.log("MySQL Connected ✅ (Database: dimsum_db)");
+    
+    // Jalankan auto migration tabel database
+    const sqlPath = path.join(__dirname, "database.sql");
+    if (fs.existsSync(sqlPath)) {
+      const migrationSql = fs.readFileSync(sqlPath, "utf8");
+      db.query(migrationSql, (migrationErr) => {
+        if (migrationErr) {
+          console.error("Auto migration database gagal ❌:", migrationErr);
+        } else {
+          console.log("Auto migration database sukses / Tabel siap digunakan ✅");
+        }
+      });
+    } else {
+      console.warn("File database.sql tidak ditemukan untuk auto migration.");
+    }
   }
 });
 
