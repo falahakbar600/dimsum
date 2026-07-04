@@ -321,11 +321,11 @@
             chatBox.style.display === "block" ? "none" : "block";
         }
       }
-      const API_URL = "http://localhost:3001/api/products";
+      const API_URL = "https://dimsum-production-216a.up.railway.app/api/products";
 
       async function loadHomeMenu() {
         try {
-          const res = await fetch("http://localhost:3001/api/products");
+          const res = await fetch("https://dimsum-production-216a.up.railway.app/api/products");
           const data = await res.json();
 
           const container = document.getElementById("home-menu");
@@ -337,7 +337,7 @@
         <div class="menu-item" onclick='openProductModal(${JSON.stringify(item)})'>
           <div class="menu-front">
             <div class="img-container">
-              <img src="http://localhost:3001/gambar/${item.gambar}" />
+              <img src="https://dimsum-production-216a.up.railway.app/gambar/${item.gambar}" />
             </div>
             <h3>${item.nama}</h3>
           </div>
@@ -360,7 +360,7 @@
 
             <button class="btn-add"
               ${item.stok <= 0 ? "disabled" : ""}
-              onclick="event.stopPropagation(); tambahKeKeranjang('${item.nama}', ${item.harga}, 'http://localhost:3001/gambar/${item.gambar}')"
+              onclick="event.stopPropagation(); tambahKeKeranjang('${item.nama}', ${item.harga}, 'https://dimsum-production-216a.up.railway.app/gambar/${item.gambar}')"
             >
               ${item.stok > 0 ? "+ Keranjang" : "Tidak Tersedia"}
             </button>
@@ -487,7 +487,7 @@
 
       async function loadCustomerReviews() {
         try {
-          const res = await fetch("http://localhost:3001/api/reviews");
+          const res = await fetch("https://dimsum-production-216a.up.railway.app/api/reviews");
           const reviews = await res.json();
 
           allReviews = reviews;
@@ -556,7 +556,7 @@
 
       async function loadReviewStats() {
         try {
-          const res = await fetch("http://localhost:3001/api/reviews/stats");
+          const res = await fetch("https://dimsum-production-216a.up.railway.app/api/reviews/stats");
           const stats = await res.json();
 
           document.getElementById("avgRating").innerText =
@@ -574,7 +574,7 @@
         if (!box) return;
 
         try {
-          const res = await fetch("http://localhost:3001/api/reviews");
+          const res = await fetch("https://dimsum-production-216a.up.railway.app/api/reviews");
           const reviews = await res.json();
 
           const featured = reviews.find((r) => Number(r.highlight) === 1);

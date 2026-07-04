@@ -119,7 +119,7 @@
 
     <!-- PRODUCT LOGIC -->
     <script>
-      const API_URL = "http://localhost:3001/api/products";
+      const API_URL = "https://dimsum-production-216a.up.railway.app/api/products";
 
       async function loadProducts() {
         try {
@@ -137,8 +137,8 @@
           products.forEach((item) => {
             container.innerHTML += `
               <div class="product-card">
-                <img src="http://localhost:3001/gambar/${item.gambar}" 
-                     onerror="this.onerror=null; this.src='http://localhost:3001/gambar/default.png';">
+                <img src="https://dimsum-production-216a.up.railway.app/gambar/${item.gambar}" 
+                     onerror="this.onerror=null; this.src='https://dimsum-production-216a.up.railway.app/gambar/default.png';">
 
                 <h4>${item.nama}</h4>
                 <p>Rp ${parseInt(item.harga).toLocaleString("id-ID")}</p>

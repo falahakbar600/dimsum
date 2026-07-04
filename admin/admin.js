@@ -1,7 +1,7 @@
 // =====================
 // 🌐 KONFIGURASI BACKEND
 // =====================
-const API_URL = "http://localhost:3001/api";
+const API_URL = "https://dimsum-production-216a.up.railway.app/api";
 
 // =====================
 // 📊 DASHBOARD LOGIC
@@ -177,7 +177,7 @@ async function renderOrders() {
 <td>
   ${
     order.bukti_bayar
-      ? `<a href="http://localhost:3001/upload/${order.bukti_bayar}"
+      ? `<a href="https://dimsum-production-216a.up.railway.app/upload/${order.bukti_bayar}"
             target="_blank"
             class="btn-bukti">
             Lihat Bukti
@@ -352,7 +352,7 @@ async function sendAdminReply(customMessage = null) {
   if (!message) return;
 
   try {
-    const response = await fetch("http://localhost:3001/api/livechat/send", {
+    const response = await fetch("https://dimsum-production-216a.up.railway.app/api/livechat/send", {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -382,7 +382,7 @@ async function sendAdminReply(customMessage = null) {
 }
 
 async function loadChatCustomers() {
-  const res = await fetch("http://localhost:3001/api/livechat/customers");
+  const res = await fetch("https://dimsum-production-216a.up.railway.app/api/livechat/customers");
   const customers = await res.json();
 
   const list = document.getElementById("chatUserList");
@@ -422,7 +422,7 @@ async function loadChatCustomers() {
 async function loadCustomerChat(userKey) {
   selectedCustomer = userKey;
 
-  await fetch(`http://localhost:3001/api/livechat/read/${userKey}`, {
+  await fetch(`https://dimsum-production-216a.up.railway.app/api/livechat/read/${userKey}`, {
     method: "PUT",
   });
 
@@ -439,7 +439,7 @@ async function loadCustomerChat(userKey) {
   }
 
   try {
-    const res = await fetch(`http://localhost:3001/api/livechat/${userKey}`);
+    const res = await fetch(`https://dimsum-production-216a.up.railway.app/api/livechat/${userKey}`);
 
     const chats = await res.json();
 

@@ -45,7 +45,7 @@ function loadProductsFromAPI() {
 
   container.innerHTML = "";
 
-  fetch("http://localhost:3001/api/products")
+  fetch("https://dimsum-production-216a.up.railway.app/api/products")
     .then((res) => res.json())
     .then((data) => {
       data.forEach((item) => {
@@ -392,7 +392,7 @@ function checkoutWhatsApp() {
   // =========================
   // 🔥 KIRIM KE DATABASE
   // =========================
-  fetch("http://localhost:3001/api/orders", {
+  fetch("https://dimsum-production-216a.up.railway.app/api/orders", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -659,7 +659,7 @@ function login() {
     return;
   }
 
-  fetch("http://localhost:3001/api/auth/login", {
+  fetch("https://dimsum-production-216a.up.railway.app/api/auth/login", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -797,7 +797,7 @@ function register() {
     return;
   }
 
-  fetch("http://localhost:3001/api/auth/register", {
+  fetch("https://dimsum-production-216a.up.railway.app/api/auth/register", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -882,7 +882,7 @@ function logout() {
 }
 
 function loginGoogle() {
-  window.location.href = "http://localhost:3001/auth/google";
+  window.location.href = "https://dimsum-production-216a.up.railway.app/auth/google";
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -916,7 +916,7 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function loginGoogle() {
-  window.location.href = "http://localhost:3001/auth/google";
+  window.location.href = "https://dimsum-production-216a.up.railway.app/auth/google";
 }
 
 function kirimOTP() {
@@ -927,7 +927,7 @@ function kirimOTP() {
     return;
   }
 
-  fetch("http://localhost:3001/api/auth/send-otp", {
+  fetch("https://dimsum-production-216a.up.railway.app/api/auth/send-otp", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -1156,7 +1156,7 @@ async function initLiveSearch() {
   let products = [];
 
   try {
-    const res = await fetch("http://localhost:3001/api/products");
+    const res = await fetch("https://dimsum-production-216a.up.railway.app/api/products");
     products = await res.json();
   } catch (err) {
     console.error("Gagal load produk:", err);
@@ -1254,7 +1254,7 @@ function openProductModal(product) {
   if (rawImgName.startsWith("gambar/")) {
     rawImgName = rawImgName.replace("gambar/", "");
   }
-  const imagePath = `http://localhost:3001/gambar/${encodeURIComponent(rawImgName.trim())}`;
+  const imagePath = `https://dimsum-production-216a.up.railway.app/gambar/${encodeURIComponent(rawImgName.trim())}`;
 
   document.getElementById("modalImage").src = imagePath;
   document.getElementById("modalName").innerText = product.nama;
@@ -1287,7 +1287,7 @@ function openProductModal(product) {
   }
 
   // 🔥 LOAD RATING PRODUK DARI DATABASE
-  fetch(`http://localhost:3001/api/reviews/product/${product.id}`)
+  fetch(`https://dimsum-production-216a.up.railway.app/api/reviews/product/${product.id}`)
     .then((res) => res.json())
     .then((data) => {
       document.getElementById("productRating").innerHTML = `
@@ -1384,7 +1384,7 @@ function addModalToCart() {
       nama: selectedProduct.nama,
       harga: selectedProduct.harga,
       qty: modalQty,
-      fotoUrl: `http://localhost:3001/gambar/${encodeURIComponent(namaFile)}`,
+      fotoUrl: `https://dimsum-production-216a.up.railway.app/gambar/${encodeURIComponent(namaFile)}`,
       catatan: note || "-",
     });
   }
@@ -1428,7 +1428,7 @@ async function konfirmasiPembayaranQRIS() {
 
   try {
     const response = await fetch(
-      `http://localhost:3001/api/orders/${orderId}/upload-payment`,
+      `https://dimsum-production-216a.up.railway.app/api/orders/${orderId}/upload-payment`,
       {
         method: "POST",
         body: formData,
@@ -1464,7 +1464,7 @@ async function cekStatusPesananUser() {
   if (!hp) return;
 
   try {
-    const res = await fetch(`http://localhost:3001/api/orders/user/${hp}`);
+    const res = await fetch(`https://dimsum-production-216a.up.railway.app/api/orders/user/${hp}`);
     const data = await res.json();
 
     if (!data.success) return;
@@ -1680,7 +1680,7 @@ function sendModernChat() {
   const nama = localStorage.getItem("nama") || "Customer";
 
   // Kirim ke backend
-  fetch("http://localhost:3001/api/livechat/send", {
+  fetch("https://dimsum-production-216a.up.railway.app/api/livechat/send", {
     method: "POST",
     headers: {
       "Content-Type": "application/json",
@@ -1707,7 +1707,7 @@ async function loadModernChat() {
   if (!userKey) return;
 
   try {
-    const res = await fetch(`http://localhost:3001/api/livechat/${userKey}`);
+    const res = await fetch(`https://dimsum-production-216a.up.railway.app/api/livechat/${userKey}`);
 
     const chats = await res.json();
 

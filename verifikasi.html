@@ -64,7 +64,7 @@
         const params = new URLSearchParams(window.location.search);
         const email = params.get("email");
 
-        fetch("http://localhost:3001/api/auth/verify-otp", {
+        fetch("https://dimsum-production-216a.up.railway.app/api/auth/verify-otp", {
           method: "POST",
           headers: {
             "Content-Type": "application/json",
