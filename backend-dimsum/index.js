@@ -72,25 +72,58 @@ app.use(passport.session());
 // 🔗 KONEKSI DATABASE
 // =====================
 console.log("=== DB CONNECTION INFO ===");
-console.log("DB_HOST from env:", process.env.DB_HOST);
-console.log("DB_PORT from env:", process.env.DB_PORT);
-console.log("DB_USER from env:", process.env.DB_USER);
-console.log("DB_NAME from env:", process.env.DB_NAME);
+const connectionUri = process.env.DATABASE_URL || process.env.MYSQL_URL || process.env.MYSQL_PRIVATE_URL || process.env.MYSQL_URL_NON_POOLED;
+if (connectionUri) {
+  // Mask password for logs
+  const maskedUri = connectionUri.replace(/:([^:@]+)@/, ":******@");
+  console.log("Connection URI detected:", maskedUri);
+} else {
+  console.log("DB_HOST from env:", process.env.DB_HOST || process.env.MYSQLHOST || "127.0.0.1 (default)");
+  console.log("DB_PORT from env:", process.env.DB_PORT || process.env.MYSQLPORT || "3307 (default)");
+  console.log("DB_USER from env:", process.env.DB_USER || process.env.MYSQLUSER || "root (default)");
+  console.log("DB_NAME from env:", process.env.DB_NAME || process.env.MYSQLDATABASE || "dimsum_db (default)");
+}
 console.log("==========================");
-const db = mysql.createConnection({
-  host: process.env.DB_HOST || "127.0.0.1",
-  user: process.env.DB_USER || "root",
-  password: process.env.DB_PASSWORD || "",
-  database: process.env.DB_NAME || "dimsum_db",
-  port: process.env.DB_PORT ? parseInt(process.env.DB_PORT) : 3307,
-  multipleStatements: true,
-});
+
+let db;
+let db_name_log = "dimsum_db";
+
+if (connectionUri) {
+  let uriWithParams = connectionUri;
+  if (!uriWithParams.includes("multipleStatements=true")) {
+    uriWithParams += uriWithParams.includes("?") ? "&multipleStatements=true" : "?multipleStatements=true";
+  }
+  db = mysql.createConnection(uriWithParams);
+  
+  try {
+    const parsedUrl = new URL(connectionUri);
+    db_name_log = parsedUrl.pathname.substring(1) || "railway";
+  } catch (e) {
+    db_name_log = "railway";
+  }
+} else {
+  const db_host = process.env.DB_HOST || process.env.MYSQLHOST || "127.0.0.1";
+  const db_user = process.env.DB_USER || process.env.MYSQLUSER || "root";
+  const db_password = process.env.DB_PASSWORD || process.env.MYSQLPASSWORD || "";
+  const db_name = process.env.DB_NAME || process.env.MYSQLDATABASE || "dimsum_db";
+  const db_port = process.env.DB_PORT ? parseInt(process.env.DB_PORT) : (process.env.MYSQLPORT ? parseInt(process.env.MYSQLPORT) : 3307);
+  db_name_log = db_name;
+
+  db = mysql.createConnection({
+    host: db_host,
+    user: db_user,
+    password: db_password,
+    database: db_name,
+    port: db_port,
+    multipleStatements: true,
+  });
+}
 
 db.connect((err) => {
   if (err) {
     console.error("Koneksi MySQL gagal ❌:", err);
   } else {
-    console.log("MySQL Connected ✅ (Database: dimsum_db)");
+    console.log(`MySQL Connected ✅ (Database: ${db_name_log})`);
 
     // Jalankan auto migration tabel database
     const sqlPath = path.join(__dirname, "database.sql");
