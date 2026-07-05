@@ -64,8 +64,8 @@ function loadProductsFromAPI() {
                 
                 <button class="btn-add"
                   onclick='event.stopPropagation(); tambahKeKeranjang(${JSON.stringify(
-          item.name,
-        )}, ${Number(item.price)}, ${JSON.stringify(item.image)})'>
+                    item.name,
+                  )}, ${Number(item.price)}, ${JSON.stringify(item.image)})'>
                   + Keranjang
                 </button>
               </div>
@@ -205,12 +205,13 @@ function renderKeranjang() {
             <strong>${item.nama}</strong>
             <span class="cart-product-price">${formatRupiah(item.harga)}</span>
 
-            ${item.catatan && item.catatan !== "-"
-          ? `<small style="color:#666; display:block; margin-top:4px;">
+            ${
+              item.catatan && item.catatan !== "-"
+                ? `<small style="color:#666; display:block; margin-top:4px;">
                     Catatan: ${item.catatan}
                    </small>`
-          : ""
-        }
+                : ""
+            }
           </div>
         </div>
 
@@ -313,7 +314,7 @@ function initQRISValidation() {
 }
 
 // ===== 🔥 TETAP ADA =====
-function updateQRISState() { }
+function updateQRISState() {}
 
 function updateCheckoutButton() {
   const metode = document.querySelector(
@@ -881,7 +882,8 @@ function logout() {
 }
 
 function loginGoogle() {
-  window.location.href = "https://dimsum-production-216a.up.railway.app/auth/google";
+  window.location.href =
+    "https://dimsum-production-216a.up.railway.app/auth/google";
 }
 
 document.addEventListener("DOMContentLoaded", () => {
@@ -915,7 +917,8 @@ document.addEventListener("DOMContentLoaded", () => {
 });
 
 function loginGoogle() {
-  window.location.href = "https://dimsum-production-216a.up.railway.app/auth/google";
+  window.location.href =
+    "https://dimsum-production-216a.up.railway.app/auth/google";
 }
 
 function kirimOTP() {
@@ -1155,7 +1158,9 @@ async function initLiveSearch() {
   let products = [];
 
   try {
-    const res = await fetch("https://dimsum-production-216a.up.railway.app/api/products");
+    const res = await fetch(
+      "https://dimsum-production-216a.up.railway.app/api/products",
+    );
     products = await res.json();
   } catch (err) {
     console.error("Gagal load produk:", err);
@@ -1286,7 +1291,9 @@ function openProductModal(product) {
   }
 
   // 🔥 LOAD RATING PRODUK DARI DATABASE
-  fetch(`https://dimsum-production-216a.up.railway.app/api/reviews/product/${product.id}`)
+  fetch(
+    `https://dimsum-production-216a.up.railway.app/api/reviews/product/${product.id}`,
+  )
     .then((res) => res.json())
     .then((data) => {
       document.getElementById("productRating").innerHTML = `
@@ -1463,7 +1470,9 @@ async function cekStatusPesananUser() {
   if (!hp) return;
 
   try {
-    const res = await fetch(`https://dimsum-production-216a.up.railway.app/api/orders/user/${hp}`);
+    const res = await fetch(
+      `https://dimsum-production-216a.up.railway.app/api/orders/user/${hp}`,
+    );
     const data = await res.json();
 
     if (!data.success) return;
@@ -1706,7 +1715,9 @@ async function loadModernChat() {
   if (!userKey) return;
 
   try {
-    const res = await fetch(`https://dimsum-production-216a.up.railway.app/api/livechat/${userKey}`);
+    const res = await fetch(
+      `https://dimsum-production-216a.up.railway.app/api/livechat/${userKey}`,
+    );
 
     const chats = await res.json();
 
