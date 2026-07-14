@@ -1036,9 +1036,11 @@ app.get(
   (req, res) => {
     const user = req.user;
 
+    const frontendUrl = process.env.FRONTEND_URL || "https://dapur-anak-gen-z-inky.vercel.app";
+
     // kirim data ke frontend
     res.redirect(
-      `http://127.0.0.1:5500/index.html?nama=${encodeURIComponent(user.nama)}&role=${user.role}&email=${encodeURIComponent(user.email)}&id=${user.id}`,
+      `${frontendUrl}/index.html?nama=${encodeURIComponent(user.nama)}&role=${user.role}&email=${encodeURIComponent(user.email)}&id=${user.id}`,
     );
   },
 );

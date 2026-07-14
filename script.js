@@ -741,7 +741,7 @@ function login() {
             localStorage.removeItem("redirectAfterLogin");
             window.location.href = redirectPage;
           } else {
-            window.location.reload();
+            window.location.href = "menu.html";
           }
         }
       } else {
@@ -886,10 +886,6 @@ function loginGoogle() {
     "https://dimsum-production-216a.up.railway.app/auth/google";
 }
 
-document.addEventListener("DOMContentLoaded", () => {
-  handleGoogleLogin();
-});
-
 function handleGoogleLogin() {
   const params = new URLSearchParams(window.location.search);
 
@@ -908,7 +904,19 @@ function handleGoogleLogin() {
     localStorage.setItem("userId", userId);
 
     window.history.replaceState({}, document.title, window.location.pathname);
-    window.location.reload();
+    
+    if (role === "admin") {
+      window.location.href = "admin/dashboard.html";
+    } else {
+      const redirectPage = localStorage.getItem("redirectAfterLogin");
+
+      if (redirectPage) {
+        localStorage.removeItem("redirectAfterLogin");
+        window.location.href = redirectPage;
+      } else {
+        window.location.href = "menu.html";
+      }
+    }
   }
 }
 
@@ -916,10 +924,6 @@ document.addEventListener("DOMContentLoaded", () => {
   handleGoogleLogin();
 });
 
-function loginGoogle() {
-  window.location.href =
-    "https://dimsum-production-216a.up.railway.app/auth/google";
-}
 
 function kirimOTP() {
   const email = document.querySelector("input").value;
