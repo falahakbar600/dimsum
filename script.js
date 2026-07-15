@@ -1207,16 +1207,7 @@ async function initLiveSearch() {
 
     resultsBox.innerHTML = filtered
       .map((item) => {
-        let rawImgName = item.gambar || "";
-
-        if (rawImgName.startsWith("gambar/")) {
-          rawImgName = rawImgName.replace("gambar/", "");
-        }
-
-        const imagePath = `../gambar/${encodeURIComponent(
-          rawImgName.trim(),
-        )}?v=${Date.now()}`;
-
+        const imagePath = item.image;
         return `
       <div class="search-item"
            onclick='openProductModal(${JSON.stringify(item)})'>
@@ -1224,7 +1215,7 @@ async function initLiveSearch() {
         <img 
           src="${imagePath}"
           alt="${item.nama}"
-          onerror="this.src='../gambar/menu.jpeg'"
+         onerror="this.src='gambar/menu.jpeg'"
         >
 
         <div class="search-item-info">
@@ -1257,14 +1248,7 @@ function openProductModal(product) {
   selectedProduct = product;
   modalQty = 1;
 
-  let rawImgName = product.gambar || "";
-
-  if (rawImgName.startsWith("gambar/")) {
-    rawImgName = rawImgName.replace("gambar/", "");
-  }
-  const imagePath = `https://dimsum-production-216a.up.railway.app/gambar/${encodeURIComponent(rawImgName.trim())}`;
-
-  document.getElementById("modalImage").src = imagePath;
+  document.getElementById("modalImage").src = product.image;
   document.getElementById("modalName").innerText = product.nama;
 
   document.getElementById("modalPrice").innerText =
@@ -1383,18 +1367,12 @@ function addModalToCart() {
   if (existing) {
     existing.qty += modalQty;
   } else {
-    let namaFile = selectedProduct.gambar || "";
-
-    if (namaFile.startsWith("gambar/")) {
-      namaFile = namaFile.replace("gambar/", "");
-    }
-
     keranjang.push({
       id: selectedProduct.id,
       nama: selectedProduct.nama,
       harga: selectedProduct.harga,
       qty: modalQty,
-      fotoUrl: `https://dimsum-production-216a.up.railway.app/gambar/${encodeURIComponent(namaFile)}`,
+      fotoUrl: selectedProduct.image,
       catatan: note || "-",
     });
   }

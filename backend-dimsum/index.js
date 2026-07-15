@@ -53,7 +53,10 @@ app.use(cors());
 app.use(express.json());
 
 // 🔥 WAJIB biar gambar bisa diakses dari browser
-app.use("/gambar", express.static("gambar"));
+app.use("/gambar", express.static(path.join(__dirname, "gambar")));
+console.log("DIRNAME:", __dirname);
+console.log("GAMBAR PATH:", path.join(__dirname, "gambar"));
+console.log("GAMBAR ADA:", fs.existsSync(path.join(__dirname, "gambar")));
 app.use("/upload", express.static("upload"));
 
 // 🔥 TAMBAHAN GOOGLE LOGIN (DI SINI)
@@ -72,16 +75,32 @@ app.use(passport.session());
 // 🔗 KONEKSI DATABASE
 // =====================
 console.log("=== DB CONNECTION INFO ===");
-const connectionUri = process.env.DATABASE_URL || process.env.MYSQL_URL || process.env.MYSQL_PRIVATE_URL || process.env.MYSQL_URL_NON_POOLED;
+const connectionUri =
+  process.env.DATABASE_URL ||
+  process.env.MYSQL_URL ||
+  process.env.MYSQL_PRIVATE_URL ||
+  process.env.MYSQL_URL_NON_POOLED;
 if (connectionUri) {
   // Mask password for logs
   const maskedUri = connectionUri.replace(/:([^:@]+)@/, ":******@");
   console.log("Connection URI detected:", maskedUri);
 } else {
-  console.log("DB_HOST from env:", process.env.DB_HOST || process.env.MYSQLHOST || "127.0.0.1 (default)");
-  console.log("DB_PORT from env:", process.env.DB_PORT || process.env.MYSQLPORT || "3307 (default)");
-  console.log("DB_USER from env:", process.env.DB_USER || process.env.MYSQLUSER || "root (default)");
-  console.log("DB_NAME from env:", process.env.DB_NAME || process.env.MYSQLDATABASE || "dimsum_db (default)");
+  console.log(
+    "DB_HOST from env:",
+    process.env.DB_HOST || process.env.MYSQLHOST || "127.0.0.1 (default)",
+  );
+  console.log(
+    "DB_PORT from env:",
+    process.env.DB_PORT || process.env.MYSQLPORT || "3307 (default)",
+  );
+  console.log(
+    "DB_USER from env:",
+    process.env.DB_USER || process.env.MYSQLUSER || "root (default)",
+  );
+  console.log(
+    "DB_NAME from env:",
+    process.env.DB_NAME || process.env.MYSQLDATABASE || "dimsum_db (default)",
+  );
 }
 console.log("==========================");
 
@@ -91,10 +110,12 @@ let db_name_log = "dimsum_db";
 if (connectionUri) {
   let uriWithParams = connectionUri;
   if (!uriWithParams.includes("multipleStatements=true")) {
-    uriWithParams += uriWithParams.includes("?") ? "&multipleStatements=true" : "?multipleStatements=true";
+    uriWithParams += uriWithParams.includes("?")
+      ? "&multipleStatements=true"
+      : "?multipleStatements=true";
   }
   db = mysql.createConnection(uriWithParams);
-  
+
   try {
     const parsedUrl = new URL(connectionUri);
     db_name_log = parsedUrl.pathname.substring(1) || "railway";
@@ -104,9 +125,15 @@ if (connectionUri) {
 } else {
   const db_host = process.env.DB_HOST || process.env.MYSQLHOST || "127.0.0.1";
   const db_user = process.env.DB_USER || process.env.MYSQLUSER || "root";
-  const db_password = process.env.DB_PASSWORD || process.env.MYSQLPASSWORD || "";
-  const db_name = process.env.DB_NAME || process.env.MYSQLDATABASE || "dimsum_db";
-  const db_port = process.env.DB_PORT ? parseInt(process.env.DB_PORT) : (process.env.MYSQLPORT ? parseInt(process.env.MYSQLPORT) : 3307);
+  const db_password =
+    process.env.DB_PASSWORD || process.env.MYSQLPASSWORD || "";
+  const db_name =
+    process.env.DB_NAME || process.env.MYSQLDATABASE || "dimsum_db";
+  const db_port = process.env.DB_PORT
+    ? parseInt(process.env.DB_PORT)
+    : process.env.MYSQLPORT
+      ? parseInt(process.env.MYSQLPORT)
+      : 3307;
   db_name_log = db_name;
 
   db = mysql.createConnection({
@@ -133,7 +160,9 @@ db.connect((err) => {
         if (migrationErr) {
           console.error("Auto migration database gagal ❌:", migrationErr);
         } else {
-          console.log("Auto migration database sukses / Tabel siap digunakan ✅");
+          console.log(
+            "Auto migration database sukses / Tabel siap digunakan ✅",
+          );
         }
       });
     } else {
@@ -1184,9 +1213,9 @@ app.get("/api/admin/reviews/export/pdf", async (req, res) => {
         const avgRating =
           totalReview > 0
             ? (
-              reviews.reduce((sum, r) => sum + Number(r.rating), 0) /
-              totalReview
-            ).toFixed(1)
+                reviews.reduce((sum, r) => sum + Number(r.rating), 0) /
+                totalReview
+              ).toFixed(1)
             : "0.0";
 
         const positive = reviews.filter((r) => Number(r.rating) >= 4).length;
@@ -1370,9 +1399,9 @@ app.get("/api/admin/reviews/export/excel", async (req, res) => {
         const avgRating =
           totalReview > 0
             ? (
-              reviews.reduce((sum, r) => sum + Number(r.rating), 0) /
-              totalReview
-            ).toFixed(1)
+                reviews.reduce((sum, r) => sum + Number(r.rating), 0) /
+                totalReview
+              ).toFixed(1)
             : 0;
 
         const positive = reviews.filter((r) => r.rating >= 4).length;

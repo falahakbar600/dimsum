@@ -45,10 +45,6 @@
             </a>
           </div>
 
-          <div class="music-control">
-            <i class="fa-solid fa-music" onclick="toggleMusic()" id="musicIcon"></i>
-          </div>
-
           <div class="cart-wrapper">
             <a href="keranjang.html" class="cart-icon">
               <i class="fa-solid fa-cart-shopping"></i>
@@ -293,35 +289,7 @@
       </div>
     </div>
   </div>
-  <audio id="bgMusic" loop>
-    <source src="musik/musik.mp3" type="audio/mpeg" />
-  </audio>
 
-  <script>
-    const music = document.getElementById("bgMusic");
-    const icon = document.getElementById("musicIcon");
-
-    document.addEventListener("DOMContentLoaded", () => {
-      const musicState = localStorage.getItem("musicPlaying");
-
-      if (musicState === "true") {
-        music.play().catch(() => { });
-        if (icon) icon.style.color = "#ff4d4d";
-      }
-    });
-
-    function toggleMusic() {
-      if (music.paused) {
-        music.play();
-        localStorage.setItem("musicPlaying", "true");
-        if (icon) icon.style.color = "#ff4d4d";
-      } else {
-        music.pause();
-        localStorage.setItem("musicPlaying", "false");
-        if (icon) icon.style.color = "black";
-      }
-    }
-  </script>
 
   <script>
     document.addEventListener("DOMContentLoaded", () => {

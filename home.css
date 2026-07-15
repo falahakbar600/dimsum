@@ -530,7 +530,8 @@ body {
   content: "";
   width: 30px;
   height: 30px;
-  background: url("https://cdn-icons-png.flaticon.com/512/733/733585.png") no-repeat center;
+  background: url("https://cdn-icons-png.flaticon.com/512/733/733585.png")
+    no-repeat center;
   background-size: contain;
 }
 
@@ -733,7 +734,8 @@ body {
   content: "";
   width: 20px;
   height: 20px;
-  background: url("https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg") no-repeat center;
+  background: url("https://upload.wikimedia.org/wikipedia/commons/c/c1/Google_%22G%22_logo.svg")
+    no-repeat center;
   background-size: contain;
 }
 
@@ -745,7 +747,6 @@ body {
 
 /* --- ANIMATIONS --- */
 @keyframes waBounce {
-
   0%,
   100% {
     transform: translateY(0);
@@ -1232,27 +1233,6 @@ body {
 }
 
 /* =========================
-   MUSIC ICON NAVBAR
-========================= */
-.music-control {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-}
-
-.music-control i {
-  font-size: 20px;
-  color: #333;
-  transition: 0.3s;
-}
-
-.music-control i:hover {
-  color: #ff5b57;
-  transform: scale(1.1);
-}
-
-/* =========================
    ORDER HISTORY ICON
 ========================= */
 .history-nav-icon {
@@ -1319,7 +1299,6 @@ body {
    MOBILE HAMBURGER FINAL
 ========================= */
 @media (max-width: 768px) {
-
   /* NAVBAR */
   .navbar {
     display: flex;

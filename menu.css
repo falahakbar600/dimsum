@@ -1277,26 +1277,6 @@ body {
   }
 }
 
-/* =========================
-   MUSIC ICON NAVBAR
-========================= */
-.music-control {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  cursor: pointer;
-}
-
-.music-control i {
-  font-size: 20px;
-  color: #333;
-  transition: 0.3s;
-}
-
-.music-control i:hover {
-  color: #ff5b57;
-  transform: scale(1.1);
-}
 
 /* ==========================================
    ICON RIWAYAT PESANAN NAVBAR
