@@ -178,10 +178,12 @@ db.query("SELECT 1", (err, result) => {
 });
 
 const transporter = nodemailer.createTransport({
-  service: "gmail",
+  host: "smtp.gmail.com",
+  port: 465,
+  secure: true,
   auth: {
-    user: "falah.akbar304@gmail.com",
-    pass: "radbsuyihcckbxbi",
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
   },
 });
 
@@ -1065,7 +1067,8 @@ app.get(
   (req, res) => {
     const user = req.user;
 
-    const frontendUrl = process.env.FRONTEND_URL || "https://dapur-anak-gen-z-inky.vercel.app";
+    const frontendUrl =
+      process.env.FRONTEND_URL || "https://dapur-anak-gen-z-inky.vercel.app";
 
     // kirim data ke frontend
     res.redirect(
