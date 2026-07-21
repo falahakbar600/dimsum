@@ -1101,6 +1101,7 @@ app.post("/api/auth/send-otp", async (req, res) => {
 
       try {
         await transporter.sendMail({
+          from: process.env.EMAIL_USER,
           to: email,
           subject: "Kode Reset Password",
           text: `Kode OTP kamu adalah: ${otp}`,
