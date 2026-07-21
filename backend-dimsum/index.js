@@ -188,7 +188,13 @@ const transporter = nodemailer.createTransport({
     pass: process.env.EMAIL_PASS,
   },
 });
-
+transporter.verify((err, success) => {
+  if (err) {
+    console.error("VERIFY ERROR:", err);
+  } else {
+    console.log("SMTP READY");
+  }
+});
 // =====================
 // 🔐 GOOGLE STRATEGY
 // =====================
@@ -1102,10 +1108,13 @@ app.post("/api/auth/send-otp", async (req, res) => {
 
         res.json({ success: true });
       } catch (error) {
-        console.error(error);
-        res.status(500).json({
+        console.error("SENDMAIL ERROR:", error);
+
+        return res.status(500).json({
           success: false,
-          message: "Gagal kirim email",
+          message: error.message,
+          code: error.code,
+          response: error.response,
         });
       }
     },
