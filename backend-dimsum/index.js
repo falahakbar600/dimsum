@@ -177,24 +177,33 @@ db.query("SELECT 1", (err, result) => {
   console.log(result);
 });
 
+const emailConfigured = Boolean(process.env.EMAIL_USER && process.env.EMAIL_PASS);
 const transporter = nodemailer.createTransport({
-  host: "smtp.gmail.com",
-  port: 587,
-  secure: false,
+  host: process.env.EMAIL_HOST || "smtp.gmail.com",
+  port: Number(process.env.EMAIL_PORT || 587),
+  secure: process.env.EMAIL_SECURE === "true",
   requireTLS: true,
   family: 4,
+  connectionTimeout: Number(process.env.EMAIL_CONNECTION_TIMEOUT || 10000),
+  greetingTimeout: Number(process.env.EMAIL_GREETING_TIMEOUT || 10000),
+  socketTimeout: Number(process.env.EMAIL_SOCKET_TIMEOUT || 10000),
   auth: {
     user: process.env.EMAIL_USER,
     pass: process.env.EMAIL_PASS,
   },
 });
-transporter.verify((err, success) => {
-  if (err) {
-    console.error("VERIFY ERROR:", err);
-  } else {
-    console.log("SMTP READY");
-  }
-});
+
+if (emailConfigured) {
+  transporter.verify((err) => {
+    if (err) {
+      console.error("VERIFY ERROR:", err);
+    } else {
+      console.log("SMTP READY");
+    }
+  });
+} else {
+  console.warn("SMTP belum dikonfigurasi: isi EMAIL_USER dan EMAIL_PASS.");
+}
 // =====================
 // 🔐 GOOGLE STRATEGY
 // =====================
@@ -1088,7 +1097,21 @@ app.get(
 console.log("CLIENT:", process.env.GOOGLE_CLIENT_ID);
 
 app.post("/api/auth/send-otp", async (req, res) => {
-  const { email } = req.body;
+  const email = String(req.body.email || "").trim().toLowerCase();
+
+  if (!email) {
+    return res.status(400).json({
+      success: false,
+      message: "Email wajib diisi",
+    });
+  }
+
+  if (!emailConfigured) {
+    return res.status(500).json({
+      success: false,
+      message: "Konfigurasi email server belum lengkap",
+    });
+  }
 
   const otp = Math.floor(100000 + Math.random() * 900000);
   const expired = new Date(Date.now() + 5 * 60000);
@@ -1096,12 +1119,25 @@ app.post("/api/auth/send-otp", async (req, res) => {
   db.query(
     "UPDATE users SET otp=?, otp_expired=? WHERE email=?",
     [otp, expired, email],
-    async (err) => {
-      if (err) return res.status(500).json({ error: err });
+    async (err, result) => {
+      if (err) {
+        console.error("SEND OTP DB ERROR:", err);
+        return res.status(500).json({
+          success: false,
+          message: "Gagal menyimpan OTP",
+        });
+      }
+
+      if (result.affectedRows === 0) {
+        return res.status(404).json({
+          success: false,
+          message: "Email tidak terdaftar",
+        });
+      }
 
       try {
         await transporter.sendMail({
-          from: process.env.EMAIL_USER,
+          from: process.env.EMAIL_FROM || process.env.EMAIL_USER,
           to: email,
           subject: "Kode Reset Password",
           text: `Kode OTP kamu adalah: ${otp}`,
@@ -1113,7 +1149,8 @@ app.post("/api/auth/send-otp", async (req, res) => {
 
         return res.status(500).json({
           success: false,
-          message: error.message,
+          message: "Gagal mengirim email OTP",
+          error: error.message,
           code: error.code,
           response: error.response,
         });

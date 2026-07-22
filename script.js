@@ -926,11 +926,18 @@ document.addEventListener("DOMContentLoaded", () => {
 
 
 function kirimOTP() {
-  const email = document.querySelector("input").value;
+  const emailInput = document.getElementById("emailReset");
+  const button = document.getElementById("btnKirimOTP");
+  const email = emailInput ? emailInput.value.trim().toLowerCase() : "";
 
   if (!email) {
-    alert("Masukkan email atau nomor HP!");
+    alert("Masukkan email!");
     return;
+  }
+
+  if (button) {
+    button.disabled = true;
+    button.textContent = "Mengirim...";
   }
 
   fetch("https://dimsum-production-216a.up.railway.app/api/auth/send-otp", {
@@ -940,20 +947,33 @@ function kirimOTP() {
     },
     body: JSON.stringify({ email }),
   })
-    .then((res) => res.json())
+    .then(async (res) => {
+      const data = await res.json().catch(() => ({}));
+      if (!res.ok) {
+        throw new Error(data.message || data.error || "Server error");
+      }
+      return data;
+    })
     .then((data) => {
       if (data.success) {
         alert("Kode OTP dikirim!");
 
         // pindah ke halaman verifikasi
-        window.location.href = "verifikasi.html?email=" + email;
+        window.location.href =
+          "verifikasi.html?email=" + encodeURIComponent(email);
       } else {
-        alert(data.message);
+        alert(data.message || "Gagal mengirim OTP");
       }
     })
     .catch((err) => {
       console.error(err);
-      alert("Server error!");
+      alert(err.message || "Server error!");
+    })
+    .finally(() => {
+      if (button) {
+        button.disabled = false;
+        button.textContent = "Kirim Kode Pemulihan";
+      }
     });
 }
 // ===== FIX OTP INPUT (VERSI PASTI JALAN) =====
