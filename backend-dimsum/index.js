@@ -49,7 +49,18 @@ require("dotenv").config();
 // =====================
 // 🔧 MIDDLEWARE
 // =====================
-app.use(cors());
+app.use(
+  cors({
+    origin: [
+      "https://dapur-anak-gen-z-inky.vercel.app", // Domain Vercel kamu
+      "http://localhost:5500", // Untuk pengujian lokal
+      "http://127.0.0.1:5500",
+    ],
+    methods: ["GET", "POST", "PUT", "DELETE"],
+    allowedHeaders: ["Content-Type", "Authorization"],
+    credentials: true,
+  }),
+);
 app.use(express.json());
 
 // 🔥 WAJIB biar gambar bisa diakses dari browser
