@@ -215,6 +215,19 @@ if (emailConfigured) {
 } else {
   console.warn("SMTP belum dikonfigurasi: isi EMAIL_USER dan EMAIL_PASS.");
 }
+
+app.get("/api/health", (req, res) => {
+  res.json({
+    success: true,
+    service: "backend-dimsum",
+    otpPatch: "email-validation-smtp-timeout-v2",
+    emailConfigured,
+    emailHost: process.env.EMAIL_HOST || "smtp.gmail.com",
+    emailPort: Number(process.env.EMAIL_PORT || 587),
+    emailSecure: process.env.EMAIL_SECURE === "true",
+  });
+});
+
 // =====================
 // 🔐 GOOGLE STRATEGY
 // =====================
