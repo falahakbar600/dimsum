@@ -205,18 +205,26 @@ db.query("SELECT 1", (err, result) => {
 const emailProvider = (process.env.EMAIL_PROVIDER || "smtp").toLowerCase();
 const emailFrom =
   process.env.EMAIL_FROM || process.env.EMAIL_USER || "noreply@example.com";
+const emailPort = Number(process.env.EMAIL_PORT || 587);
+const emailSecure = emailPort === 465 || process.env.EMAIL_SECURE === "true";
 const smtpConfigured = Boolean(process.env.EMAIL_USER && process.env.EMAIL_PASS);
 const resendConfigured = Boolean(process.env.RESEND_API_KEY);
 const brevoConfigured = Boolean(process.env.BREVO_API_KEY);
+const gmailApiConfigured = Boolean(
+  process.env.GMAIL_CLIENT_ID &&
+    process.env.GMAIL_CLIENT_SECRET &&
+    process.env.GMAIL_REFRESH_TOKEN,
+);
 const emailConfigured =
   (emailProvider === "resend" && resendConfigured) ||
   (emailProvider === "brevo" && brevoConfigured) ||
+  (emailProvider === "gmail-api" && gmailApiConfigured) ||
   (emailProvider === "smtp" && smtpConfigured);
 
 const transporter = nodemailer.createTransport({
   host: process.env.EMAIL_HOST || "smtp.gmail.com",
-  port: Number(process.env.EMAIL_PORT || 587),
-  secure: process.env.EMAIL_SECURE === "true",
+  port: emailPort,
+  secure: emailSecure,
   requireTLS: true,
   family: 4,
   connectionTimeout: Number(process.env.EMAIL_CONNECTION_TIMEOUT || 10000),
@@ -229,6 +237,71 @@ const transporter = nodemailer.createTransport({
 });
 
 async function sendEmail({ to, subject, text, html }) {
+  if (emailProvider === "gmail-api") {
+    const tokenResponse = await fetch("https://oauth2.googleapis.com/token", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/x-www-form-urlencoded",
+      },
+      body: new URLSearchParams({
+        client_id: process.env.GMAIL_CLIENT_ID,
+        client_secret: process.env.GMAIL_CLIENT_SECRET,
+        refresh_token: process.env.GMAIL_REFRESH_TOKEN,
+        grant_type: "refresh_token",
+      }),
+    });
+
+    const tokenData = await tokenResponse.json().catch(() => ({}));
+    if (!tokenResponse.ok) {
+      throw new Error(
+        tokenData.error_description ||
+          tokenData.error ||
+          "Gagal mengambil Gmail access token",
+      );
+    }
+
+    const plainText = text || "";
+    const body = html || plainText.replace(/\n/g, "<br>");
+    const rawMessage = [
+      `From: ${emailFrom}`,
+      `To: ${to}`,
+      `Subject: ${subject}`,
+      "MIME-Version: 1.0",
+      "Content-Type: text/html; charset=UTF-8",
+      "",
+      body,
+    ].join("\r\n");
+
+    const encodedMessage = Buffer.from(rawMessage)
+      .toString("base64")
+      .replace(/\+/g, "-")
+      .replace(/\//g, "_")
+      .replace(/=+$/, "");
+
+    const sendResponse = await fetch(
+      "https://gmail.googleapis.com/gmail/v1/users/me/messages/send",
+      {
+        method: "POST",
+        headers: {
+          Authorization: `Bearer ${tokenData.access_token}`,
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          raw: encodedMessage,
+        }),
+      },
+    );
+
+    const sendData = await sendResponse.json().catch(() => ({}));
+    if (!sendResponse.ok) {
+      throw new Error(
+        sendData.error?.message || "Gmail API gagal mengirim email",
+      );
+    }
+
+    return sendData;
+  }
+
   if (emailProvider === "resend") {
     const response = await fetch("https://api.resend.com/emails", {
       method: "POST",
@@ -308,9 +381,10 @@ app.get("/api/health", (req, res) => {
     otpPatch: "email-validation-smtp-timeout-v2",
     emailConfigured,
     emailProvider,
+    gmailApiConfigured,
     emailHost: process.env.EMAIL_HOST || "smtp.gmail.com",
-    emailPort: Number(process.env.EMAIL_PORT || 587),
-    emailSecure: process.env.EMAIL_SECURE === "true",
+    emailPort,
+    emailSecure,
   });
 });
 
