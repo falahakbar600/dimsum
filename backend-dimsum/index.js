@@ -49,14 +49,28 @@ require("dotenv").config();
 // =====================
 // 🔧 MIDDLEWARE
 // =====================
+const allowedOrigins = [
+  process.env.FRONTEND_URL,
+  "https://dimsum-hazel.vercel.app",
+  "https://dapur-anak-gen-z-inky.vercel.app",
+  "http://localhost:5500",
+  "http://127.0.0.1:5500",
+  ...(process.env.CORS_ORIGINS || "")
+    .split(",")
+    .map((origin) => origin.trim())
+    .filter(Boolean),
+].filter(Boolean);
+
 app.use(
   cors({
-    origin: [
-      "https://dapur-anak-gen-z-inky.vercel.app", // Domain Vercel kamu
-      "http://localhost:5500", // Untuk pengujian lokal
-      "http://127.0.0.1:5500",
-    ],
-    methods: ["GET", "POST", "PUT", "DELETE"],
+    origin(origin, callback) {
+      if (!origin || allowedOrigins.includes(origin)) {
+        return callback(null, true);
+      }
+
+      return callback(null, false);
+    },
+    methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
     allowedHeaders: ["Content-Type", "Authorization"],
     credentials: true,
   }),
@@ -1109,7 +1123,7 @@ app.get(
     const user = req.user;
 
     const frontendUrl =
-      process.env.FRONTEND_URL || "https://dapur-anak-gen-z-inky.vercel.app";
+      process.env.FRONTEND_URL || "https://dimsum-hazel.vercel.app";
 
     // kirim data ke frontend
     res.redirect(
