@@ -3,6 +3,7 @@ const router = express.Router();
 const db = require("../config/db");
 const nodemailer = require("nodemailer");
 
+
 const emailConfigured = Boolean(process.env.EMAIL_USER && process.env.EMAIL_PASS);
 const transporter = nodemailer.createTransport({
   host: process.env.EMAIL_HOST || "smtp.gmail.com",
