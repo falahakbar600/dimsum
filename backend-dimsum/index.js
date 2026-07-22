@@ -203,8 +203,15 @@ db.query("SELECT 1", (err, result) => {
 });
 
 const emailProvider = (process.env.EMAIL_PROVIDER || "smtp").toLowerCase();
+const configuredEmailFrom =
+  process.env.EMAIL_FROM ||
+  (emailProvider === "resend"
+    ? "Dapur Anak GEN Z <onboarding@resend.dev>"
+    : process.env.EMAIL_USER || "noreply@example.com");
 const emailFrom =
-  process.env.EMAIL_FROM || process.env.EMAIL_USER || "noreply@example.com";
+  emailProvider === "resend" && /@gmail\.com>?$/i.test(configuredEmailFrom)
+    ? "Dapur Anak GEN Z <onboarding@resend.dev>"
+    : configuredEmailFrom;
 const emailPort = Number(process.env.EMAIL_PORT || 587);
 const emailSecure = emailPort === 465 || process.env.EMAIL_SECURE === "true";
 const smtpConfigured = Boolean(process.env.EMAIL_USER && process.env.EMAIL_PASS);
