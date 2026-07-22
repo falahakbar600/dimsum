@@ -177,8 +177,24 @@ db.query("SELECT 1", (err, result) => {
   console.log(result);
 });
 
-const { Resend } = require("resend");
-const resend = new Resend(process.env.RESEND_API_KEY);
+const transporter = nodemailer.createTransport({
+  host: "smtp.gmail.com",
+  port: 587,
+  secure: false,
+  requireTLS: true,
+  family: 4,
+  auth: {
+    user: process.env.EMAIL_USER,
+    pass: process.env.EMAIL_PASS,
+  },
+});
+transporter.verify((err, success) => {
+  if (err) {
+    console.error("VERIFY ERROR:", err);
+  } else {
+    console.log("SMTP READY");
+  }
+});
 // =====================
 // 🔐 GOOGLE STRATEGY
 // =====================
@@ -1084,8 +1100,8 @@ app.post("/api/auth/send-otp", async (req, res) => {
       if (err) return res.status(500).json({ error: err });
 
       try {
-        await resend.emails.send({
-          from: "onboarding@resend.dev", // sementara pakai ini dulu (default Resend), nanti bisa ganti pakai domain sendiri
+        await transporter.sendMail({
+          from: process.env.EMAIL_USER,
           to: email,
           subject: "Kode Reset Password",
           text: `Kode OTP kamu adalah: ${otp}`,
@@ -1747,8 +1763,8 @@ app.post("/api/contact", async (req, res) => {
   const { nama, telepon, email, pesan } = req.body;
 
   try {
-    await resend.emails.send({
-      from: "onboarding@resend.dev",
+    await transporter.sendMail({
+      from: "falah.akbar304@gmail.com",
       replyTo: email,
       to: "falah.akbar304@gmail.com",
       subject: "Pesan Baru dari Website Dapur Anak GEN Z",
