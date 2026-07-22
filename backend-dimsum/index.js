@@ -202,7 +202,17 @@ db.query("SELECT 1", (err, result) => {
   console.log(result);
 });
 
-const emailConfigured = Boolean(process.env.EMAIL_USER && process.env.EMAIL_PASS);
+const emailProvider = (process.env.EMAIL_PROVIDER || "smtp").toLowerCase();
+const emailFrom =
+  process.env.EMAIL_FROM || process.env.EMAIL_USER || "noreply@example.com";
+const smtpConfigured = Boolean(process.env.EMAIL_USER && process.env.EMAIL_PASS);
+const resendConfigured = Boolean(process.env.RESEND_API_KEY);
+const brevoConfigured = Boolean(process.env.BREVO_API_KEY);
+const emailConfigured =
+  (emailProvider === "resend" && resendConfigured) ||
+  (emailProvider === "brevo" && brevoConfigured) ||
+  (emailProvider === "smtp" && smtpConfigured);
+
 const transporter = nodemailer.createTransport({
   host: process.env.EMAIL_HOST || "smtp.gmail.com",
   port: Number(process.env.EMAIL_PORT || 587),
@@ -218,7 +228,68 @@ const transporter = nodemailer.createTransport({
   },
 });
 
-if (emailConfigured) {
+async function sendEmail({ to, subject, text, html }) {
+  if (emailProvider === "resend") {
+    const response = await fetch("https://api.resend.com/emails", {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${process.env.RESEND_API_KEY}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        from: emailFrom,
+        to,
+        subject,
+        text,
+        html,
+      }),
+    });
+
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) {
+      throw new Error(data.message || data.error || "Resend gagal mengirim email");
+    }
+
+    return data;
+  }
+
+  if (emailProvider === "brevo") {
+    const response = await fetch("https://api.brevo.com/v3/smtp/email", {
+      method: "POST",
+      headers: {
+        "api-key": process.env.BREVO_API_KEY,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        sender: {
+          email: emailFrom,
+          name: process.env.EMAIL_FROM_NAME || "Dapur Anak GEN Z",
+        },
+        to: [{ email: to }],
+        subject,
+        textContent: text,
+        htmlContent: html,
+      }),
+    });
+
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok) {
+      throw new Error(data.message || data.error || "Brevo gagal mengirim email");
+    }
+
+    return data;
+  }
+
+  return transporter.sendMail({
+    from: emailFrom,
+    to,
+    subject,
+    text,
+    html,
+  });
+}
+
+if (emailProvider === "smtp" && smtpConfigured) {
   transporter.verify((err) => {
     if (err) {
       console.error("VERIFY ERROR:", err);
@@ -227,7 +298,7 @@ if (emailConfigured) {
     }
   });
 } else {
-  console.warn("SMTP belum dikonfigurasi: isi EMAIL_USER dan EMAIL_PASS.");
+  console.log(`EMAIL PROVIDER: ${emailProvider}`);
 }
 
 app.get("/api/health", (req, res) => {
@@ -236,6 +307,7 @@ app.get("/api/health", (req, res) => {
     service: "backend-dimsum",
     otpPatch: "email-validation-smtp-timeout-v2",
     emailConfigured,
+    emailProvider,
     emailHost: process.env.EMAIL_HOST || "smtp.gmail.com",
     emailPort: Number(process.env.EMAIL_PORT || 587),
     emailSecure: process.env.EMAIL_SECURE === "true",
@@ -1174,8 +1246,7 @@ app.post("/api/auth/send-otp", async (req, res) => {
       }
 
       try {
-        await transporter.sendMail({
-          from: process.env.EMAIL_FROM || process.env.EMAIL_USER,
+        await sendEmail({
           to: email,
           subject: "Kode Reset Password",
           text: `Kode OTP kamu adalah: ${otp}`,
@@ -1838,11 +1909,10 @@ app.post("/api/contact", async (req, res) => {
   const { nama, telepon, email, pesan } = req.body;
 
   try {
-    await transporter.sendMail({
-      from: "falah.akbar304@gmail.com",
-      replyTo: email,
-      to: "falah.akbar304@gmail.com",
+    await sendEmail({
+      to: process.env.CONTACT_EMAIL_TO || process.env.EMAIL_USER || emailFrom,
       subject: "Pesan Baru dari Website Dapur Anak GEN Z",
+      text: `Nama: ${nama}\nTelepon: ${telepon}\nEmail: ${email}\nPesan:\n${pesan}`,
       html: `
         <h2>Pesan Baru</h2>
         <p><strong>Nama:</strong> ${nama}</p>
