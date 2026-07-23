@@ -1,239 +1,238 @@
 <!doctype html>
 <html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <title>Laporan Ulasan Pelanggan</title>
+    <style>
+      body {
+        font-family: Arial, sans-serif;
+        padding: 40px;
+        color: #222;
+        background: #f9f9f9;
+      }
 
-<head>
-  <meta charset="UTF-8" />
-  <title>Laporan Review Customer</title>
-  <style>
-    body {
-      font-family: Arial, sans-serif;
-      padding: 40px;
-      color: #222;
-      background: #f9f9f9;
-    }
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: flex-start;
+        gap: 20px;
+        flex-wrap: wrap;
+      }
 
-    .header {
-      display: flex;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 20px;
-      flex-wrap: wrap;
-    }
+      .brand h1 {
+        color: #ff6b35;
+        margin: 0;
+      }
 
-    .brand h1 {
-      color: #ff6b35;
-      margin: 0;
-    }
+      .title {
+        font-size: 42px;
+        font-weight: 800;
+        margin-top: 25px;
+        line-height: 1.2;
+        word-break: break-word;
+      }
 
-    .title {
-      font-size: 42px;
-      font-weight: 800;
-      margin-top: 25px;
-      line-height: 1.2;
-      word-break: break-word;
-    }
+      .title span {
+        color: #ff6b35;
+      }
 
-    .title span {
-      color: #ff6b35;
-    }
+      .stats {
+        display: flex;
+        gap: 20px;
+        margin: 40px 0;
+      }
 
-    .stats {
-      display: flex;
-      gap: 20px;
-      margin: 40px 0;
-    }
+      .card {
+        background: white;
+        border-radius: 18px;
+        padding: 30px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        text-align: center;
+      }
 
-    .card {
-      background: white;
-      border-radius: 18px;
-      padding: 30px;
-      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
-      text-align: center;
-    }
+      .card h2 {
+        font-size: 34px;
+        margin: 10px 0;
+      }
 
-    .card h2 {
-      font-size: 34px;
-      margin: 10px 0;
-    }
+      .section-title {
+        margin-top: 40px;
+        font-size: 24px;
+        font-weight: bold;
+      }
 
-    .section-title {
-      margin-top: 40px;
-      font-size: 24px;
-      font-weight: bold;
-    }
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 20px;
+        background: white;
+        border-radius: 10px;
+        overflow: hidden;
+      }
 
-    table {
-      width: 100%;
-      border-collapse: collapse;
-      margin-top: 20px;
-      background: white;
-      border-radius: 10px;
-      overflow: hidden;
-    }
+      th {
+        background: linear-gradient(90deg, #ff8a00, #ffb347);
+        color: white;
+        padding: 16px;
+        font-size: 16px;
+      }
 
-    th {
-      background: linear-gradient(90deg, #ff8a00, #ffb347);
-      color: white;
-      padding: 16px;
-      font-size: 16px;
-    }
+      td {
+        padding: 12px;
+        border-bottom: 1px solid #eee;
+      }
 
-    td {
-      padding: 12px;
-      border-bottom: 1px solid #eee;
-    }
+      tr:nth-child(even) {
+        background: #fff8f3;
+      }
 
-    tr:nth-child(even) {
-      background: #fff8f3;
-    }
+      .footer-box {
+        display: flex;
+        margin-top: 40px;
+        gap: 20px;
+      }
 
-    .footer-box {
-      display: flex;
-      margin-top: 40px;
-      gap: 20px;
-    }
+      .footer-card {
+        flex: 1;
+        background: white;
+        padding: 25px;
+        border-radius: 14px;
+        box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
+      }
 
-    .footer-card {
-      flex: 1;
-      background: white;
-      padding: 25px;
-      border-radius: 14px;
-      box-shadow: 0 3px 8px rgba(0, 0, 0, 0.08);
-    }
+      .footer-card h3 {
+        color: #ff6b35;
+        font-size: 22px;
+      }
 
-    .footer-card h3 {
-      color: #ff6b35;
-      font-size: 22px;
-    }
+      @page {
+        size: A4 portrait;
+        margin: 0;
+      }
 
-    @page {
-      size: A4 portrait;
-      margin: 0;
-    }
+      body {
+        font-family: Arial, sans-serif;
+        width: 100%;
+        max-width: 1240px;
+        margin: auto;
+        padding: 35px;
+        color: #222;
+        background: #f9f9f9;
+        zoom: 0.9;
+      }
 
-    body {
-      font-family: Arial, sans-serif;
-      width: 100%;
-      max-width: 1240px;
-      margin: auto;
-      padding: 35px;
-      color: #222;
-      background: #f9f9f9;
-      zoom: 0.9;
-    }
+      .stats {
+        display: grid;
+        grid-template-columns: repeat(4, 1fr);
+        gap: 20px;
+        margin: 40px 0;
+      }
 
-    .stats {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 20px;
-      margin: 40px 0;
-    }
+      .footer-box {
+        display: flex;
+        gap: 20px;
+        margin-top: 40px;
+        page-break-inside: avoid;
+        break-inside: avoid;
+      }
 
-    .footer-box {
-      display: flex;
-      gap: 20px;
-      margin-top: 40px;
-      page-break-inside: avoid;
-      break-inside: avoid;
-    }
+      table {
+        page-break-inside: auto;
+      }
 
-    table {
-      page-break-inside: auto;
-    }
+      tr {
+        page-break-inside: avoid;
+      }
 
-    tr {
-      page-break-inside: avoid;
-    }
+      .subtitle {
+        font-size: 20px;
+        color: #555;
+        margin: 20px 0 35px;
+        line-height: 1.6;
+      }
 
-    .subtitle {
-      font-size: 20px;
-      color: #555;
-      margin: 20px 0 35px;
-      line-height: 1.6;
-    }
+      .export-date {
+        text-align: right;
+        font-size: 14px;
+        max-width: 250px;
+      }
+    </style>
+  </head>
 
-    .export-date {
-      text-align: right;
-      font-size: 14px;
-      max-width: 250px;
-    }
-  </style>
-</head>
+  <body>
+    <div class="header">
+      <div class="brand">
+        <h1>Dapur Gen Z</h1>
+        <p>Dimsum & More</p>
+      </div>
 
-<body>
-  <div class="header">
-    <div class="brand">
-      <h1>Dapur Gen Z</h1>
-      <p>Dimsum & More</p>
+      <div class="export-date">
+        <strong>Tanggal Ekspor:</strong><br />
+        {{EXPORT_DATE}}
+      </div>
     </div>
 
-    <div class="export-date">
-      <strong>Tanggal Export:</strong><br />
-      {{EXPORT_DATE}}
-    </div>
-  </div>
+    <div class="title">LAPORAN <span>ULASAN PELANGGAN</span></div>
 
-  <div class="title">LAPORAN <span>REVIEW CUSTOMER</span></div>
+    <p class="subtitle">
+      Laporan ini berisi ringkasan ulasan pelanggan terhadap produk dan layanan
+      Dapur Gen Z.
+    </p>
 
-  <p class="subtitle">
-    Laporan ini berisi ringkasan ulasan customer terhadap produk dan layanan
-    Dapur Gen Z.
-  </p>
+    <div class="stats">
+      <div class="card">
+        <p>Total Ulasan</p>
+        <h2>{{TOTAL_REVIEW}}</h2>
+      </div>
 
-  <div class="stats">
-    <div class="card">
-      <p>Total Review</p>
-      <h2>{{TOTAL_REVIEW}}</h2>
-    </div>
+      <div class="card">
+        <p>Rating Rata-rata</p>
+        <h2>{{AVG_RATING}}/5</h2>
+      </div>
 
-    <div class="card">
-      <p>Rating Rata-rata</p>
-      <h2>{{AVG_RATING}}/5</h2>
-    </div>
+      <div class="card">
+        <p>Ulasan Positif</p>
+        <h2>{{POSITIVE}}</h2>
+      </div>
 
-    <div class="card">
-      <p>Review Positif</p>
-      <h2>{{POSITIVE}}</h2>
-    </div>
-
-    <div class="card">
-      <p>Review Negatif</p>
-      <h2>{{NEGATIVE}}</h2>
-    </div>
-  </div>
-
-  <div class="section-title">Detail Review Customer</div>
-
-  <table>
-    <thead>
-      <tr>
-        <th>No</th>
-        <th>Nama</th>
-        <th>Rating</th>
-        <th>Komentar</th>
-        <th>Tanggal</th>
-      </tr>
-    </thead>
-    <tbody>
-      {{ROWS}}
-    </tbody>
-  </table>
-
-  <div class="footer-box">
-    <div class="footer-card">
-      <h3>Kesimpulan</h3>
-      <p>Sebagian besar customer puas dengan layanan dan produk.</p>
+      <div class="card">
+        <p>Ulasan Negatif</p>
+        <h2>{{NEGATIVE}}</h2>
+      </div>
     </div>
 
-    <div class="footer-card">
-      <h3>Rekomendasi</h3>
-      <ul>
-        <li>Pertahankan kualitas rasa</li>
-        <li>Tingkatkan pengiriman</li>
-        <li>Perbaiki packaging</li>
-      </ul>
-    </div>
-  </div>
-</body>
+    <div class="section-title">Detail Ulasan Pelanggan</div>
 
+    <table>
+      <thead>
+        <tr>
+          <th>No</th>
+          <th>Nama</th>
+          <th>Rating</th>
+          <th>Komentar</th>
+          <th>Tanggal</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{ROWS}}
+      </tbody>
+    </table>
+
+    <div class="footer-box">
+      <div class="footer-card">
+        <h3>Kesimpulan</h3>
+        <p>Sebagian besar pelanggan puas dengan layanan dan produk.</p>
+      </div>
+
+      <div class="footer-card">
+        <h3>Rekomendasi</h3>
+        <ul>
+          <li>Pertahankan kualitas rasa</li>
+          <li>Tingkatkan pengiriman</li>
+          <li>Perbaiki kemasan</li>
+          <!-- "Packaging" diganti menjadi "Kemasan" -->
+        </ul>
+      </div>
+    </div>
+  </body>
 </html>

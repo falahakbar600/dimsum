@@ -1,134 +1,142 @@
 <!doctype html>
 <html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Produk - Admin Dapur Anak GEN Z</title>
+    <link rel="stylesheet" href="products.css" />
+  </head>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Products - Admin Dapur Anak GEN Z</title>
-  <link rel="stylesheet" href="products.css" />
-</head>
+  <body>
+    <!-- 🔐 LOGIN CHECK -->
+    <script>
+      const isLogin = localStorage.getItem("isLogin");
+      const role = localStorage.getItem("role");
 
-<body>
-  <!-- 🔐 LOGIN CHECK -->
-  <script>
-    const isLogin = localStorage.getItem("isLogin");
-    const role = localStorage.getItem("role");
-
-    if (isLogin !== "true" || role !== "admin") {
-      window.location.href = "../index.html";
-    }
-  </script>
-
-  <!-- 🍔 HAMBURGER -->
-  <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
-
-  <!-- SIDEBAR -->
-  <aside class="sidebar" id="sidebar">
-    <div class="sidebar-logo">
-      <h2>Dapur Gen Z</h2>
-    </div>
-
-    <a href="dashboard.html">Dashboard</a>
-    <a href="products.html" class="active">Products</a>
-    <a href="orders.html">Orders</a>
-    <a href="livechat.html">Live Chat</a>
-    <a href="reviews.html">Reviews</a>
-    <a href="#" onclick="logout()">Logout</a>
-  </aside>
-
-  <!-- MAIN -->
-  <main class="main">
-    <!-- HEADER -->
-    <div class="topbar">
-      <div>
-        <h1>Management Products</h1>
-        <p class="topbar-subtitle">
-          Kelola semua menu produk Dapur Gen Z dengan mudah
-        </p>
-      </div>
-
-      <div class="topbar-info-card">
-        <div class="icon-box">🍜</div>
-        <div>
-          <h4>Kelola Produk Dapur Gen Z</h4>
-          <p>Tambah, edit, dan kelola menu dengan praktis</p>
-        </div>
-      </div>
-    </div>
-
-    <!-- FORM TAMBAH PRODUK -->
-    <div class="card">
-      <h3>➕ Tambah Produk Baru</h3>
-
-      <div class="product-form">
-        <input type="text" id="nama" placeholder="Nama Produk (Contoh: Somayyy)" />
-
-        <div class="form-row">
-          <input type="number" id="harga" placeholder="Harga (Rp)" />
-          <input type="number" id="stok" placeholder="Stok" />
-        </div>
-
-        <textarea id="deskripsi" placeholder="Deskripsi Produk" rows="4"></textarea>
-
-        <div class="file-upload modern-upload">
-          <label for="gambar">
-            📁 Pilih Gambar
-            <small>Format: JPG, PNG, WEBP (Max. 2MB)</small>
-          </label>
-          <input type="file" id="gambar" accept="image/*" />
-        </div>
-
-        <button class="btn btn-primary" onclick="tambahProduk()">
-          ➕ Tambah Menu
-        </button>
-      </div>
-    </div>
-
-    <!-- LIST PRODUK -->
-    <h2 class="section-title">📦 List Produk di Database</h2>
-
-    <div class="grid" id="listProduk">
-      <p>Memuat data produk...</p>
-    </div>
-  </main>
-
-  <!-- SCRIPT -->
-  <script>
-    function logout() {
-      localStorage.removeItem("isLogin");
-      localStorage.removeItem("role");
-      localStorage.removeItem("nama");
-      window.location.href = "../index.html";
-    }
-
-    function toggleSidebar() {
-      const sidebar = document.getElementById("sidebar");
-
-      if (sidebar) {
-        sidebar.classList.toggle("show");
+      if (isLogin !== "true" || role !== "admin") {
+        window.location.href = "../index.html";
       }
-    }
-  </script>
+    </script>
 
-  <!-- PRODUCT LOGIC -->
-  <script>
-    const API_URL = "https://dimsum-production-216a.up.railway.app/api/products";
+    <!-- 🍔 HAMBURGER -->
+    <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
 
-    async function loadProducts() {
-      try {
-        const response = await fetch(API_URL);
-        const products = await response.json();
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-logo">
+        <h2>Dapur Gen Z</h2>
+      </div>
 
-        const container = document.getElementById("listProduk");
-        container.innerHTML = "";
+      <a href="dashboard.html">Dashboard</a>
+      <a href="products.html" class="active">Produk</a>
+      <a href="orders.html">Pesanan</a>
+      <a href="livechat.html">Obrolan Langsung</a>
+      <a href="reviews.html">Ulasan</a>
+      <a href="#" onclick="logout()">Keluar</a>
+    </aside>
 
-        if (products.length === 0) {
-          container.innerHTML = "<p>Belum ada produk di database.</p>";
-          return;
+    <!-- MAIN -->
+    <main class="main">
+      <!-- HEADER -->
+      <div class="topbar">
+        <div>
+          <h1>Manajemen Produk</h1>
+          <p class="topbar-subtitle">
+            Kelola semua menu produk Dapur Gen Z dengan mudah
+          </p>
+        </div>
+
+        <div class="topbar-info-card">
+          <div class="icon-box">🍜</div>
+          <div>
+            <h4>Kelola Produk Dapur Gen Z</h4>
+            <p>Tambah, edit, dan kelola menu dengan praktis</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- FORM TAMBAH PRODUK -->
+      <div class="card">
+        <h3>➕ Tambah Produk Baru</h3>
+
+        <div class="product-form">
+          <input
+            type="text"
+            id="nama"
+            placeholder="Nama Produk (Contoh: Somayyy)"
+          />
+
+          <div class="form-row">
+            <input type="number" id="harga" placeholder="Harga (Rp)" />
+            <input type="number" id="stok" placeholder="Stok" />
+          </div>
+
+          <textarea
+            id="deskripsi"
+            placeholder="Deskripsi Produk"
+            rows="4"
+          ></textarea>
+
+          <div class="file-upload modern-upload">
+            <label for="gambar">
+              📁 Pilih Gambar
+              <small>Format: JPG, PNG, WEBP (Max. 2MB)</small>
+            </label>
+            <input type="file" id="gambar" accept="image/*" />
+          </div>
+
+          <button class="btn btn-primary" onclick="tambahProduk()">
+            ➕ Tambah Menu
+          </button>
+        </div>
+      </div>
+
+      <!-- LIST PRODUK -->
+      <h2 class="section-title">📦 Daftar Produk di Database</h2>
+
+      <div class="grid" id="listProduk">
+        <p>Memuat data produk...</p>
+      </div>
+    </main>
+
+    <!-- SCRIPT -->
+    <script>
+      function logout() {
+        localStorage.removeItem("isLogin");
+        localStorage.removeItem("role");
+        localStorage.removeItem("nama");
+        window.location.href = "../index.html";
+      }
+
+      function toggleSidebar() {
+        const sidebar = document.getElementById("sidebar");
+
+        if (sidebar) {
+          sidebar.classList.toggle("show");
         }
+      }
+    </script>
 
-        products.forEach((item) => {
-          container.innerHTML += `
+    <!-- PRODUCT LOGIC -->
+    <script>
+      const API_URL =
+        "https://dimsum-production-216a.up.railway.app/api/products";
+
+      async function loadProducts() {
+        try {
+          const response = await fetch(API_URL);
+          const products = await response.json();
+
+          const container = document.getElementById("listProduk");
+          container.innerHTML = "";
+
+          if (products.length === 0) {
+            container.innerHTML = "<p>Belum ada produk di database.</p>";
+            return;
+          }
+
+          products.forEach((item) => {
+            container.innerHTML += `
               <div class="product-card">
                 <img src="https://dimsum-production-216a.up.railway.app/gambar/${item.gambar}" 
                      onerror="this.onerror=null; this.src='https://dimsum-production-216a.up.railway.app/gambar/default.png';">
@@ -146,171 +154,170 @@
                 </button>
               </div>
             `;
-        });
-      } catch (error) {
-        console.error("Gagal memuat produk:", error);
+          });
+        } catch (error) {
+          console.error("Gagal memuat produk:", error);
 
-        document.getElementById("listProduk").innerHTML =
-          "<p>Gagal terhubung ke server backend.</p>";
-      }
-    }
-
-    async function tambahProduk() {
-      const nama = document.getElementById("nama").value;
-      const harga = document.getElementById("harga").value;
-      const deskripsi = document.getElementById("deskripsi").value;
-      const stok = document.getElementById("stok").value;
-      const gambar = document.getElementById("gambar").files[0];
-
-      if (!nama || !harga || !gambar || !deskripsi || !stok) {
-        alert("Harap isi semua kolom!");
-        return;
-      }
-
-      const formData = new FormData();
-      formData.append("nama", nama);
-      formData.append("harga", harga);
-      formData.append("deskripsi", deskripsi);
-      formData.append("stok", stok);
-      formData.append("gambar", gambar);
-
-      try {
-        const response = await fetch(API_URL, {
-          method: "POST",
-          body: formData,
-        });
-
-        if (response.ok) {
-          alert("Produk berhasil ditambahkan!");
-
-          document.getElementById("nama").value = "";
-          document.getElementById("harga").value = "";
-          document.getElementById("deskripsi").value = "";
-          document.getElementById("stok").value = "";
-          document.getElementById("gambar").value = "";
-
-          loadProducts();
-        } else {
-          alert("Gagal tambah produk");
+          document.getElementById("listProduk").innerHTML =
+            "<p>Gagal terhubung ke server backend.</p>";
         }
-      } catch (err) {
-        console.error(err);
-        alert("Server error");
       }
-    }
 
-    async function hapusProduk(id) {
-      if (!confirm("Yakin ingin menghapus produk ini?")) return;
+      async function tambahProduk() {
+        const nama = document.getElementById("nama").value;
+        const harga = document.getElementById("harga").value;
+        const deskripsi = document.getElementById("deskripsi").value;
+        const stok = document.getElementById("stok").value;
+        const gambar = document.getElementById("gambar").files[0];
 
-      try {
-        const response = await fetch(`${API_URL}/${id}`, {
-          method: "DELETE",
-        });
-
-        if (response.ok) {
-          loadProducts();
+        if (!nama || !harga || !gambar || !deskripsi || !stok) {
+          alert("Harap isi semua kolom!");
+          return;
         }
-      } catch (error) {
-        console.error("Gagal menghapus:", error);
-      }
-    }
 
-    async function editProduk(id) {
-      try {
-        const response = await fetch(API_URL);
-        const products = await response.json();
+        const formData = new FormData();
+        formData.append("nama", nama);
+        formData.append("harga", harga);
+        formData.append("deskripsi", deskripsi);
+        formData.append("stok", stok);
+        formData.append("gambar", gambar);
 
-        const product = products.find((p) => p.id == id);
+        try {
+          const response = await fetch(API_URL, {
+            method: "POST",
+            body: formData,
+          });
 
-        document.getElementById("editId").value = product.id;
-        document.getElementById("editNama").value = product.nama;
-        document.getElementById("editHarga").value = product.harga;
-        document.getElementById("editStok").value = product.stok;
-        document.getElementById("editDeskripsi").value = product.deskripsi;
+          if (response.ok) {
+            alert("Produk berhasil ditambahkan!");
 
-        document.getElementById("editModal").style.display = "block";
-      } catch (error) {
-        console.error(error);
-        alert("Gagal membuka data produk");
-      }
-    }
+            document.getElementById("nama").value = "";
+            document.getElementById("harga").value = "";
+            document.getElementById("deskripsi").value = "";
+            document.getElementById("stok").value = "";
+            document.getElementById("gambar").value = "";
 
-    async function saveEditProduk() {
-      const id = document.getElementById("editId").value;
-
-      const nama = document.getElementById("editNama").value;
-      const harga = document.getElementById("editHarga").value;
-      const stok = document.getElementById("editStok").value;
-      const deskripsi = document.getElementById("editDeskripsi").value;
-
-      try {
-        const response = await fetch(`${API_URL}/${id}`, {
-          method: "PUT",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({
-            nama,
-            harga,
-            stok,
-            deskripsi,
-          }),
-        });
-
-        const data = await response.json();
-
-        if (data.success) {
-          alert("Produk berhasil diupdate!");
-          closeEditModal();
-          loadProducts();
-        } else {
-          alert("Gagal update produk!");
+            loadProducts();
+          } else {
+            alert("Gagal tambah produk");
+          }
+        } catch (err) {
+          console.error(err);
+          alert("Server error");
         }
-      } catch (error) {
-        console.error(error);
-        alert("Server error!");
       }
-    }
 
-    function closeEditModal() {
-      document.getElementById("editModal").style.display = "none";
-    }
+      async function hapusProduk(id) {
+        if (!confirm("Yakin ingin menghapus produk ini?")) return;
 
-    window.onclick = function (event) {
-      const modal = document.getElementById("editModal");
+        try {
+          const response = await fetch(`${API_URL}/${id}`, {
+            method: "DELETE",
+          });
 
-      if (event.target == modal) {
-        modal.style.display = "none";
+          if (response.ok) {
+            loadProducts();
+          }
+        } catch (error) {
+          console.error("Gagal menghapus:", error);
+        }
       }
-    };
 
-    window.onload = loadProducts;
-  </script>
+      async function editProduk(id) {
+        try {
+          const response = await fetch(API_URL);
+          const products = await response.json();
 
-  <!-- MODAL EDIT -->
-  <div id="editModal" class="modal">
-    <div class="modal-content">
-      <span class="close" onclick="closeEditModal()">&times;</span>
+          const product = products.find((p) => p.id == id);
 
-      <h2>Edit Produk</h2>
+          document.getElementById("editId").value = product.id;
+          document.getElementById("editNama").value = product.nama;
+          document.getElementById("editHarga").value = product.harga;
+          document.getElementById("editStok").value = product.stok;
+          document.getElementById("editDeskripsi").value = product.deskripsi;
 
-      <input type="hidden" id="editId" />
+          document.getElementById("editModal").style.display = "block";
+        } catch (error) {
+          console.error(error);
+          alert("Gagal membuka data produk");
+        }
+      }
 
-      <label>Nama Produk</label>
-      <input type="text" id="editNama" />
+      async function saveEditProduk() {
+        const id = document.getElementById("editId").value;
 
-      <label>Harga</label>
-      <input type="number" id="editHarga" />
+        const nama = document.getElementById("editNama").value;
+        const harga = document.getElementById("editHarga").value;
+        const stok = document.getElementById("editStok").value;
+        const deskripsi = document.getElementById("editDeskripsi").value;
 
-      <label>Stok</label>
-      <input type="number" id="editStok" />
+        try {
+          const response = await fetch(`${API_URL}/${id}`, {
+            method: "PUT",
+            headers: {
+              "Content-Type": "application/json",
+            },
+            body: JSON.stringify({
+              nama,
+              harga,
+              stok,
+              deskripsi,
+            }),
+          });
 
-      <label>Deskripsi</label>
-      <textarea id="editDeskripsi"></textarea>
+          const data = await response.json();
 
-      <button onclick="saveEditProduk()">Simpan Perubahan</button>
+          if (data.success) {
+            alert("Produk berhasil diupdate!");
+            closeEditModal();
+            loadProducts();
+          } else {
+            alert("Gagal update produk!");
+          }
+        } catch (error) {
+          console.error(error);
+          alert("Server error!");
+        }
+      }
+
+      function closeEditModal() {
+        document.getElementById("editModal").style.display = "none";
+      }
+
+      window.onclick = function (event) {
+        const modal = document.getElementById("editModal");
+
+        if (event.target == modal) {
+          modal.style.display = "none";
+        }
+      };
+
+      window.onload = loadProducts;
+    </script>
+
+    <!-- MODAL EDIT -->
+    <div id="editModal" class="modal">
+      <div class="modal-content">
+        <span class="close" onclick="closeEditModal()">&times;</span>
+
+        <h2>Edit Produk</h2>
+
+        <input type="hidden" id="editId" />
+
+        <label>Nama Produk</label>
+        <input type="text" id="editNama" />
+
+        <label>Harga</label>
+        <input type="number" id="editHarga" />
+
+        <label>Stok</label>
+        <input type="number" id="editStok" />
+
+        <label>Deskripsi</label>
+        <textarea id="editDeskripsi"></textarea>
+
+        <button onclick="saveEditProduk()">Simpan Perubahan</button>
+      </div>
     </div>
-  </div>
-</body>
-
+  </body>
 </html>

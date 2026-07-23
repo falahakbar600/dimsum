@@ -1,136 +1,139 @@
 <!doctype html>
 <html lang="id">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kelola Pesanan Admin - Dapur Anak GEN Z</title>
 
-<head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Orders Admin - Dapur Anak GEN Z</title>
+    <link rel="stylesheet" href="orders.css" />
+  </head>
 
-  <link rel="stylesheet" href="orders.css" />
-</head>
+  <body>
+    <!-- 🔐 LOGIN CHECK -->
+    <script>
+      const isLogin = localStorage.getItem("isLogin");
+      const role = localStorage.getItem("role");
 
-<body>
-  <!-- 🔐 LOGIN CHECK -->
-  <script>
-    const isLogin = localStorage.getItem("isLogin");
-    const role = localStorage.getItem("role");
+      if (isLogin !== "true" || role !== "admin") {
+        window.location.href = "../index.html";
+      }
+    </script>
 
-    if (isLogin !== "true" || role !== "admin") {
-      window.location.href = "../index.html";
-    }
-  </script>
+    <!-- 🍔 HAMBURGER -->
+    <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
 
-  <!-- 🍔 HAMBURGER -->
-  <button class="menu-toggle" onclick="toggleSidebar()">☰</button>
-
-  <!-- SIDEBAR -->
-  <aside class="sidebar" id="sidebar">
-    <div class="sidebar-logo">
-      <h2>Dapur Gen Z</h2>
-    </div>
-
-    <a href="dashboard.html">Dashboard</a>
-    <a href="products.html"> Products</a>
-    <a href="orders.html" class="active"> Orders</a>
-    <a href="livechat.html"> Live Chat</a>
-    <a href="reviews.html">Reviews</a>
-    <a href="#" onclick="logout()"> Logout</a>
-  </aside>
-
-  <!-- MAIN -->
-  <main class="main">
-    <!-- TOPBAR -->
-    <div class="topbar">
-      <div>
-        <h1>Orders Management</h1>
-        <p class="topbar-subtitle">
-          Pantau, filter, dan kelola seluruh pesanan customer
-        </p>
+    <!-- SIDEBAR -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-logo">
+        <h2>Dapur Gen Z</h2>
       </div>
 
-      <div class="topbar-info-card">
-        <div class="icon-box">📦</div>
+      <a href="dashboard.html">Dashboard</a>
+      <a href="products.html"> Produk</a>
+      <a href="orders.html" class="active"> Pesanan</a>
+      <a href="livechat.html"> Obrolan Langsung</a>
+      <a href="reviews.html">Ulasan</a>
+      <a href="#" onclick="logout()"> Keluar</a>
+    </aside>
+
+    <!-- MAIN -->
+    <main class="main">
+      <!-- TOPBAR -->
+      <div class="topbar">
         <div>
-          <h4>Order Monitoring</h4>
-          <p>Kelola transaksi customer dengan cepat & efisien</p>
+          <h1>Manajemen Pesanan</h1>
+          <p class="topbar-subtitle">
+            Pantau, filter, dan kelola seluruh pesanan pelanggan
+          </p>
+        </div>
+
+        <div class="topbar-info-card">
+          <div class="icon-box">📦</div>
+          <div>
+            <h4>Pemantauan Pesanan</h4>
+            <p>Kelola transaksi pelanggan dengan cepat & efisien</p>
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- FILTER BAR -->
-    <section class="orders-filter-bar card">
-      <input type="text" id="searchOrder" placeholder="Search order ID / customer..." />
+      <!-- FILTER BAR -->
+      <section class="orders-filter-bar card">
+        <input
+          type="text"
+          id="searchOrder"
+          placeholder="Cari ID pesanan / pelanggan..."
+        />
 
-      <select id="filterStatus">
-        <option value="">Semua Status</option>
-        <option value="Pending">Pending</option>
-        <option value="Diproses">Diproses</option>
-        <option value="Selesai">Selesai</option>
-        <option value="Dibatalkan">Dibatalkan</option>
-      </select>
-    </section>
+        <select id="filterStatus">
+          <option value="">Semua Status</option>
+          <option value="Pending">Menunggu</option>
+          <!-- Atau tetap "Pending" jika istilah teknis sistem -->
+          <option value="Diproses">Diproses</option>
+          <option value="Selesai">Selesai</option>
+          <option value="Dibatalkan">Dibatalkan</option>
+        </select>
+      </section>
 
-    <!-- TABLE -->
-    <section class="orders-table-wrapper card">
-      <table class="orders-table">
-        <thead>
-          <tr>
-            <th>ID Order</th>
-            <th>Customer</th>
-            <th>Pesanan</th>
-            <th>Total</th>
-            <th>Metode</th>
-            <th>Bukti Bayar</th>
-            <th>Status</th>
-            <th>Tanggal</th>
-            <th>Aksi</th>
-          </tr>
-        </thead>
+      <!-- TABLE -->
+      <section class="orders-table-wrapper card">
+        <table class="orders-table">
+          <thead>
+            <tr>
+              <th>ID Pesanan</th>
+              <th>Pelanggan</th>
+              <th>Pesanan</th>
+              <th>Total</th>
+              <th>Metode</th>
+              <th>Bukti Bayar</th>
+              <th>Status</th>
+              <th>Tanggal</th>
+              <th>Aksi</th>
+            </tr>
+          </thead>
 
-        <tbody id="listOrder">
-          <tr>
-            <td colspan="9" class="empty-order">Memuat data order...</td>
-          </tr>
-        </tbody>
-      </table>
-    </section>
-  </main>
+          <tbody id="listOrder">
+            <tr>
+              <td colspan="9" class="empty-order">Memuat data pesanan...</td>
+            </tr>
+          </tbody>
+        </table>
+      </section>
+    </main>
 
-  <!-- JS -->
-  <script src="admin.js"></script>
+    <!-- JS -->
+    <script src="admin.js"></script>
 
-  <script>
-    // =========================
-    // 🔐 LOGOUT
-    // =========================
-    function logout() {
-      localStorage.removeItem("isLogin");
-      localStorage.removeItem("role");
-      localStorage.removeItem("nama");
+    <script>
+      // =========================
+      // 🔐 LOGOUT
+      // =========================
+      function logout() {
+        localStorage.removeItem("isLogin");
+        localStorage.removeItem("role");
+        localStorage.removeItem("nama");
 
-      window.location.href = "../index.html";
-    }
-
-    // =========================
-    // 🍔 SIDEBAR MOBILE
-    // =========================
-    function toggleSidebar() {
-      const sidebar = document.getElementById("sidebar");
-
-      if (sidebar) {
-        sidebar.classList.toggle("show");
+        window.location.href = "../index.html";
       }
-    }
 
-    // =========================
-    // LOAD ORDERS
-    // =========================
-    document.addEventListener("DOMContentLoaded", () => {
-      if (typeof renderOrders === "function") {
-        renderOrders();
+      // =========================
+      // 🍔 SIDEBAR MOBILE
+      // =========================
+      function toggleSidebar() {
+        const sidebar = document.getElementById("sidebar");
+
+        if (sidebar) {
+          sidebar.classList.toggle("show");
+        }
       }
-    });
-  </script>
-</body>
 
+      // =========================
+      // LOAD ORDERS
+      // =========================
+      document.addEventListener("DOMContentLoaded", () => {
+        if (typeof renderOrders === "function") {
+          renderOrders();
+        }
+      });
+    </script>
+  </body>
 </html>
